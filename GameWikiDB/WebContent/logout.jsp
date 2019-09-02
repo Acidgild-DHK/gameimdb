@@ -8,8 +8,8 @@
 </head>
 <body>
 <%
-RequestDispatcher rd=request.getRequestDispatcher("header.jsp");
-rd.include(request,response);
+request.getSession().invalidate();
+response.sendRedirect("index.jsp");
 %>
 </body>
 </html>
