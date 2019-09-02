@@ -86,7 +86,7 @@ public class LoginServ extends HttpServlet {
 			String query="select password from users where username=?";
 			
 			PreparedStatement ps=con.prepareStatement(query);
-			ps.setString(1,"dcolville");
+			ps.setString(1,uname);
 			ResultSet rs=ps.executeQuery();
 			if(rs==null) {
 				request.setAttribute("error", "no user");
