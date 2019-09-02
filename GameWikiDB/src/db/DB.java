@@ -119,7 +119,7 @@ public class DB {
 		String query = "UPDATE {{table}} SET {{sets}} where {{column_id}} = {{id}};";
 		query = query.replace("{{table}}", tableName);
 		query = query.replace("{{column_id}}", idColumn);
-		query = query.replace("{{id}}", String.valueOf(id));
+		query = query.replace("{{id}}", "'" + String.valueOf(id) + "'");
 		
 		String set = "{{column}} = {{value}}";
 		StringBuilder sets = new StringBuilder("");
@@ -132,6 +132,7 @@ public class DB {
 			}
 		}
 		query = query.replace("{{sets}}", sets);
+		System.out.println(query);
 		return saveData(query);
 	}
 	

@@ -28,9 +28,10 @@
 			"</td>" +
 			"</tr>" +
 			"</table>";
+	out.println(userInfo);
 	
 %>
-	<form action="/UserProfileUpdate.jsp" method ="get">
+	<form action="UserProfileUpdate.jsp" method ="get">
 		<input type="submit" value="Update">
 	</form>	
 	<form action="" method="get">
