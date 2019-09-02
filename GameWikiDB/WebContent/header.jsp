@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <style>
 ul {
   list-style-type: none;
@@ -31,7 +32,7 @@ li a:hover {
 </style>
 <ul>
   <li><a class ="active" href="http://localhost:8080/gameDB/index.jsp">Home</a></li>
-  <li><a  href="http://localhost:8080/gameDB/header.jsp">Header</a></li>
+  <li><a  action="header.jsp" href="http://localhost:8080/gameDB/header.jsp">Header</a></li>
   
  <li> <a href="http://localhost:8080/gameDB/login.jsp">Login</a></li>
   <li><a href="http://localhost:8080/gameDB/games.jsp">Games</a></li>

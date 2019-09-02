@@ -8,8 +8,21 @@
 </head>
 <body>
 <%
-RequestDispatcher rd=request.getRequestDispatcher("header.jsp");
-rd.include(request,response);
+out.print((String)request.getAttribute("login"));
+String log=(String)request.getAttribute("login");
+boolean loggedIn=false;
+if(log!=null && log.equals("true")) {
+	loggedIn=true;
+}
+RequestDispatcher rd1;
+if(loggedIn) {
+	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
+}
+else {
+	rd1=request.getRequestDispatcher("header.jsp");
+	
+}
 %>
+Anythign
 </body>
 </html>
