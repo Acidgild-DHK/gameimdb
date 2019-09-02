@@ -66,17 +66,8 @@ public class LoginServ extends HttpServlet {
 		String uname=request.getParameter("username");
 		String pass=request.getParameter("password");
 		Properties prop=new Properties();
-		//request.getRequestDispatcher("../../../app.properties").forward(request, response);
-		//InputStream input=getServletContext().getResourceAsStream("/WEB-INF/properties/app.properties");
-		//InputStream input=new FileInputStream("app.properties");
-		//prop.load(input);
 		
 		DB db=new DB("app.properties");
-		/*prop.setProperty("driver_type", "mysql");
-		prop.setProperty("driver_path", "dbLib/mysql-connector-java-8.0.17.jar");
-		prop.setProperty("database_address", "127.0.0.1:3306");
-		prop.setProperty("user", "root");
-		prop.setProperty("pass", "root");*/
 			Connection con;
 			try {
 				db.connect();
