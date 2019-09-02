@@ -190,6 +190,23 @@ public class DB {
 		return DBUtilities.executeQuery(con, query);
 	}
 	
+	public ResultSet getData(String tableName, HashMap<String, String> hm) throws DBExceptions, SQLException{
+		String query = "SELECT * FROM " + tableName + " WHERE {{clause}}";
+		StringBuilder sets = new StringBuilder("");
+		Set<String> keys = hm.keySet();
+		for (String string : keys) {
+			if(sets.length() == 0) {
+				sets.append("`" + string + "` = \'" + hm.get(string)+ "\'");
+				System.out.println(sets);
+			}else {
+				sets.append("AND `" + string + "` = \'" + hm.get(string) + "\'");
+			}
+		}
+		query = query.replace("{{clause}}", sets);
+		System.out.println(query);
+		return DBUtilities.executeQuery(con, query);
+	}
+	
 	public String switchDatabase(String dbName) throws DBExceptions, SQLException {
 		String query  = "use " + dbName;
 		if (DBUtilities.execute(con, query)) {
