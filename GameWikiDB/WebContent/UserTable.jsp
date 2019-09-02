@@ -11,7 +11,14 @@
 <body>
 <% out.println(session.getAttribute("username")); %>
 
- <display:table name="requestScope.results.rows" />
+ <display:table name="requestScope.results.rows" decorator="org.displaytag.sample.Wrapper">
+	 <display:column property="log_id" title="log" />
+	  <display:column property="Game_id" />
+	  <display:column property="time_played" />
+	  <display:column property="rating" />
+	  <display:column property= "review_text" />
+	  <display:column property= "platform" />
+ </display:table>
 
 
 </body>

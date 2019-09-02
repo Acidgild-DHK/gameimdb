@@ -3,7 +3,7 @@
     
 <% 
 	session.setAttribute("username", "kurwhibble");
-	getServletContext().getRequestDispatcher("/UserLogs").forward(request, response);
+	getServletContext().getRequestDispatcher("/UserProfile").forward(request, response);
 %>
 <!DOCTYPE html>
 <html>
