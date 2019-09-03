@@ -9,9 +9,8 @@
 <body>
 
 <%
-
-RequestDispatcher rd=request.getRequestDispatcher("/header.jsp");
-rd.include(request,response);
+	session.setAttribute("username", "kurwhibble");
+	getServletContext().getRequestDispatcher("/user_logs").forward(request, response);
 %>
 
 </body>
