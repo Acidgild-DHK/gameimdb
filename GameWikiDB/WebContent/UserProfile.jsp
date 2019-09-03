@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>User Profile</title>
+<% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
 </head>
 <body>
 	<% 

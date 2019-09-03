@@ -31,12 +31,13 @@ li a:hover {
 }
 </style>
 <ul>
-  <li><a class ="active" href="http://localhost:8080/gameDB/index.jsp">Home</a></li>
-  <li><a  action="header.jsp" href="http://localhost:8080/gameDB/header.jsp">Header</a></li>
+
+  <li><a class ="active" href="index.jsp">Home</a></li>
+  <li><a  href="header.jsp">Header</a></li>
   
- <li> <a href="http://localhost:8080/gameDB/login.jsp">Login</a></li>
-  <li><a href="http://localhost:8080/gameDB/games.jsp">Games</a></li>
-    <li><a href="http://localhost:8080/gameDB/register1.jsp">Register</a></li>
+ <li> <a href="login.jsp">Login</a></li>
+  <li><a href="games.jsp">Games</a></li>
+    <li><a href="register1.jsp">Register</a></li>
 </ul>
 
 <meta charset="ISO-8859-1">
