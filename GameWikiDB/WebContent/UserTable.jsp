@@ -21,12 +21,12 @@
 	us.add(new User("kar1", "kar1", "kar1@gmail.com"));
 	us.add(new User("kat2", "kat2", "kat2@gmail.com"));
 	us.add(new User("kar3", "kar3", "ka3r@gmail.com"));
-	us.add(new User("kat4", "ka4t", "k4at@gmail.com"));
+	us.add(new User("kat4", "<input type='submit' value='ka4t'>", "k4at@gmail.com"));
 	session.setAttribute("test", us);
 	
 	%>
 
- <display:table name="sessionScope.test" pagesize="2" export="false" sort="list">
+ <display:table name="sessionScope.test" pagesize="5" export="false" sort="list">
 	 <display:column property="username" title="username" sortable="true" headerClass="sortable" />
 	  <display:column property="gamerTag" sortable="true" headerClass="sortable" />
 	  <display:column property="email" sortable="true" headerClass="sortable" />

@@ -33,7 +33,6 @@ li a:hover {
 <ul>
 
   <li><a class ="active" href="index.jsp">Home</a></li>
-  <li><a  href="header.jsp">Header</a></li>
   
  <li> <a href="login.jsp">Login</a></li>
   <li><a href="games.jsp">Games</a></li>
