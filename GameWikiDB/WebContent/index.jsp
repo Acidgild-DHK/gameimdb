@@ -7,12 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <%
+//out.print((String)request.getAttribute("login"));
+//String log=(String)request.getAttribute("login");
+String st=(String)request.getSession().getAttribute("error");
+Boolean log=(Boolean)request.getSession().getAttribute("login");
 
-RequestDispatcher rd=request.getRequestDispatcher("/header.jsp");
-rd.include(request,response);
+RequestDispatcher rd1;
+if(log) {
+	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
+}
+else {
+	rd1=request.getRequestDispatcher("header.jsp");
+	
+}
+rd1.include(request, response);
 %>
-
 </body>
 </html>

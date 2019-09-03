@@ -10,7 +10,21 @@
 <body>
 <h1>
 <%
-String st=(String)request.getAttribute("error");
+
+String st=(String)request.getSession().getAttribute("error");
+Boolean log=(Boolean)request.getSession().getAttribute("login");
+
+RequestDispatcher rd1;
+if(log) {
+	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
+}
+else {
+	rd1=request.getRequestDispatcher("header.jsp");
+	
+}
+rd1.include(request, response);
+
+
 
 if(st!=null ) {
 	
@@ -31,8 +45,6 @@ if(st!=null ) {
 	}
 }
 
-RequestDispatcher rd1=request.getRequestDispatcher("header.jsp");
-rd1.include(request,response);
 %>
 Enter Information below to create an account
 
