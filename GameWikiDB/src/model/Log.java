@@ -1,6 +1,8 @@
 package model;
 
-public class Log {
+import java.io.Serializable;
+
+public class Log implements Serializable {
 	String logID; 
 	String gameTitle;
 	int timePlayed;
