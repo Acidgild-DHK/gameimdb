@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <style>
 ul {
   list-style-type: none;
@@ -30,6 +31,7 @@ li a:hover {
 }
 </style>
 <ul>
+
   <li><a class ="active" href="index.jsp">Home</a></li>
   <li><a  href="header.jsp">Header</a></li>
   

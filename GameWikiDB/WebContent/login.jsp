@@ -9,7 +9,20 @@
 <body>
 <%
 String st=(String)request.getAttribute("error");
-
+String log=(String)request.getAttribute("login");
+boolean loggedIn=false;
+if(log!=null && log.equals("true")) {
+	loggedIn=true;
+}
+RequestDispatcher rd1;
+if(loggedIn) {
+	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
+}
+else {
+	rd1=request.getRequestDispatcher("header.jsp");
+	
+}
+rd1.include(request,response);
 if(st!=null ) {
 
 	if(st.equals("empty")) {	
@@ -25,11 +38,10 @@ if(st!=null ) {
 		out.print(" <h2>No user found by that username </h2><br>");
 	}
 }
-RequestDispatcher rd1=request.getRequestDispatcher("header.jsp");
-rd1.include(request,response);
+
 %>
 <form action="LoginServ" method="post">
-<table style"width:50%">
+<table style width:50%">
 <tr><td>Username</td>
 <td><input type="text" name="username"></td></tr>
 

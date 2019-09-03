@@ -50,7 +50,6 @@ public class LoginSuccess extends HttpServlet {
 		RequestDispatcher rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
 		rd1.include(request,response);
 		out.append("<h2 align=\"center\">Succesfully Logged in</h2>");
-		out.append(request.getAttribute("uname")+" "+request.getAttribute("login"));
 		RequestDispatcher rd2=request.getRequestDispatcher("games.jsp");
 		//rd2.forward(request, response);
 	}

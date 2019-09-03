@@ -9,6 +9,7 @@
 <body>
 
 <%
+
 RequestDispatcher rd=request.getRequestDispatcher("/header.jsp");
 rd.include(request,response);
 %>
