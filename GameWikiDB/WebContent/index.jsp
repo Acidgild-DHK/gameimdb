@@ -7,9 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <%
-RequestDispatcher rd=request.getRequestDispatcher("header.jsp");
+RequestDispatcher rd=request.getRequestDispatcher("/header.jsp");
 rd.include(request,response);
 %>
+
 </body>
 </html>
