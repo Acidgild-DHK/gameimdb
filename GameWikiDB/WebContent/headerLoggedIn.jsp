@@ -31,11 +31,13 @@ li a:hover {
 </style>
 
 <ul>
+
   <li><a class ="active" href="index.jsp">Home</a></li>
   
  <li> <a href="logout.jsp">Logout</a></li>
   <li><a href="games.jsp">Games</a></li>
     <li><a href="user_profile?user=<%= session.getAttribute("username")%>">Profile</a></li>
+
 </ul>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>

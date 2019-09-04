@@ -43,19 +43,25 @@ public class RegFilter implements Filter {
 		String pass=request.getParameter("password");
 		String realName=request.getParameter("flname");
 		String age=request.getParameter("age");
+		boolean isValid=true;
 		if(user.isEmpty()||sname.isEmpty()||pass.isEmpty()) {
-			//
+			isValid=false;
 			request.setAttribute("error", "empty");
 			RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
 			rd.forward(request, response);
 		}
 		if(pass==null) {
-			chain.doFilter(request, response);
+			isValid=false;
+			request.setAttribute("error", "empty");
+			RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
+			rd.forward(request, response);
+			//chain.doFilter(request, response);
 		}
 		// pass the request along the filter chain
 		HttpServletResponse rs=(HttpServletResponse) response;
 		
 		if(age!=null && Integer.parseInt(age)<0 || Integer.parseInt(age)>150) {
+			isValid=false;
 			request.setAttribute("error", "Invalid age");
 			RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
 			rd.forward(request, response);
@@ -63,17 +69,19 @@ public class RegFilter implements Filter {
 		Pattern p=Pattern.compile("[^a-zA-Z]");
 		
 		if(p.matcher(realName).find()) {
+			isValid=false;
 			request.setAttribute("error", "Invalid name");
 			RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
 			rd.forward(request, response);
 		}
 		if(pass.length()>25) {
+			isValid=false;
 			request.setAttribute("error", "Password too long");
 			RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
 			rd.forward(request, response);
 			//rs.sendRedirect("register1.jsp");
 		}
-		else {
+		if(isValid) {
 			chain.doFilter(request, response);
 		}
 		// pass the request along the filter chain
