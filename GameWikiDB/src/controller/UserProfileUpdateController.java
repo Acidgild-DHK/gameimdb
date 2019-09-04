@@ -85,7 +85,7 @@ public class UserProfileUpdateController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/UserProfile").forward(request, response);
+		request.getRequestDispatcher("/user_profile").forward(request, response);
 	}
 
 }

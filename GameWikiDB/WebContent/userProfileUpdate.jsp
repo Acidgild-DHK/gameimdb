@@ -1,0 +1,20 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Profile</title>
+<% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
+</head>
+<body>
+
+	
+	<form action="user_update" method="post">
+		Gamer Tag: <input type="text" name="gamer_tag"> <br />
+		Email: <input type="text" name="email"> <br />
+		<input type = "submit" value ="update">
+	</form>
+</body>
+</html>
