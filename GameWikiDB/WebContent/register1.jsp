@@ -12,8 +12,10 @@
 <%
 
 String st=(String)request.getAttribute("error");
-Boolean log=(Boolean)request.getSession().getAttribute("login");
-
+Boolean log=false;
+if(request.getSession().getAttribute("login")!=null) {
+	log=(Boolean)request.getSession().getAttribute("login");
+}
 RequestDispatcher rd1;
 if(log) {
 	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
