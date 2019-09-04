@@ -86,9 +86,10 @@ public class RegVerify extends HttpServlet {
 					String query="insert into users (username,password,gamertag,name,age) values('"+user+"','"+pass+"','"+sname+"','"+realName+"','"+age+"');";
 					db.saveData(query);
 					
-					request.setAttribute("uname", user);
+					request.getSession().setAttribute("username",user);
+					request.getSession().setAttribute("login", true);
 					response.setContentType("text/html");
-					RequestDispatcher rd=request.getRequestDispatcher("RegSuccess");
+					RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
 					rd.include(request, response);
 				}
 			}
