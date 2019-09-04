@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -59,11 +60,11 @@ public class RegVerify extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO database again
-		String user=request.getParameter("username");
-		String sname=request.getParameter("name");
-		String pass=request.getParameter("password");
-		String realName=request.getParameter("flname");
-		String age=request.getParameter("age");
+		String user=request.getParameter("username").trim();
+		String sname=request.getParameter("name").trim();
+		String pass=request.getParameter("password").trim();
+		String realName=request.getParameter("flname").trim();
+		String age=request.getParameter("age").trim();
 		Properties prop=new Properties();
 		DB db=new DB("app.properties");
 			Connection con;
@@ -72,29 +73,19 @@ public class RegVerify extends HttpServlet {
 				db.switchDatabase("imdb_games");
 				con = DBConnection.getDBInstance(prop);
 			
-			String query="select username from users where username=?";
 			
-			PreparedStatement ps=con.prepareStatement(query);
-			ps.setString(1,user);
-			ResultSet rs=ps.executeQuery();
-			System.out.println(ps);
-				//rs.next();
-				//System.out.println(rs.getString(1));
-				if(rs!=null &&rs.next() && !rs.getString(1).equals("")) {
+				HashMap<String,String> hm=new HashMap<String,String>();
+				hm.put("username",user);
+				ResultSet rs=db.getData("users", hm);	
+				if(rs!=null &&rs.next() && !rs.getString("username").equals("")) {
 					request.setAttribute("error", "already exists");
 					RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
 					rd.forward(request, response);
 				}
 				else {
-					query="insert into users (username,password,gamertag,name,age) values(?,?,?,?,?)";
-					ps=con.prepareStatement(query);
-					ps.setString(1, user);
-					ps.setString(2, pass);
-					ps.setString(3, sname);
-					ps.setString(4, realName);
-					ps.setString(5, age);
-					ps.executeUpdate();
-					System.out.println(ps);
+					String query="insert into users (username,password,gamertag,name,age) values('"+user+"','"+pass+"','"+sname+"','"+realName+"','"+age+"');";
+					db.saveData(query);
+					
 					request.setAttribute("uname", user);
 					response.setContentType("text/html");
 					RequestDispatcher rd=request.getRequestDispatcher("RegSuccess");
@@ -104,12 +95,7 @@ public class RegVerify extends HttpServlet {
 			catch(Exception e) {
 				e.printStackTrace();
 			}
-			//dbstuff
-			
-	//		rd.forward(request,response);
-			//response.sendRedirect("RegSuccess");
-	
-		//doGet(request, response);
+
 	}
 
 }
