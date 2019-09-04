@@ -7,11 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <%
-	session.setAttribute("username", "kurwhibble");
-	getServletContext().getRequestDispatcher("/user_logs").forward(request, response);
-%>
 
+String st=(String)request.getSession().getAttribute("error");
+Boolean log=false;
+if(request.getSession().getAttribute("login")!=null) {
+	log=(Boolean)request.getSession().getAttribute("login");
+}
+RequestDispatcher rd1;
+if(log) {
+	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
+}
+else {
+	rd1=request.getRequestDispatcher("header.jsp");
+	
+}
+rd1.include(request, response);
+%>
 </body>
 </html>
