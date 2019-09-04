@@ -8,8 +8,8 @@
 </head>
 <body>
 <%
-//out.print((String)request.getAttribute("login"));
-//String log=(String)request.getAttribute("login");
+
+
 String st=(String)request.getSession().getAttribute("error");
 Boolean log=(Boolean)request.getSession().getAttribute("login");
 

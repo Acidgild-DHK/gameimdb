@@ -32,8 +32,6 @@ li a:hover {
 
 <ul>
   <li><a class ="active" href="http://localhost:8080/gameDB/index.jsp">Home</a></li>
-
-  
  <li> <a href="http://localhost:8080/gameDB/logout.jsp">Logout</a></li>
   <li><a href="http://localhost:8080/gameDB/games.jsp">Games</a></li>
     <li><a href="http://localhost:8080/gameDB/register1.jsp">Register</a></li>

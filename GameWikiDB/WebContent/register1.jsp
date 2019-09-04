@@ -11,7 +11,7 @@
 <h1>
 <%
 
-String st=(String)request.getSession().getAttribute("error");
+String st=(String)request.getAttribute("error");
 Boolean log=(Boolean)request.getSession().getAttribute("login");
 
 RequestDispatcher rd1;
@@ -26,8 +26,11 @@ rd1.include(request, response);
 
 
 
+System.out.println(st);
 if(st!=null ) {
-	
+	if(st.equals("ageSt")) {
+		out.print("Age must be a number, not characters");
+	}
 	if(st.equals("empty")) {
 		out.print("Error registering: all fields must be filled<br>");
 	}
