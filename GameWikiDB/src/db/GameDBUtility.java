@@ -41,7 +41,7 @@ public class GameDBUtility {
 //	and `logs`.game_id = `game`.game_id
 //	and `logs`.platform_id = `platforms`.platform_id;
 	
-	public ArrayList<Log> getLogTable(String username){
+	public ArrayList<Log> getLogTable(String username, String button){
 		ArrayList<Log> logs = new ArrayList<Log>();
 		String logID = ""; 
 		String gameTitle = "";
@@ -49,10 +49,7 @@ public class GameDBUtility {
 		double rating;
 		String reviewText = "";
 		String platform;
-		String updateButton = "<form action='UserLogUpdate.jsp'>"
-				+ "<input type='hidden' value='{{logID}}' name='logID'>"
-				+ "<input type='submit' value='update'>"
-				+ "</form>";
+		String updateButton = button;
 		
 		String[] columns = {GameDBConstants.Logs.LOG_ID_COLUMN, GameDBConstants.Games.NAME_COLUMN, 
 				GameDBConstants.Logs.TIME_PLAYED_COLUMN, GameDBConstants.Logs.RATING_COLUMN,
@@ -62,7 +59,7 @@ public class GameDBUtility {
 		
 		
 		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("username", "'"+username+"'");
+		hm.put(GameDBConstants.Logs.USERNAME_COLUMN, "'"+username+"'");
 		hm.put(DBUtilities.tablefy(GameDBConstants.Logs.TABLE_NAME, GameDBConstants.Logs.GAME_ID_COLUMN), 
 				DBUtilities.tablefy(GameDBConstants.Games.TABLE_NAME ,GameDBConstants.Games.GAME_ID_COLUMN));
 		hm.put(DBUtilities.tablefy(GameDBConstants.Logs.TABLE_NAME, GameDBConstants.Logs.PLATFORM_COLUMN), 
@@ -87,6 +84,48 @@ public class GameDBUtility {
 		}
 		System.out.println(logs);
 		return logs;
+	}
+	
+	public Log getLog(String logID) {
+		String gameTitle = "";
+		int timePlayed;
+		double rating;
+		String reviewText = "";
+		String platform;
+		Log log = null;
+		String[] columns = {GameDBConstants.Games.NAME_COLUMN, 
+				GameDBConstants.Logs.TIME_PLAYED_COLUMN, GameDBConstants.Logs.RATING_COLUMN,
+				GameDBConstants.Logs.REVIEW_TEXT_COLUMN, GameDBConstants.Logs.PLATFORM_COLUMN};
+		
+		String[] tables = {GameDBConstants.Games.TABLE_NAME, GameDBConstants.Logs.TABLE_NAME};
+		
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put(GameDBConstants.Logs.LOG_ID_COLUMN, "'"+logID+"'");
+		hm.put(DBUtilities.tablefy(GameDBConstants.Logs.TABLE_NAME, GameDBConstants.Logs.GAME_ID_COLUMN), 
+				DBUtilities.tablefy(GameDBConstants.Games.TABLE_NAME ,GameDBConstants.Games.GAME_ID_COLUMN));
+		
+		ResultSet rs;
+		try {
+			rs = db.getData(columns, tables, hm);
+			if (rs != null) {
+				rs.next();
+				gameTitle = rs.getString(GameDBConstants.Games.NAME_COLUMN);
+				timePlayed = Integer.parseInt(rs.getString(GameDBConstants.Logs.TIME_PLAYED_COLUMN));
+				rating = Double.parseDouble(rs.getString(GameDBConstants.Logs.RATING_COLUMN));
+				reviewText = rs.getString(GameDBConstants.Logs.REVIEW_TEXT_COLUMN);
+				platform = rs.getString(GameDBConstants.Logs.PLATFORM_COLUMN);
+				log = new Log(null, gameTitle, timePlayed, rating, reviewText, platform, null);
+			}
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return log;
+	}
+	
+	public boolean addLog () {
+		return false;
 	}
 
 }

@@ -88,7 +88,7 @@ public class UserProfileController extends HttpServlet {
 			}
 			
 			request.setAttribute("user", user);
-			request.getRequestDispatcher("/UserProfile.jsp").forward(request, response);
+			request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
 		} catch (DBExceptions | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
