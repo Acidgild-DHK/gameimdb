@@ -9,7 +9,6 @@
 <body>
 <%
 
-
 String st=(String)request.getSession().getAttribute("error");
 Boolean log=false;
 if(request.getSession().getAttribute("login")!=null) {
