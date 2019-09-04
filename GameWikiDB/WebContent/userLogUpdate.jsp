@@ -15,12 +15,15 @@
 		request.getRequestDispatcher("/log_retriever").include(request, response);
 		Log log = (Log) request.getAttribute("log");
 	%>
-	<form>
+	<form action="user_log_update" method="post">
+		<input type="hidden" name="logID" value="<%=log.getLogID() %>">
 		<table style="width:50%">
 		
 		<tr>
 			<td> Game Title</td>
-			<td> <input type="text" name="game" value="<%=log.getGameTitle() %>" ></td> 
+			<td>
+				<input type="text" name="game" value="<%=log.getGameTitle() %>" disabled >
+			</td> 
 		</tr>
 		
 		<tr>

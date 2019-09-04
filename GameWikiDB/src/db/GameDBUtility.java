@@ -107,24 +107,107 @@ public class GameDBUtility {
 		ResultSet rs;
 		try {
 			rs = db.getData(columns, tables, hm);
-			if (rs != null) {
-				rs.next();
+			if (rs != null && rs.next()) {
+				
 				gameTitle = rs.getString(GameDBConstants.Games.NAME_COLUMN);
 				timePlayed = Integer.parseInt(rs.getString(GameDBConstants.Logs.TIME_PLAYED_COLUMN));
 				rating = Double.parseDouble(rs.getString(GameDBConstants.Logs.RATING_COLUMN));
 				reviewText = rs.getString(GameDBConstants.Logs.REVIEW_TEXT_COLUMN);
 				platform = rs.getString(GameDBConstants.Logs.PLATFORM_COLUMN);
-				log = new Log(null, gameTitle, timePlayed, rating, reviewText, platform, null);
+				log = new Log(logID, gameTitle, timePlayed, rating, reviewText, platform, null);
 			}
 		} catch (DBExceptions | SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return log;
 	}
 	
-	public boolean addLog () {
+	/*
+	 * SELECT game_id FROM game WHERE game_name='gameTitle'
+	 */
+	public int getGameID(String gameTitle) {
+		String[] columns = {GameDBConstants.Games.GAME_ID_COLUMN};
+		String[] tables = {GameDBConstants.Games.TABLE_NAME};
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put(DBUtilities.tablefy(GameDBConstants.Games.TABLE_NAME, GameDBConstants.Games.GAME_ID_COLUMN), "'" + gameTitle + "'");
+		int gameID = -1;
+		try {
+			ResultSet rs = db.getData(columns, tables, hm);
+			if (rs != null && rs.next()) {
+				gameID = Integer.parseInt(rs.getString(GameDBConstants.Games.GAME_ID_COLUMN));
+			}
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return gameID;
+	}
+	
+	public boolean addLog (String username, Log log) {
+		int gameID = getGameID(log.getGameTitle());
+		HashMap<String, String> hm = new HashMap<String, String>();
+		if (gameID < 0) {
+			//add game
+			hm.put(GameDBConstants.Games.NAME_COLUMN, log.getGameTitle());
+			try {
+				db.saveData(GameDBConstants.Games.TABLE_NAME, hm);
+			} catch (DBExceptions | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		} 
+		
+		//add log
+		hm.remove(GameDBConstants.Games.NAME_COLUMN);
+		hm.put(GameDBConstants.Logs.USERNAME_COLUMN, username);
+		hm.put(GameDBConstants.Logs.GAME_ID_COLUMN, String.valueOf(gameID));
+		hm.put(GameDBConstants.Logs.RATING_COLUMN, String.valueOf(log.getRating()));
+		hm.put(GameDBConstants.Logs.PLATFORM_COLUMN, log.getPlatform());
+		hm.put(GameDBConstants.Logs.TIME_PLAYED_COLUMN, String.valueOf(log.getTimePlayed()));
+		hm.put(GameDBConstants.Logs.REVIEW_TEXT_COLUMN, log.getReviewText());
+		
+		try {
+			db.saveData(GameDBConstants.Logs.TABLE_NAME, hm);
+			return true;
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return false;
+	}
+	
+	public boolean updateLog(Log log) {
+		
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put(GameDBConstants.Logs.RATING_COLUMN, String.valueOf(log.getRating()));
+		hm.put(GameDBConstants.Logs.PLATFORM_COLUMN, log.getPlatform());
+		hm.put(GameDBConstants.Logs.TIME_PLAYED_COLUMN, String.valueOf(log.getTimePlayed()));
+		hm.put(GameDBConstants.Logs.REVIEW_TEXT_COLUMN, log.getReviewText());
+		
+		try {
+			db.saveData(GameDBConstants.Logs.TABLE_NAME, hm, GameDBConstants.Logs.LOG_ID_COLUMN, log.getLogID());
+			return true;
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 
