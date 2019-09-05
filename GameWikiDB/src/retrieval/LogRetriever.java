@@ -1,44 +1,35 @@
-package controller;
+package retrieval;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
-import org.apache.commons.beanutils.RowSetDynaClass;
-
-import db.*;
+import db.GameDBUtility;
 import model.Log;
+
 /**
- * Servlet implementation class UserLogs
+ * Servlet implementation class LogRetriever
  */
-@WebServlet("/user_logs")
-public class UserLogsController extends HttpServlet {
+@WebServlet("/log_retriever")
+public class LogRetriever extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLogsController() {
+    public LogRetriever() {
         super();
         // TODO Auto-generated constructor stub
     }
     
     GameDBUtility gUtil;
-
-	/**
+    
+    /**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
@@ -58,17 +49,13 @@ public class UserLogsController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		String user = session.getAttribute("username").toString();
-		ArrayList<Log> logs = gUtil.getLogTable(user, "<form action='userLogUpdate.jsp'>"
-				+ "<input type='hidden' value='{{logID}}' name='logID'>"
-				+ "<input type='submit' value='update'>"
-				+ "</form>");
-		
-		session.setAttribute("logTable", logs);
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("/userTable.jsp");
-		dispatch.forward(request, response);
+		String logID = request.getParameter("logID");
+		Log log = null;
+		if (logID != null) {
+			//retrieve log
+			log = gUtil.getLog(logID);
+			request.setAttribute("log", log);
+		}
 	}
 
 	/**

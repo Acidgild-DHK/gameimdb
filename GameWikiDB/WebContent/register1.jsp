@@ -10,10 +10,29 @@
 <body>
 <h1>
 <%
-String st=(String)request.getAttribute("error");
 
-if(st!=null ) {
+String st=(String)request.getAttribute("error");
+Boolean log=false;
+if(request.getSession().getAttribute("login")!=null) {
+	log=(Boolean)request.getSession().getAttribute("login");
+}
+RequestDispatcher rd1;
+if(log) {
+	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
+}
+else {
+	rd1=request.getRequestDispatcher("header.jsp");
 	
+}
+rd1.include(request, response);
+
+
+
+System.out.println(st);
+if(st!=null ) {
+	if(st.equals("ageSt")) {
+		out.print("Age must be a number, not characters");
+	}
 	if(st.equals("empty")) {
 		out.print("Error registering: all fields must be filled<br>");
 	}
@@ -31,8 +50,6 @@ if(st!=null ) {
 	}
 }
 
-RequestDispatcher rd1=request.getRequestDispatcher("header.jsp");
-rd1.include(request,response);
 %>
 Enter Information below to create an account
 

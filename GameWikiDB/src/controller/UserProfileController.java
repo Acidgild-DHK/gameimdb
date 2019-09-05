@@ -66,34 +66,34 @@ public class UserProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("get");
 		// TODO Auto-generated method stub
-		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("username", request.getSession().getAttribute("username").toString());
-		ResultSet rs = null;
-		try {
-			rs = db.getData("users" , hm);
-			User user = new User();
-			if (rs != null) {
-				System.out.println("here");
-				try {
-					while (rs.next()) {
-						user.username = request.getSession().getAttribute("username").toString();
-						user.email = rs.getString("email");
-						user.gamerTag = rs.getString("gamertag");
-						System.out.println(user.email + " " + user.gamerTag);
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			request.setAttribute("user", user);
-			request.getRequestDispatcher("/UserProfile.jsp").forward(request, response);
-		} catch (DBExceptions | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+//		HashMap<String, String> hm = new HashMap<String, String>();
+//		hm.put("username", request.getSession().getAttribute("username").toString());
+//		ResultSet rs = null;
+//		try {
+//			rs = db.getData("users" , hm);
+//			User user = new User();
+//			if (rs != null) {
+//				System.out.println("here");
+//				try {
+//					while (rs.next()) {
+//						user.username = request.getSession().getAttribute("username").toString();
+//						user.email = rs.getString("email");
+//						user.gamerTag = rs.getString("gamertag");
+//						System.out.println(user.email + " " + user.gamerTag);
+//					}
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//			request.setAttribute("user", user);
+//			request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
+//		} catch (DBExceptions | SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
 		
 		
 	}

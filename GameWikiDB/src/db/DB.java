@@ -179,6 +179,7 @@ public class DB {
 	 */
 	public String saveData(String query) throws DBExceptions, SQLException {
 		int num = DBUtilities.executeUpdate(con, query);
+		System.out.println(num + " rows affected.");
 		if (num == 0) {
 		return "failure";
 		} else {

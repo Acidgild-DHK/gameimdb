@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -11,29 +12,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.DB;
-import db.DBExceptions;
+import db.*;
+import model.User;
 
 /**
- * Servlet implementation class UserProfileUpdate
+ * Servlet implementation class UserProfile
  */
-@WebServlet("/user_update")
-public class UserProfileUpdateController extends HttpServlet {
+@WebServlet("/user_profile")
+public class UserProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileUpdateController() {
+    public UserProfileController() {
         super();
         // TODO Auto-generated constructor stub
     }
-    DB db =null;
+
+    DB db = null;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+		System.out.println("init");
 		db = new DB("app.properties");
 		try {
 			db.connect();
@@ -45,8 +48,9 @@ public class UserProfileUpdateController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
+		
 	}
 
 	/**
@@ -60,8 +64,38 @@ public class UserProfileUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("get");
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("username", request.getSession().getAttribute("username").toString());
+		ResultSet rs = null;
+		try {
+			rs = db.getData("users" , hm);
+			User user = new User();
+			if (rs != null) {
+				System.out.println("here");
+				try {
+					while (rs.next()) {
+						user.username = request.getSession().getAttribute("username").toString();
+						user.email = rs.getString("email");
+						user.gamerTag = rs.getString("gamertag");
+						System.out.println(user.email + " " + user.gamerTag);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			request.setAttribute("user", user);
+			request.getRequestDispatcher("/UserProfile.jsp").forward(request, response);
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 	/**
@@ -69,23 +103,8 @@ public class UserProfileUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		String gamerTag = request.getParameter("gamer_tag");
-//		String email = request.getParameter("email");
-//		String username = request.getSession().getAttribute("username").toString();
-//		
-//		HashMap<String, String> hm = new HashMap<String, String>();
-//		hm.put("gamertag", gamerTag);
-//		hm.put("email", email);
-//		try {
-//			db.saveData("users", hm, "username", username);
-//		} catch (DBExceptions | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		request.getRequestDispatcher("/user_profile").forward(request, response);
+		doGet(request, response);
 	}
 
 }
+
