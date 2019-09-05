@@ -56,7 +56,7 @@ public class DBUtilities {
 			stmt = con.createStatement();
 			System.out.println(query);
 			rs = stmt.execute(query);
-			return true;
+			return rs;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw e;

@@ -31,10 +31,6 @@ li a:hover {
 </style>
 <ul>
   <li><a class ="active" href="index.jsp">Home</a></li>
-<<<<<<< HEAD
-  
-=======
->>>>>>> origin/develop
  <li> <a href="login.jsp">Login</a></li>
   <li><a href="games.jsp">Games</a></li>
     <li><a href="register1.jsp">Register</a></li>

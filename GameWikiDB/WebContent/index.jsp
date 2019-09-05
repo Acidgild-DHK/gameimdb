@@ -8,10 +8,6 @@
 </head>
 <body>
 <%
-<<<<<<< HEAD
-	session.setAttribute("root", "root");
-	getServletContext().getRequestDispatcher("/GameSearch.jsp").forward(request, response);
-=======
 
 String st=(String)request.getSession().getAttribute("error");
 Boolean log=false;
@@ -27,7 +23,6 @@ else {
 	
 }
 rd1.include(request, response);
->>>>>>> origin/develop
 %>
 </body>
 </html>

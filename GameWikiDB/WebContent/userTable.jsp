@@ -23,6 +23,5 @@
 		  <display:column property="platform" title="Platform" sortable="true" headerClass="sortable" />
 		  <display:column property="updateButton" title="Update" sortable="true" headerClass="sortable" />
 	 </display:table>
-
 </body>
 </html>
