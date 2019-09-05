@@ -11,48 +11,29 @@
 <body>
 	<% 
 	User user = (User) request.getAttribute("user");
-	String userInfo = "<table>" +
-			"<tr>" +
-			"<td>UserName</td>" +
-			"<td>" +
-			user.username +
-			"</td>" +
-			"<tr>" +
-			"<td>Gamer Tag</td>" +
-			"<td>" +
-			user.gamerTag +
-			"</td>" +
-			"<tr>" +
-			"<td>Email</td>" +
-			"<td>" +
-			user.email +
-			"</td>" +
-			"</tr>" +
-			"</table>";
-	out.println(userInfo);
 	
-%>
+	%>
 
 	<table>
 		<tr>
 			<td>UserName</td>
-			<td><%=user.username %></td>
+			<td><%=user.getUsername() %></td>
 		</tr>
 		<tr>
 			<td>Gamer Tag</td>
-			<td><%=user.gamerTag %></td>
+			<td><%=user.getGamerTag() %></td>
 		</tr>
 		<tr>
 			<td>Name</td>
-			<td><%=user.name%></td>
+			<td><%=user.getName()%></td>
 		</tr>
 		<tr>
 			<td>Age</td>
-			<td><%=user.age %></td>
+			<td><%=user.getAge() %></td>
 		</tr>
 		<tr>
 			<td>Email</td>
-			<td><%=user.email %></td>
+			<td><%=user.getEmail() %></td>
 		</tr>
 	</table>
 	<form action="userProfileUpdate.jsp" method ="get">
