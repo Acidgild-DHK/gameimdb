@@ -99,7 +99,7 @@ public class LoginServ extends HttpServlet {
 				//ses.setAttribute("login", true);
 				request.getSession().setAttribute("username",uname);
 				request.getSession().setAttribute("login", true);
-				RequestDispatcher rd=request.getRequestDispatcher("LoginSuccess");
+				RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
 				rd.forward(request,response);
 			}
 			else {

@@ -32,6 +32,29 @@
 	out.println(userInfo);
 	
 %>
+
+	<table>
+		<tr>
+			<td>UserName</td>
+			<td><%=user.username %></td>
+		</tr>
+		<tr>
+			<td>Gamer Tag</td>
+			<td><%=user.gamerTag %></td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td><%=user.name%></td>
+		</tr>
+		<tr>
+			<td>Age</td>
+			<td><%=user.age %></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td><%=user.email %></td>
+		</tr>
+	</table>
 	<form action="userProfileUpdate.jsp" method ="get">
 		<input type="submit" value="Update">
 	</form>	

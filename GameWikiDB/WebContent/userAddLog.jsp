@@ -1,34 +1,25 @@
-<%@ page import="model.Log" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-
-<title>Logs</title>
-
+<title>User Log</title>
+<% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
 </head>
 <body>
-	<% 
-		request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response);
-		request.getRequestDispatcher("/log_retriever").include(request, response);
-		Log log = (Log) request.getAttribute("log");
-	%>
-	<form action="user_log_update" method="post">
-		<input type="hidden" name="logID" value="<%=log.getLogID() %>">
+	<form action="user_add_log" method="post">
 		<table style="width:50%">
-		
 		<tr>
 			<td> Game Title</td>
 			<td>
-				<input type="text" name="game" value="<%=log.getGameTitle() %>" disabled >
+				<input type="text" name="game" >
 			</td> 
 		</tr>
 		
 		<tr>
 			<td>Time Played</td> 
-			<td><input type="text" name="time" value="<%=log.getTimePlayed() %>"> </td>
+			<td><input type="text" name="time" > </td>
 		</tr>
 		
 		<tr>
@@ -52,7 +43,7 @@
 		<tr>
 			<td>Review </td>
 			<td>
-				<textarea rows="5" col="200" name="review"><%=log.getReviewText() %></textarea>
+				<textarea rows="5" col="200" name="review"></textarea>
 			</td>
 		 </tr>
 		 
@@ -67,7 +58,7 @@
 			</td>
 		</tr>
 		</table>
-		<input type="submit" value="update">
+		<input type="submit" value="add">
 	</form>
 </body>
 </html>

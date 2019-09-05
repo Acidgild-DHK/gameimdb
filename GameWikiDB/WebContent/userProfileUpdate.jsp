@@ -14,6 +14,8 @@
 	<form action="user_update" method="post">
 		Gamer Tag: <input type="text" name="gamer_tag"> <br />
 		Email: <input type="text" name="email"> <br />
+		Name: <input type="text" name="name"> <br />
+		Age: <input type="text" name="age"><br />
 		<input type = "submit" value ="update">
 	</form>
 </body>
