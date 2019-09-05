@@ -8,10 +8,5 @@
 </head>
 <body>
 
-<%
-	session.setAttribute("root", "root");
-	getServletContext().getRequestDispatcher("/GameSearch.jsp").forward(request, response);
-%>
-
 </body>
 </html>

@@ -1,5 +1,6 @@
 package games;
 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,15 +39,7 @@ public class GamesSearch extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		Properties prop=new Properties();
 		DB db=new DB("app.properties");
 		Connection con;
@@ -75,17 +68,29 @@ public class GamesSearch extends HttpServlet {
                 gameShit.add(rs.getString(3));
                 gameShit.add(rs.getString(4));
                 gameShit.add(rs.getString(5));
+                gameShit.add(rs.getString(6));
+                gameShit.add(rs.getString(7));
+                gameShit.add(rs.getString(8));
                 System.out.println("Games" + gameShit);
                 search.add(gameShit);
             }
 
             request.setAttribute("Search", search);
             System.out.println("query " + query);
-            RequestDispatcher results = request.getRequestDispatcher("SearchResults.jsp");
+            RequestDispatcher results = request.getRequestDispatcher("/SearchResults.jsp");
             results.forward(request, response);
 	}	catch (Exception e) {
         e.printStackTrace();
 	}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 
 	}
 }

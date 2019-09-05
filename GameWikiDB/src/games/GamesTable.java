@@ -1,5 +1,6 @@
 package games;
 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,7 +25,7 @@ import db.DBConnection;
 /**
  * Servlet implementation class GameInfo
  */
-@WebServlet("/GameInfo")
+@WebServlet("/GamesTable")
 public class GamesTable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -51,6 +52,7 @@ public class GamesTable extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html");
 		Properties prop=new Properties();
 		DB db=new DB("app.properties");
 		Connection con;
@@ -62,25 +64,32 @@ public class GamesTable extends HttpServlet {
             System.out.println("connected!.....");
             ArrayList<String> gt = null;
             String query = "select * from game";
-            System.out.println("query " + query);
             st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
-
+            ArrayList<ArrayList<String>> gTable = new ArrayList<ArrayList<String>>();
             while (rs.next()) {
-                gt= new ArrayList<String>();
+                gt = new ArrayList<String>();
                 gt.add(rs.getString(1));
                 gt.add(rs.getString(2));
                 gt.add(rs.getString(3));
                 gt.add(rs.getString(4));
                 gt.add(rs.getString(5));
+                gt.add(rs.getString(6));
+                gt.add(rs.getString(7));
+                gt.add(rs.getString(8));
                 System.out.println("Games" + gt);
-      			}} catch (SQLException e) {
+                gTable.add(gt);
+            }
+            	System.out.println("gTable " + gTable);
+            	request.setAttribute("gTable", gTable);
+            	RequestDispatcher results = request.getRequestDispatcher("/GameTable.jsp");
+                results.forward(request, response);
+      			} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}catch (Exception e) {
 		e.printStackTrace();
 	}
-
 	
 
 }}

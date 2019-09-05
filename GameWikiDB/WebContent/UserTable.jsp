@@ -11,35 +11,16 @@
 <% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
 </head>
 <body>
-<% 
-	java.util.ArrayList<User> us = new java.util.ArrayList<User>();
-// 	out.println(session.getAttribute("username"));
-	
-	
-	us.add(new User("kar", "kar", "kar@gmail.com"));
-	us.add(new User("kat", "kat", "kat@gmail.com"));
-	us.add(new User("kar1", "kar1", "kar1@gmail.com"));
-	us.add(new User("kat2", "kat2", "kat2@gmail.com"));
-	us.add(new User("kar3", "kar3", "ka3r@gmail.com"));
-	us.add(new User("kat4", "ka4t", "k4at@gmail.com"));
-	session.setAttribute("test", us);
-	
-	%>
 
- <display:table name="sessionScope.test" pagesize="2" export="false" sort="list">
-	 <display:column property="username" title="username" sortable="true" headerClass="sortable" />
-	  <display:column property="gamerTag" sortable="true" headerClass="sortable" />
-	  <display:column property="email" sortable="true" headerClass="sortable" />
+ <display:table name="sessionScope.logTable" pagesize="5" export="false" sort="list">
+	 <display:column property="logID" title="Log ID" sortable="true" headerClass="sortable" />
+	  <display:column property="gameTitle" title="Game Title" sortable="true" headerClass="sortable" />
+	  <display:column property="timePlayed" title="Time Played" sortable="true" headerClass="sortable" />
+	  <display:column property="rating" title="Rating" sortable="true" headerClass="sortable" />
+	  <display:column property="reviewText" title="Review"  sortable="true" headerClass="sortable" />
+	  <display:column property="platform" title="Platform" sortable="true" headerClass="sortable" />
+	  <display:column property="updateButton" title="Update" sortable="true" headerClass="sortable" />
  </display:table>
-
-<%--  <display:table name="requestScope.results.rows"> --%>
-<%-- 	 <display:column property="log_id" title="log" /> --%>
-<%-- 	  <display:column property="time_played" /> --%>
-<%-- 	  <display:column property="rating" /> --%>
-<%-- 	  <display:column property= "review_text" /> --%>
-<%-- 	  <display:column property= "platform" /> --%>
-<%--  </display:table> --%>
-
 
 </body>
 </html>
