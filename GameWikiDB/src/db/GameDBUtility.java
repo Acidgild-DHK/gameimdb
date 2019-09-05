@@ -29,10 +29,6 @@ public class GameDBUtility {
 	}
 	
 	public static GameDBUtility getInstance() {
-<<<<<<< HEAD
-=======
-		
->>>>>>> origin/develop
 		if (instance == null) {
 			instance = new GameDBUtility("app.properties");
 		}
@@ -45,11 +41,7 @@ public class GameDBUtility {
 //	and `logs`.game_id = `game`.game_id
 //	and `logs`.platform_id = `platforms`.platform_id;
 	
-<<<<<<< HEAD
-	public ArrayList<Log> getLogTable(String username){
-=======
 	public ArrayList<Log> getLogTable(String username, String button){
->>>>>>> origin/develop
 		ArrayList<Log> logs = new ArrayList<Log>();
 		String logID = ""; 
 		String gameTitle = "";
@@ -57,14 +49,8 @@ public class GameDBUtility {
 		double rating;
 		String reviewText = "";
 		String platform;
-<<<<<<< HEAD
-		String updateButton = "<form action='UserLogUpdate.jsp'>"
-				+ "<input type='hidden' value='{{logID}}' name='logID'>"
-				+ "<input type='submit' value='update'>"
-				+ "</form>";
-=======
+
 		String updateButton = button;
->>>>>>> origin/develop
 		
 		String[] columns = {GameDBConstants.Logs.LOG_ID_COLUMN, GameDBConstants.Games.NAME_COLUMN, 
 				GameDBConstants.Logs.TIME_PLAYED_COLUMN, GameDBConstants.Logs.RATING_COLUMN,
@@ -74,11 +60,9 @@ public class GameDBUtility {
 		
 		
 		HashMap<String, String> hm = new HashMap<String, String>();
-<<<<<<< HEAD
-		hm.put("username", "'"+username+"'");
-=======
+
 		hm.put(GameDBConstants.Logs.USERNAME_COLUMN, "'"+username+"'");
->>>>>>> origin/develop
+
 		hm.put(DBUtilities.tablefy(GameDBConstants.Logs.TABLE_NAME, GameDBConstants.Logs.GAME_ID_COLUMN), 
 				DBUtilities.tablefy(GameDBConstants.Games.TABLE_NAME ,GameDBConstants.Games.GAME_ID_COLUMN));
 		hm.put(DBUtilities.tablefy(GameDBConstants.Logs.TABLE_NAME, GameDBConstants.Logs.PLATFORM_COLUMN), 
@@ -104,8 +88,6 @@ public class GameDBUtility {
 		System.out.println(logs);
 		return logs;
 	}
-<<<<<<< HEAD
-=======
 	
 	public Log getLog(String logID) {
 		String gameTitle = "";
@@ -255,6 +237,5 @@ public class GameDBUtility {
 		
 		return false;
 	}
->>>>>>> origin/develop
 
 }
