@@ -69,23 +69,23 @@ public class UserProfileUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String gamerTag = request.getParameter("gamer_tag");
-		String email = request.getParameter("email");
-		String username = request.getSession().getAttribute("username").toString();
-		
-		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("gamertag", gamerTag);
-		hm.put("email", email);
-		try {
-			db.saveData("users", hm, "username", username);
-		} catch (DBExceptions | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		request.getRequestDispatcher("/user_profile").forward(request, response);
+//		String gamerTag = request.getParameter("gamer_tag");
+//		String email = request.getParameter("email");
+//		String username = request.getSession().getAttribute("username").toString();
+//		
+//		HashMap<String, String> hm = new HashMap<String, String>();
+//		hm.put("gamertag", gamerTag);
+//		hm.put("email", email);
+//		try {
+//			db.saveData("users", hm, "username", username);
+//		} catch (DBExceptions | SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		request.getRequestDispatcher("/user_profile").forward(request, response);
 	}
 
 }

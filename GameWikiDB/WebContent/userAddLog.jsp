@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>User Log</title>
+<% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
 </head>
 <body>
 	<form action="user_add_log" method="post">

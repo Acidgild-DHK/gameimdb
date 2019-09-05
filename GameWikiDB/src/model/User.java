@@ -1,18 +1,23 @@
 package model;
 
 public class User {
-	public String username;
-	public String gamerTag;
-	public String email;
+	private String username;
+	private String gamerTag;
+	private String email;
+	private String name;
+	private int age;
 	
+
 	public User() {
 		
 	}
 	
-	public User(String username, String gamerTag, String email) {
+	public User(String username, String gamerTag, String email, String name, int age) {
 		this.username = username;
 		this.gamerTag = gamerTag;
 		this.email = email;
+		this.name = name;
+		this.age = age;
 	}
 
 	public String getUsername() {
@@ -38,6 +43,23 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	
 	
 }
