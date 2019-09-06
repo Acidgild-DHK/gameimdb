@@ -30,26 +30,13 @@ public class UserProfileController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    DB db = null;
+    GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("init");
-		db = new DB("app.properties");
-		try {
-			db.connect();
-			db.switchDatabase("imdb_games");
-		} catch (DBExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			
-		}
+		gUtil = GameDBUtility.getInstance();
 		
 	}
 
@@ -66,35 +53,8 @@ public class UserProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("get");
 		// TODO Auto-generated method stub
-//		HashMap<String, String> hm = new HashMap<String, String>();
-//		hm.put("username", request.getSession().getAttribute("username").toString());
-//		ResultSet rs = null;
-//		try {
-//			rs = db.getData("users" , hm);
-//			User user = new User();
-//			if (rs != null) {
-//				System.out.println("here");
-//				try {
-//					while (rs.next()) {
-//						user.username = request.getSession().getAttribute("username").toString();
-//						user.email = rs.getString("email");
-//						user.gamerTag = rs.getString("gamertag");
-//						System.out.println(user.email + " " + user.gamerTag);
-//					}
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			
-//			request.setAttribute("user", user);
-//			request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
-//		} catch (DBExceptions | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-		
+		request.setAttribute("user", gUtil.getUser(request.getSession().getAttribute("username").toString()));
+		request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
 		
 	}
 

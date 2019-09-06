@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.DB;
 import db.DBExceptions;
+import db.GameDBUtility;
+import model.User;
 
 /**
  * Servlet implementation class UserProfileUpdate
@@ -28,25 +30,13 @@ public class UserProfileUpdateController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    DB db =null;
+   	GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		db = new DB("app.properties");
-		try {
-			db.connect();
-			db.switchDatabase("imdb_games");
-		} catch (DBExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -68,11 +58,20 @@ public class UserProfileUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		// TODO Auto-generated method stub
-//		String gamerTag = request.getParameter("gamer_tag");
-//		String email = request.getParameter("email");
-//		String username = request.getSession().getAttribute("username").toString();
-//		
+		String gamerTag = request.getParameter("gamer_tag");
+		String email = request.getParameter("email");
+		String username = request.getSession().getAttribute("username").toString();
+		int age = Integer.parseInt(request.getParameter("age"));
+		String name = request.getParameter("name");
+		
+		User user = new User(username, gamerTag, email, name, age);
+
+		gUtil.updateUser(user);
+		request.getRequestDispatcher("/user_profile").forward(request, response);
+		
 //		HashMap<String, String> hm = new HashMap<String, String>();
 //		hm.put("gamertag", gamerTag);
 //		hm.put("email", email);
