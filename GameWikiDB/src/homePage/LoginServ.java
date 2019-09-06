@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import db.DB;
 import db.DBConnection;
@@ -74,11 +76,14 @@ public class LoginServ extends HttpServlet {
 				db.switchDatabase("imdb_games");
 				con = DBConnection.getDBInstance(prop);
 			
-			String query="select password from users where username=?";
+			//String query="select password from users where username=?";
+			HashMap<String,String> hm=new HashMap<String,String>();
+			hm.put("username",uname);
+			ResultSet rs=db.getData("users", hm);
+			//PreparedStatement ps=con.prepareStatement(query);
+			//ps.setString(1,uname);
+			//ResultSet rs=ps.executeQuery();
 			
-			PreparedStatement ps=con.prepareStatement(query);
-			ps.setString(1,uname);
-			ResultSet rs=ps.executeQuery();
 			if(rs==null) {
 				request.setAttribute("error", "no user");
 				RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
@@ -87,11 +92,14 @@ public class LoginServ extends HttpServlet {
 			else {
 				rs.next();
 			}
-			if(pass.equals(rs.getString(1))) {
+			if(pass.equals(rs.getString("password"))) {
 				System.out.println(uname+" "+true);
-				request.setAttribute("uname",uname);
-				request.setAttribute("login", true);
-				RequestDispatcher rd=request.getRequestDispatcher("LoginSuccess");
+				//HttpSession ses=request.getSession();
+				//ses.setAttribute("uname", uname);
+				//ses.setAttribute("login", true);
+				request.getSession().setAttribute("username",uname);
+				request.getSession().setAttribute("login", true);
+				RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
 				rd.forward(request,response);
 			}
 			else {
@@ -103,13 +111,11 @@ public class LoginServ extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//response.sendRedirect("LoginSuccess");
  catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
-		//doGet(request, response);
 	}
 
 }

@@ -32,11 +32,11 @@ li a:hover {
 
 <ul>
   <li><a class ="active" href="index.jsp">Home</a></li>
-  <li><a  href="header.jsp">Header</a></li>
   
  <li> <a href="logout.jsp">Logout</a></li>
   <li><a href="games.jsp">Games</a></li>
-    <li><a href="register1.jsp">Register</a></li>
+    <li><a href="user_profile">Profile</a></li>
+    <li><a href="user_logs">Logs</a></li>
 </ul>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>

@@ -8,14 +8,14 @@
 </head>
 <body>
 <%
-String st=(String)request.getAttribute("error");
-String log=(String)request.getAttribute("login");
-boolean loggedIn=false;
-if(log!=null && log.equals("true")) {
-	loggedIn=true;
+String st=(String)request.getSession().getAttribute("error");
+Boolean log=false;
+if(request.getSession().getAttribute("login")!=null) {
+	log=(Boolean)request.getSession().getAttribute("login");
 }
+
 RequestDispatcher rd1;
-if(loggedIn) {
+if(log) {
 	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
 }
 else {

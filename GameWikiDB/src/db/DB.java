@@ -179,6 +179,7 @@ public class DB {
 	 */
 	public String saveData(String query) throws DBExceptions, SQLException {
 		int num = DBUtilities.executeUpdate(con, query);
+		System.out.println(num + " rows affected.");
 		if (num == 0) {
 		return "failure";
 		} else {
@@ -186,7 +187,7 @@ public class DB {
 		}
 	}
 	
-	public ResultSet getData(String tableName) throws DBExceptions, SQLException{
+	public ResultSet getData(String tableName, boolean isTable) throws DBExceptions, SQLException{
 		String query = "SELECT * FROM " + tableName;
 		return DBUtilities.executeQuery(con, query);
 	}
@@ -200,7 +201,52 @@ public class DB {
 				sets.append("`" + string + "` = \'" + hm.get(string)+ "\'");
 				System.out.println(sets);
 			}else {
-				sets.append("AND `" + string + "` = \'" + hm.get(string) + "\'");
+				sets.append(" AND `" + string + "` = \'" + hm.get(string) + "\'");
+			}
+		}
+		query = query.replace("{{clause}}", sets);
+		System.out.println(query);
+		return DBUtilities.executeQuery(con, query);
+	}
+	
+	public ResultSet getData(String query) throws DBExceptions, SQLException {
+		return DBUtilities.executeQuery(con, query);
+	}
+	
+	public ResultSet getData(String[] columns, String[] tableNames, HashMap<String, String> hm) throws DBExceptions, SQLException{
+		String query = "SELECT {{column}} FROM {{tables}} WHERE {{clause}}";
+		StringBuilder sets = new StringBuilder("");
+		for (String string : columns) {
+			if(sets.length() ==0) {
+				sets.append(string);
+			} else {
+				sets.append(", "+string);
+			}
+		}
+		
+		query = query.replace("{{column}}", sets);
+		
+		sets.delete(0, sets.length());
+		
+		for (String string : tableNames) {
+			if(sets.length() ==0) {
+				sets.append("`"+string +"`");
+			} else {
+				sets.append(", `"+string +"`");
+			}
+		}
+		
+		query = query.replace("{{tables}}", sets);
+		
+		sets.delete(0, sets.length());
+		
+		Set<String> keys = hm.keySet();
+		for (String string : keys) {
+			if(sets.length() == 0) {
+				sets.append(string + " = " + hm.get(string));
+				System.out.println(sets);
+			}else {
+				sets.append(" AND " + string + " = " + hm.get(string));
 			}
 		}
 		query = query.replace("{{clause}}", sets);

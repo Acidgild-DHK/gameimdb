@@ -24,6 +24,7 @@ public class DBUtilities {
 		int rs;
 		try {
 			Statement stmt = con.createStatement();
+			System.out.println(query);
 			rs = stmt.executeUpdate(query);
 			return rs;
 		} catch (SQLException e) {
@@ -38,6 +39,7 @@ public class DBUtilities {
 		ResultSet rs;
 		try {
 			Statement stmt = con.createStatement();
+			System.out.println(query);
 			rs = stmt.executeQuery(query);
 			return rs;
 		} catch (SQLException e) {
@@ -52,8 +54,9 @@ public class DBUtilities {
 		Statement stmt;
 		try {
 			stmt = con.createStatement();
+			System.out.println(query);
 			rs = stmt.execute(query);
-			return true;
+			return rs;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw e;
@@ -86,6 +89,10 @@ public class DBUtilities {
 		}
 		return res;
 		
+	}
+	
+	public static String tablefy(String tableName, String columnName) {
+		return "`" + tableName + "`." + columnName;
 	}
 	
 	public static String getEntireRSTable(ResultSet rs){
