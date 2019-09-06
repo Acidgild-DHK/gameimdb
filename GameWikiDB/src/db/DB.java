@@ -254,6 +254,33 @@ public class DB {
 		return DBUtilities.executeQuery(con, query);
 	}
 	
+	public ResultSet getData(String[] columns, String[] tableNames) throws DBExceptions, SQLException{
+		String query = "SELECT {{column}} FROM {{tables}}";
+		StringBuilder sets = new StringBuilder("");
+		for (String string : columns) {
+			if(sets.length() ==0) {
+				sets.append(string);
+			} else {
+				sets.append(", "+string);
+			}
+		}
+		
+		query = query.replace("{{column}}", sets);
+		
+		sets.delete(0, sets.length());
+		
+		for (String string : tableNames) {
+			if(sets.length() ==0) {
+				sets.append("`"+string +"`");
+			} else {
+				sets.append(", `"+string +"`");
+			}
+		}
+		
+		query = query.replace("{{tables}}", sets);
+		return DBUtilities.executeQuery(con, query);
+	}
+	
 	public String switchDatabase(String dbName) throws DBExceptions, SQLException {
 		String query  = "use " + dbName;
 		if (DBUtilities.execute(con, query)) {
