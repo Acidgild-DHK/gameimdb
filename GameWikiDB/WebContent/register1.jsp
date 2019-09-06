@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+<%@include file="WEB-INF/Style.css"%>
+</style>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -54,8 +57,8 @@ if(st!=null ) {
 Enter Information below to create an account
 
 </h1>
-<form action="RegVerify" method="post">
-<table style="width:50%">
+<form align="center" action="RegVerify" method="post">
+<table align="center" >
 <tr>
 <td>Username</td>
 <td><input type="text" name="username"></td>
