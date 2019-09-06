@@ -12,20 +12,25 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import db.DB;
 import db.DBConnection;
+import db.GameDBUtility;
+import model.Game;
+import model.Log;
 
 
 /**
  * Servlet implementation class GameInfo
  */
-@WebServlet("/GamesTable")
+@WebServlet("/games")
 public class GamesTable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,13 +42,32 @@ public class GamesTable extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    GameDBUtility gUtil;
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		gUtil = GameDBUtility.getInstance();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
+		HttpSession session = request.getSession();
+		ArrayList<Game> games = gUtil.getGameTable("<form action='userLogUpdate.jsp'>"
+				+ "<input type='hidden' value='{{gameID}}' name='gameID'>"
+				+ "<input type='submit' value='update'>"
+				+ "</form>");
+		
+		session.setAttribute("gameTable", games);
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("/games.jsp");
+		dispatch.forward(request, response);
 
 	}
 

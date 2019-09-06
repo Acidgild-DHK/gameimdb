@@ -3,9 +3,11 @@ package db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import model.Game;
 import model.Log;
 import model.User;
 
@@ -92,6 +94,60 @@ public class GameDBUtility {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public ArrayList<Game> getGameTable(String button){
+		ArrayList<Game> games = new ArrayList<Game>();
+		int gameID;
+		String gameName;
+		String publisher;
+		String date;
+		Date release_date;
+		String description;
+		String esrb;
+		Double averageRating;
+		String genre;
+		int userCount;
+		String updateButton = button;
+		
+		String[] columns = {GameDBConstants.Games.GAME_ID_COLUMN, GameDBConstants.Games.NAME_COLUMN, 
+				GameDBConstants.Games.DESCRIPTION_COLUMN, GameDBConstants.Games.PUBLISHER_COLUMN,
+				GameDBConstants.Games.ESRB_COLUMN, GameDBConstants.Games.AVERAGE_RATING_COLUMN,
+				GameDBConstants.Games.RELEASE_DATE_COLUMN, GameDBConstants.Games.GENRE_COLUMN, 
+				GameDBConstants.Games.USER_COUNT_COLUMN};
+		
+		String[] tables = {GameDBConstants.Games.TABLE_NAME};
+		
+		try {
+			ResultSet rs = db.getData(columns, tables);
+			if (rs != null) {
+				while(rs.next()) {
+					System.out.println("here");
+					gameID = Integer.parseInt(rs.getString(GameDBConstants.Games.GAME_ID_COLUMN));
+					gameName = rs.getString(GameDBConstants.Games.NAME_COLUMN);
+					publisher = rs.getString(GameDBConstants.Games.PUBLISHER_COLUMN);
+					date = rs.getString(GameDBConstants.Games.RELEASE_DATE_COLUMN);
+					if (date != null && !date.isEmpty()) {
+					release_date = Date.valueOf(rs.getString(GameDBConstants.Games.RELEASE_DATE_COLUMN));
+					} else {
+						release_date = null;
+					}
+					description = rs.getString(GameDBConstants.Games.DESCRIPTION_COLUMN);
+					esrb = rs.getString(GameDBConstants.Games.ESRB_COLUMN);
+					averageRating = Double.valueOf(rs.getString(GameDBConstants.Games.AVERAGE_RATING_COLUMN));
+					genre = rs.getString(GameDBConstants.Games.GENRE_COLUMN);
+					userCount = Integer.parseInt(rs.getString(GameDBConstants.Games.USER_COUNT_COLUMN));
+					games.add(new Game(gameID, gameName, publisher, release_date, description, esrb, averageRating, genre, userCount, updateButton.replace("{{gameID}}", String.valueOf(gameID))));
+				}
+			}
+			
+			
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return games;
 	}
 	
 	public ArrayList<Log> getLogTable(String username, String button){
