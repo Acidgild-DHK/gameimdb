@@ -10,6 +10,9 @@ public class GameDBConstants {
 		static final String PASSWORD2_COLUMN = "password2";
 		static final String PASSWORD3_COLUMN = "password3";
 		static final String GAMER_TAG_COLUMN = "gamertag";
+		static final String NAME_COLUMN = "name";
+		static final String AGE_COLUMN = "age";
+		static final String EMAIL_COLUMN = "email";
 	}
 	
 	//game table

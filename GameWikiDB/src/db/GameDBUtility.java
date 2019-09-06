@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Log;
+import model.User;
 
 public class GameDBUtility {
 	
@@ -40,6 +41,58 @@ public class GameDBUtility {
 //	where username = 'kurwhibble'
 //	and `logs`.game_id = `game`.game_id
 //	and `logs`.platform_id = `platforms`.platform_id;
+	
+	
+	public User getUser(String username) {
+		String[] columns = {GameDBConstants.Users.USERNAME_COLUMN, GameDBConstants.Users.GAMER_TAG_COLUMN,
+					GameDBConstants.Users.NAME_COLUMN, GameDBConstants.Users.AGE_COLUMN, GameDBConstants.Users.EMAIL_COLUMN};
+		
+		String[] tables = {GameDBConstants.Users.TABLE_NAME};
+		
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put(GameDBConstants.Users.USERNAME_COLUMN, "'" + username + "'");
+		
+		String gamerTag;
+		String email;
+		String name;
+		String age;
+		
+		try {
+			ResultSet rs = db.getData(columns, tables, hm);
+			if (rs != null && rs.next()) {
+				gamerTag = rs.getString(GameDBConstants.Users.GAMER_TAG_COLUMN);
+				email = rs.getString(GameDBConstants.Users.EMAIL_COLUMN);
+				name = rs.getString(GameDBConstants.Users.NAME_COLUMN);
+				age = rs.getString(GameDBConstants.Users.AGE_COLUMN);
+				
+				return new User(username, gamerTag, email, name, Integer.parseInt(age));
+			}
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		
+		return null;
+	}
+	
+	public boolean updateUser(User user) {
+		HashMap<String, String> hm = new HashMap<String, String>();
+		
+		hm.put(GameDBConstants.Users.AGE_COLUMN, String.valueOf(user.getAge()));
+		hm.put(GameDBConstants.Users.EMAIL_COLUMN, user.getEmail());
+		hm.put(GameDBConstants.Users.GAMER_TAG_COLUMN, user.getGamerTag());
+		hm.put(GameDBConstants.Users.NAME_COLUMN, user.getName());
+		
+		try {
+			db.saveData(GameDBConstants.Users.TABLE_NAME, hm, GameDBConstants.Users.USERNAME_COLUMN, user.getUsername());
+			return true;
+		} catch (DBExceptions | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	public ArrayList<Log> getLogTable(String username, String button){
 		ArrayList<Log> logs = new ArrayList<Log>();
