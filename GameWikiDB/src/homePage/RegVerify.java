@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.DB;
-import db.DBConnection;
+import model.User;
+import service.UserService;
 
 /**
  * Servlet implementation class RegVerify
@@ -60,43 +60,43 @@ public class RegVerify extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO database again
-		String user=request.getParameter("username").trim();
+		String username=request.getParameter("username").trim();
 		String sname=request.getParameter("name").trim();
 		String pass=request.getParameter("password").trim();
 		String realName=request.getParameter("flname").trim();
 		String age=request.getParameter("age").trim();
+		
+		String question = "";
+		String answer = "";
+		
 		Properties prop=new Properties();
-		DB db=new DB("app.properties");
-			Connection con;
-			try {
-				db.connect();
-				db.switchDatabase("imdb_games");
-				con = DBConnection.getDBInstance(prop);
+		
+		UserService userServ = new UserService(username);
+		User user = userServ.getUser();
 			
+		if (user != null) {
+			request.setAttribute("error", "already exists");
+			RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
+			rd.forward(request, response);
+		} else {
+			user = new User();
+			user.setUsername(username);
+			user.setAge(Integer.valueOf(age));
+			user.setName(realName);
+			user.setEmail("");
+			user.setPassword(pass);
+			user.setGamerTag(sname);
+			user.setQuestion(question);
+			user.setAnswer(answer);
 			
-				HashMap<String,String> hm=new HashMap<String,String>();
-				hm.put("username",user);
-				ResultSet rs=db.getData("users", hm);	
-				if(rs!=null &&rs.next() && !rs.getString("username").equals("")) {
-					request.setAttribute("error", "already exists");
-					RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
-					rd.forward(request, response);
-				}
-				else {
-					String query="insert into users (username,password,gamertag,name,age) values('"+user+"','"+pass+"','"+sname+"','"+realName+"','"+age+"');";
-					db.saveData(query);
-					
-					request.getSession().setAttribute("username",user);
-					request.getSession().setAttribute("login", true);
-					response.setContentType("text/html");
-					RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
-					rd.include(request, response);
-				}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-
+			userServ.save(user);
+			request.getSession().setAttribute("username",user);
+			request.getSession().setAttribute("login", true);
+			response.setContentType("text/html");
+			RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
+			rd.include(request, response);
+		}
 	}
+
 
 }

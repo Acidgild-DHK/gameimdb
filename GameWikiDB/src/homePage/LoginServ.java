@@ -19,9 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import db.DB;
-import db.DBConnection;
-import db.DBExceptions;
+import model.User;
+import service.UserService;
 
 /**
  * Servlet implementation class LoginServ
@@ -69,52 +68,24 @@ public class LoginServ extends HttpServlet {
 		String pass=request.getParameter("password");
 		Properties prop=new Properties();
 		
-		DB db=new DB("app.properties");
-			Connection con;
-			try {
-				db.connect();
-				db.switchDatabase("imdb_games");
-				con = DBConnection.getDBInstance(prop);
-			
-			//String query="select password from users where username=?";
-			HashMap<String,String> hm=new HashMap<String,String>();
-			hm.put("username",uname);
-			ResultSet rs=db.getData("users", hm);
-			//PreparedStatement ps=con.prepareStatement(query);
-			//ps.setString(1,uname);
-			//ResultSet rs=ps.executeQuery();
-			
-			if(rs==null) {
-				request.setAttribute("error", "no user");
-				RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
-				rd.forward(request, response);
-			}
-			else {
-				rs.next();
-			}
-			if(pass.equals(rs.getString("password"))) {
+		UserService userServ = new UserService(uname);
+		User user = userServ.getUser();
+		
+		if (user == null) {
+			request.setAttribute("error", "no user");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		} else if (pass.equals(user.getPassword())) {
 				System.out.println(uname+" "+true);
-				//HttpSession ses=request.getSession();
-				//ses.setAttribute("uname", uname);
-				//ses.setAttribute("login", true);
 				request.getSession().setAttribute("username",uname);
 				request.getSession().setAttribute("login", true);
 				RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
 				rd.forward(request,response);
-			}
-			else {
-				request.setAttribute("error", "failed");
-				RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
-				rd.forward(request, response);
-			}
-			} catch (DBExceptions e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
- catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		}else {
+			request.setAttribute("error", "failed");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
 		
 	}
 

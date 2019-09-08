@@ -1,26 +1,89 @@
 package model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import dao.GameDBConstants;
+
+
+@Entity
+@Table(name="games")
 public class Game {
-	private int gameID;
-	private String gameName;
-	private String publisher;
-	private Date release_date;
-	private String description;
-	private String esrb;
-	private Double averageRating;
-	private String genre;
-	private int userCount;
-	private String updateButton;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name=GameDBConstants.Games.GAME_ID_COLUMN, unique=true, nullable=false)
+	private int gameID;
+	
+	@Column(name=GameDBConstants.Games.NAME_COLUMN, unique=true, nullable=false)
+	private String gameName;
+	
+	@Column(name=GameDBConstants.Games.PUBLISHER_COLUMN, unique=false, nullable=true)
+	private String publisher;
+	
+	@Column(name=GameDBConstants.Games.RELEASE_DATE_COLUMN, unique=false, nullable=true)
+	private Date release_date;
+	
+	@Column(name=GameDBConstants.Games.DESCRIPTION_COLUMN, unique=false, nullable=true)
+	private String description;
+	
+	@Column(name=GameDBConstants.Games.ESRB_COLUMN, unique=false, nullable=true)
+	private String esrb;
+	
+	@Column(name=GameDBConstants.Games.AVERAGE_RATING_COLUMN, unique=false, nullable=false)
+	private double averageRating;
+	
+	@Column(name=GameDBConstants.Games.GENRE_COLUMN, unique=false, nullable=true)
+	private String genre;
+	
+	@Column(name=GameDBConstants.Games.USER_COUNT_COLUMN, unique=false, nullable=false)
+	private int userCount;
+
+	@ManyToMany(fetch=FetchType.EAGER)
+	private Set<Platform> platforms = new HashSet<Platform>();
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="game")
+	private Set<Log> logs = new HashSet<Log>();
+
 	
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((gameName == null) ? 0 : gameName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Game))
+			return false;
+		Game other = (Game) obj;
+		if (gameName == null) {
+			if (other.gameName != null)
+				return false;
+		} else if (!gameName.equals(other.gameName))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
-		return "Game [gameID=" + gameID + ", gameName=" + gameName + ", publisher=" + publisher + ", release_date="
-				+ release_date + ", description=" + description + ", esrb=" + esrb + ", averageRating=" + averageRating
-				+ ", genre=" + genre + ", userCount=" + userCount + "]";
+		return getGameName();
 	}
 
 	public Game() {
@@ -28,29 +91,22 @@ public class Game {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Game(int gameID, String gameName, String publisher, Date release_date, String description, String esrb,
-			Double averageRating, String genre, int userCount, String button) {
-		super();
-		this.gameID = gameID;
-		this.gameName = gameName;
-		this.publisher = publisher;
-		this.release_date = release_date;
-		this.description = description;
-		this.esrb = esrb;
-		this.averageRating = averageRating;
-		this.genre = genre;
-		this.userCount = userCount;
-		this.updateButton = button;
+	
+
+	public Set<Platform> getPlatforms() {
+		return platforms;
 	}
 
-	
-	
-	public String getUpdateButton() {
-		return updateButton;
+	public void setPlatforms(Set<Platform> platforms) {
+		this.platforms = platforms;
 	}
 
-	public void setUpdateButton(String updateButton) {
-		this.updateButton = updateButton;
+	public Set<Log> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(Set<Log> logs) {
+		this.logs = logs;
 	}
 
 	public int getGameID() {

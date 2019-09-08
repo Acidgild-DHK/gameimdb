@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.DB;
-import db.DBExceptions;
-import db.GameDBUtility;
+//import dao.DB;
+//import dao.DBExceptions;
+//import dao.GameDBUtility;
 import model.User;
+import service.UserService;
 
 /**
  * Servlet implementation class UserProfileUpdate
@@ -30,13 +31,13 @@ public class UserProfileUpdateController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-   	GameDBUtility gUtil;
+//   	GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		gUtil = GameDBUtility.getInstance();
+//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -59,32 +60,24 @@ public class UserProfileUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		// TODO Auto-generated method stub
+//		
+//		// TODO Auto-generated method stub
 		String gamerTag = request.getParameter("gamer_tag");
 		String email = request.getParameter("email");
 		String username = request.getSession().getAttribute("username").toString();
 		int age = Integer.parseInt(request.getParameter("age"));
 		String name = request.getParameter("name");
-		
-		User user = new User(username, gamerTag, email, name, age);
 
-		gUtil.updateUser(user);
-		request.getRequestDispatcher("/user_profile").forward(request, response);
+		UserService userServ = new UserService(username);
+		User user = userServ.getUser();
+		user.setAge(age);
+		user.setEmail(email);
+		user.setGamerTag(gamerTag);
+		user.setName(name);
 		
-//		HashMap<String, String> hm = new HashMap<String, String>();
-//		hm.put("gamertag", gamerTag);
-//		hm.put("email", email);
-//		try {
-//			db.saveData("users", hm, "username", username);
-//		} catch (DBExceptions | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		request.getRequestDispatcher("/user_profile").forward(request, response);
+		userServ.update();
+
+		request.getRequestDispatcher("/user_profile").forward(request, response);
 	}
 
 }

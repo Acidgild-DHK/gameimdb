@@ -19,8 +19,9 @@ import javax.websocket.Session;
 
 import org.apache.commons.beanutils.RowSetDynaClass;
 
-import db.*;
+import dao.*;
 import model.Log;
+import service.LogService;
 /**
  * Servlet implementation class UserLogs
  */
@@ -36,14 +37,14 @@ public class UserLogsController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    GameDBUtility gUtil;
+//    GameDBUtility gUtil;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		gUtil = GameDBUtility.getInstance();
+//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -59,12 +60,12 @@ public class UserLogsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		String user = session.getAttribute("username").toString();
-		ArrayList<Log> logs = gUtil.getLogTable(user, "<form action='userLogUpdate.jsp'>"
-				+ "<input type='hidden' value='{{logID}}' name='logID'>"
-				+ "<input type='submit' value='update'>"
-				+ "</form>");
+		String username = session.getAttribute("username").toString();
 		
+		LogService logServ = new LogService(username);
+		
+		ArrayList<Log> logs = logServ.getAll();
+
 		session.setAttribute("logTable", logs);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/userTable.jsp");

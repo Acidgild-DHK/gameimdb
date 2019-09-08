@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.*;
+import dao.*;
 import model.User;
+import service.UserService;
 
 /**
  * Servlet implementation class UserProfile
@@ -30,13 +31,13 @@ public class UserProfileController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    GameDBUtility gUtil;
+//    GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		gUtil = GameDBUtility.getInstance();
+//		gUtil = GameDBUtility.getInstance();
 		
 	}
 
@@ -51,9 +52,13 @@ public class UserProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("get");
+		
 		// TODO Auto-generated method stub
-		request.setAttribute("user", gUtil.getUser(request.getSession().getAttribute("username").toString()));
+		String username = request.getSession().getAttribute("username").toString();
+		UserService userServ = new UserService(username);
+		User user = userServ.getUser();
+		
+		request.setAttribute("user", user);
 		request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
 		
 	}
