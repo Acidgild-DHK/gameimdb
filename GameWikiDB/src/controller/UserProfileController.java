@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.*;
 import model.User;
+import service.UserService;
 
 /**
  * Servlet implementation class UserProfile
@@ -51,9 +52,13 @@ public class UserProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("get");
+		
 		// TODO Auto-generated method stub
-//		request.setAttribute("user", gUtil.getUser(request.getSession().getAttribute("username").toString()));
+		String username = request.getSession().getAttribute("username").toString();
+		UserService userServ = new UserService(username);
+		User user = userServ.getUser();
+		
+		request.setAttribute("user", user);
 		request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
 		
 	}

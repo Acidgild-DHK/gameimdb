@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Game;
 import model.Log;
+import service.GameService;
 
 
 /**
@@ -55,16 +56,15 @@ public class GamesTableController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		HttpSession session = request.getSession();
-//		ArrayList<Game> games = gUtil.getGameTable("<form action='userLogUpdate.jsp'>"
-//				+ "<input type='hidden' value='{{gameID}}' name='gameID'>"
-//				+ "<input type='submit' value='update'>"
-//				+ "</form>");
-//		
-//		session.setAttribute("gameTable", games);
-//		
-//		RequestDispatcher dispatch = request.getRequestDispatcher("/games.jsp");
-//		dispatch.forward(request, response);
+		HttpSession session = request.getSession();
+
+		GameService gameServ = new GameService();
+		ArrayList<Game> games = gameServ.getAll();
+		
+		session.setAttribute("gameTable", games);
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("/games.jsp");
+		dispatch.forward(request, response);
 
 	}
 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Log;
+import service.LogService;
 
 /**
  * Servlet implementation class LogRetriever
@@ -48,13 +49,13 @@ public class LogRetriever extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		String logID = request.getParameter("logID");
-//		Log log = null;
-//		if (logID != null) {
-//			//retrieve log
-//			log = gUtil.getLog(logID);
-//			request.setAttribute("log", log);
-//		}
+		String logID = request.getParameter("logID");
+		String username = request.getSession().getAttribute("username").toString();
+		
+		LogService logServ = new LogService(username);
+		Log log = logServ.get(logID);
+		
+		request.setAttribute("log", log);
 	}
 
 	/**

@@ -32,7 +32,7 @@ public class UserDao implements IDao<User>{
 		Transaction transaction = session.beginTransaction();
 		User user = (User)session.get(User.class, id);
 		transaction.commit();
-		
+		session.close();
 		return Optional.ofNullable(user);
 	}
 
@@ -43,6 +43,7 @@ public class UserDao implements IDao<User>{
 		Transaction transaction = session.beginTransaction();
 		ArrayList<User> users = new ArrayList<User>(session.createQuery("FROM " + GameDBConstants.Users.TABLE_NAME).list());
 		transaction.commit();
+		session.close();
 		return users;
 	}
 
@@ -53,6 +54,7 @@ public class UserDao implements IDao<User>{
 		Transaction transaction = session.beginTransaction();
 		String id = session.save(t).toString();
 		transaction.commit();
+		session.close();
 		return id;
 	}
 
@@ -63,6 +65,7 @@ public class UserDao implements IDao<User>{
 		Transaction transaction = session.beginTransaction();
 		session.update(t);
 		transaction.commit();
+		session.close();
 	}
 
 	@Override
@@ -72,6 +75,7 @@ public class UserDao implements IDao<User>{
 		Transaction transaction = session.beginTransaction();
 		session.delete(t);
 		transaction.commit();
+		session.close();
 	}
 
 }

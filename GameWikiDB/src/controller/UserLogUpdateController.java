@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Log;
+import model.Platform;
+import service.LogService;
+import service.PlatformService;
 
 /**
  * Servlet implementation class UserLogUpdateController
@@ -54,12 +57,23 @@ public class UserLogUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String username = request.getSession().getAttribute("username").toString();
 		String logID = request.getParameter("logID");
 		String timePlayed = request.getParameter("time");
 		String rating = request.getParameter("rating");
 		String review = request.getParameter("review");
-		String platform = request.getParameter("platform");
+		String platformId = request.getParameter("platform");
 		
+		PlatformService platformServ = new PlatformService();
+		Platform platform = platformServ.getPlatform(Integer.parseInt(platformId));
+		LogService logServ = new LogService(username);
+		Log log = logServ.get(logID);
+		log.setTimePlayed(Integer.parseInt(timePlayed));
+		log.setRating(Double.parseDouble(rating));
+		log.setReviewText(review);
+		log.setPlatform(platform);
+		
+		logServ.updateLog();
 //		Log log = new Log(logID, null, Integer.parseInt(timePlayed), Double.parseDouble(rating), review, platform, null);
 //		gUtil.updateLog(log);
 		

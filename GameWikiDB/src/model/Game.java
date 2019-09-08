@@ -42,7 +42,7 @@ public class Game {
 	private String esrb;
 	
 	@Column(name=GameDBConstants.Games.AVERAGE_RATING_COLUMN, unique=false, nullable=false)
-	private Double averageRating;
+	private double averageRating;
 	
 	@Column(name=GameDBConstants.Games.GENRE_COLUMN, unique=false, nullable=true)
 	private String genre;
@@ -56,10 +56,42 @@ public class Game {
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="game")
 	private Set<Log> logs = new HashSet<Log>();
 
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((gameName == null) ? 0 : gameName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Game))
+			return false;
+		Game other = (Game) obj;
+		if (gameName == null) {
+			if (other.gameName != null)
+				return false;
+		} else if (!gameName.equals(other.gameName))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return getGameName();
+	}
+
 	public Game() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 	public Set<Platform> getPlatforms() {
 		return platforms;

@@ -32,7 +32,7 @@ public class PlatformDao implements IDao<Platform>{
 		Transaction transaction = session.beginTransaction();
 		Platform platform = (Platform)session.get(Platform.class, idNum);
 		transaction.commit();
-		
+		session.close();
 		return Optional.ofNullable(platform);
 	}
 
@@ -43,6 +43,7 @@ public class PlatformDao implements IDao<Platform>{
 		Transaction transaction = session.beginTransaction();
 		ArrayList<Platform> platforms = new ArrayList<Platform>(session.createQuery("FROM " + GameDBConstants.Platforms.TABLE_NAME).list());
 		transaction.commit();
+		session.close();
 		return platforms;
 	}
 

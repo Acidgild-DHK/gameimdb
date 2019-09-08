@@ -22,6 +22,12 @@ public class Platform{
 	String name;
 
 	
+	
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	public Platform() {
 		super();
 		// TODO Auto-generated constructor stub
