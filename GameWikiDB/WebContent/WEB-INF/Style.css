@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background: #FFA500;
+}
+
+
+div {
+	margin:auto;
+  
+}
+table.log {
+	border:1px solid #1C6EA4;
+	text-align:center
+}
+table.log tbody td {
+	font-size:25px;
+	color:#FFA500;
+}
+h1 {
+  color: orange;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+</style>
+</head>
+<body>
+<style>
+body {
+  background:#0555FB; 
+}
+</style>
+
+
+</body>
+</html>

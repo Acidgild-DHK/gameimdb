@@ -2,49 +2,60 @@ package model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import dao.GameDBConstants;
+
+@Entity
+@Table(name="logs")
 public class Log implements Serializable {
-	String logID; 
-	String gameTitle;
+	
+	@Id
+	@Column(name=GameDBConstants.Logs.LOG_ID_COLUMN, unique = true, nullable = false)
+	String logID;
+	
+	@Column(name=GameDBConstants.Logs.TIME_PLAYED_COLUMN, unique = false, nullable = false)
 	int timePlayed;
+	
+	@Column(name=GameDBConstants.Logs.RATING_COLUMN, unique=false, nullable=false)
 	double rating;
+	
+	@Column(name=GameDBConstants.Logs.REVIEW_TEXT_COLUMN, unique=false, nullable = false)
 	String reviewText;
-	String platform;
-	String updateButton;
 	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="game_id")
+	Game game;
 	
-	public Log(String logID, String gameTitle, int timePlayed, double rating, String reviewText,
-			String platform, String updateButton) {
+	@ManyToOne
+	@JoinColumn(name="platform_id")
+	Platform platform;
+	
+	@ManyToOne
+	@JoinColumn(name="username")
+	User user;
+	
+	public Log() {
 		super();
-		this.logID = logID;
-		this.gameTitle = gameTitle;
-		this.timePlayed = timePlayed;
-		this.rating = rating;
-		this.reviewText = reviewText;
-		this.platform = platform;
-		this.updateButton = updateButton;
+		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
-	@Override
-	public String toString() {
-		return "Log [logID=" + logID + ", gameTitle=" + gameTitle + ", timePlayed=" + timePlayed + ", rating=" + rating
-				+ ", reviewText=" + reviewText + ", platform=" + platform + ", updateButton=" + updateButton + "]";
+	public void initializeLogID() {
+		this.logID = user.getUsername() + ":" + game.getGameID();
 	}
-
-
 
 	public String getLogID() {
 		return logID;
 	}
 	public void setLogID(String logID) {
 		this.logID = logID;
-	}
-	public String getGameTitle() {
-		return gameTitle;
-	}
-	public void setGameTitle(String gameTitle) {
-		this.gameTitle = gameTitle;
 	}
 	public int getTimePlayed() {
 		return timePlayed;
@@ -63,18 +74,6 @@ public class Log implements Serializable {
 	}
 	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
-	}
-	public String getPlatform() {
-		return platform;
-	}
-	public void setPlatform(String platform) {
-		this.platform = platform;
-	}
-	public String getUpdateButton() {
-		return updateButton;
-	}
-	public void setUpdateButton(String updateButton) {
-		this.updateButton = updateButton;
 	}
 
 }

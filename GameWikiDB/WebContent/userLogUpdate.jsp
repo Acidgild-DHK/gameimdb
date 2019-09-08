@@ -22,7 +22,7 @@
 		<tr>
 			<td> Game Title</td>
 			<td>
-				<input type="text" name="game" value="<%=log.getGameTitle() %>" disabled >
+<%-- 				<input type="text" name="game" value="<%=log.getGameTitle() %>" disabled > --%>
 			</td> 
 		</tr>
 		

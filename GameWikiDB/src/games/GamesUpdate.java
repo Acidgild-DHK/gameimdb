@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.DB;
-import db.DBConnection;
-import db.DBExceptions;
+//import dao.DB;
+//import dao.DBConnection;
+//import dao.DBExceptions;
 
 /**
  * Servlet implementation class GamesUpdate
  */
-@WebServlet("/GameUpdate")
+@WebServlet("/gameUpdate")
 public class GamesUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,7 +36,7 @@ public class GamesUpdate extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    DB db =null;
+//    DB db =null;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
@@ -54,30 +54,30 @@ public class GamesUpdate extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		db = new DB("app.properties");
-		Properties prop=new Properties();
-		String name = request.getParameter("name");
-		ArrayList<String> gameS= new ArrayList<String>();
-
-		String query = "INSERT INTO 'imdb_games'.'games' ('name') VALUES (?)";
-		Connection con;
-        Statement st=null;
-		try {
-			db.connect();
-			db.switchDatabase("imdb_games");
-			con = DBConnection.getDBInstance(prop);
-			st = con.createStatement();
-			ResultSet rs = st.executeQuery(query);
-			gameS.add(name);
-			request.setAttribute("gameS", gameS);
-			RequestDispatcher results = request.getRequestDispatcher("/GameUpdate.jsp");
-			results.forward(request, response);
-		} catch (DBExceptions | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+//		db = new DB("app.properties");
+//		Properties prop=new Properties();
+//		String name = request.getParameter("name");
+//		ArrayList<String> gameS= new ArrayList<String>();
+//
+//		String query = "INSERT INTO 'imdb_games'.'games' ('name') VALUES (?)";
+//		Connection con;
+//        Statement st=null;
+//		try {
+//			db.connect();
+//			db.switchDatabase("imdb_games");
+//			con = DBConnection.getDBInstance(prop);
+//			st = con.createStatement();
+//			ResultSet rs = st.executeQuery(query);
+//			gameS.add(name);
+//			request.setAttribute("gameS", gameS);
+//			RequestDispatcher results = request.getRequestDispatcher("/GameUpdate.jsp");
+//			results.forward(request, response);
+//		} catch (DBExceptions | SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

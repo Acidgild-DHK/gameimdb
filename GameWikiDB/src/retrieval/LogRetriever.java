@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.GameDBUtility;
 import model.Log;
 
 /**
@@ -27,14 +26,14 @@ public class LogRetriever extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    GameDBUtility gUtil;
+//    GameDBUtility gUtil;
     
     /**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		gUtil = GameDBUtility.getInstance();
+//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -49,13 +48,13 @@ public class LogRetriever extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String logID = request.getParameter("logID");
-		Log log = null;
-		if (logID != null) {
-			//retrieve log
-			log = gUtil.getLog(logID);
-			request.setAttribute("log", log);
-		}
+//		String logID = request.getParameter("logID");
+//		Log log = null;
+//		if (logID != null) {
+//			//retrieve log
+//			log = gUtil.getLog(logID);
+//			request.setAttribute("log", log);
+//		}
 	}
 
 	/**

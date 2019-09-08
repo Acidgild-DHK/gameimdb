@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.DB;
-import db.DBExceptions;
-import db.GameDBUtility;
+//import dao.DB;
+//import dao.DBExceptions;
+//import dao.GameDBUtility;
 import model.User;
 
 /**
@@ -30,13 +30,13 @@ public class UserProfileUpdateController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-   	GameDBUtility gUtil;
+//   	GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		gUtil = GameDBUtility.getInstance();
+//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -59,18 +59,18 @@ public class UserProfileUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		// TODO Auto-generated method stub
-		String gamerTag = request.getParameter("gamer_tag");
-		String email = request.getParameter("email");
-		String username = request.getSession().getAttribute("username").toString();
-		int age = Integer.parseInt(request.getParameter("age"));
-		String name = request.getParameter("name");
-		
-		User user = new User(username, gamerTag, email, name, age);
-
-		gUtil.updateUser(user);
-		request.getRequestDispatcher("/user_profile").forward(request, response);
+//		
+//		// TODO Auto-generated method stub
+//		String gamerTag = request.getParameter("gamer_tag");
+//		String email = request.getParameter("email");
+//		String username = request.getSession().getAttribute("username").toString();
+//		int age = Integer.parseInt(request.getParameter("age"));
+//		String name = request.getParameter("name");
+//		
+//		User user = new User(username, gamerTag, email, name, age);
+//
+//		gUtil.updateUser(user);
+//		request.getRequestDispatcher("/user_profile").forward(request, response);
 		
 //		HashMap<String, String> hm = new HashMap<String, String>();
 //		hm.put("gamertag", gamerTag);

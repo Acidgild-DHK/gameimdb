@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.GameDBUtility;
 import model.Log;
 
 /**
@@ -26,13 +25,13 @@ public class UserLogUpdateController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    GameDBUtility gUtil;
+//    GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		gUtil = GameDBUtility.getInstance();
+//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -61,8 +60,8 @@ public class UserLogUpdateController extends HttpServlet {
 		String review = request.getParameter("review");
 		String platform = request.getParameter("platform");
 		
-		Log log = new Log(logID, null, Integer.parseInt(timePlayed), Double.parseDouble(rating), review, platform, null);
-		gUtil.updateLog(log);
+//		Log log = new Log(logID, null, Integer.parseInt(timePlayed), Double.parseDouble(rating), review, platform, null);
+//		gUtil.updateLog(log);
 		
 		request.getRequestDispatcher("/user_logs").forward(request, response);
 	}
