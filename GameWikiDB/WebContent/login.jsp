@@ -45,9 +45,9 @@ if(st!=null ) {
 }
 
 %>
-
-<form align="center" action="LoginServ" method="post">
-<div style="text-align:center;"><table align="center" class="log" style width:50%">
+<div>
+<form  action="LoginServ" method="post">
+<table class="log" style width:50%">
 <tr><td>Username</td>
 <td><input type="text" name="username"></td></tr>
 
@@ -56,8 +56,8 @@ if(st!=null ) {
 
 
 </table>
-<input type="submit" value="Login" /></div>
-</form>
+<input type="submit" value="Login" />
+</form></div>
 
 </body>
 </html>

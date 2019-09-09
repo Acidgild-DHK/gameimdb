@@ -57,8 +57,9 @@ if(st!=null ) {
 Enter Information below to create an account
 
 </h1>
-<form align="center" action="RegVerify" method="post">
-<table align="center" >
+<div>
+<form action="RegVerify" method="post">
+<table>
 <tr>
 <td>Username</td>
 <td><input type="text" name="username"></td>
@@ -89,5 +90,6 @@ Enter Information below to create an account
 </table>
 <input type="submit" value="Submit">
 </form>
+</div>
 </body>
 </html>
