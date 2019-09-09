@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login</title>
 </head>
 <body>
+<style type="text/css">
+<%@include file="WEB-INF/Style.css"%>
+</style>
 <%
 String st=(String)request.getSession().getAttribute("error");
 Boolean log=false;
@@ -40,6 +43,7 @@ if(st!=null ) {
 }
 
 %>
+<div>
 <form action="LoginServ" method="post">
 <table style width:50%">
 <tr><td>Username</td>
@@ -52,5 +56,6 @@ if(st!=null ) {
 </table>
 <input type="submit" value="Login" />
 </form>
+</div>
 </body>
 </html>

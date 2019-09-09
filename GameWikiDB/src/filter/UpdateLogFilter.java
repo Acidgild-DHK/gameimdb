@@ -12,16 +12,17 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+
 /**
- * Servlet Filter implementation class AddLogFilter
+ * Servlet Filter implementation class UpdateLogFilter
  */
-@WebFilter("/user_add_log")
-public class AddLogFilter implements Filter {
+@WebFilter("/user_log_update")
+public class UpdateLogFilter implements Filter {
 	int MAX_TEXT=65535;
     /**
      * Default constructor. 
      */
-    public AddLogFilter() {
+    public UpdateLogFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -39,28 +40,22 @@ public class AddLogFilter implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		String username = ((HttpServletRequest) request).getSession().getAttribute("username").toString();
-		String gameTitle = request.getParameter("game");
 		String timePlayed = request.getParameter("time");
 		String rating = request.getParameter("rating");
 		String review = request.getParameter("review");
 		String platform = request.getParameter("platform");
-		
-		if (gameTitle == null || gameTitle.isBlank()) {
-			request.setAttribute("error", "Game Title cannot be blank");
-			RequestDispatcher rd=request.getRequestDispatcher("userAddLog.jsp");
-			rd.forward(request, response);
-		}
+	
 		try {
 			Integer.parseInt(timePlayed);
 		}
 		catch(NumberFormatException e) {
 			request.setAttribute("error", "Time played must be an integer number");
-			RequestDispatcher rd=request.getRequestDispatcher("userAddLog.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("userLogUpdate.jsp");
 			rd.forward(request, response);
 		}
 		if(review.getBytes().length>MAX_TEXT) {	
 			request.setAttribute("error", "Review text is too long");
-			RequestDispatcher rd=request.getRequestDispatcher("userAddLog.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("userLogUpdate.jsp");
 			rd.forward(request, response);
 		}
 

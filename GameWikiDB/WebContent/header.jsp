@@ -26,17 +26,13 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #ffa500;
+  background-color: #80A2E7;
 }
 </style>
 <ul>
   <li><a class ="active" href="index.jsp">Home</a></li>
-<<<<<<< HEAD
-  
-=======
->>>>>>> origin/develop
  <li> <a href="login.jsp">Login</a></li>
-  <li><a href="games.jsp">Games</a></li>
+  <li><a href="games">Games</a></li>
     <li><a href="register1.jsp">Register</a></li>
 </ul>
 
