@@ -1,7 +1,6 @@
 package filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,8 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
-import db.GameDBUtility;
-import model.Log;
 
 /**
  * Servlet Filter implementation class UpdateLogFilter
@@ -22,7 +19,6 @@ import model.Log;
 @WebFilter("/user_log_update")
 public class UpdateLogFilter implements Filter {
 	int MAX_TEXT=65535;
-	GameDBUtility gUtil;
     /**
      * Default constructor. 
      */
@@ -48,11 +44,6 @@ public class UpdateLogFilter implements Filter {
 		String rating = request.getParameter("rating");
 		String review = request.getParameter("review");
 		String platform = request.getParameter("platform");
-		
-		ArrayList<Log> rec=gUtil.getLogTable(username, "<form action='userLogUpdate.jsp'>"
-				+ "<input type='hidden' value='{{logID}}' name='logID'>"
-				+ "<input type='submit' value='update'>"
-				+ "</form>");
 	
 		try {
 			Integer.parseInt(timePlayed);
@@ -76,7 +67,6 @@ public class UpdateLogFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		gUtil=GameDBUtility.getInstance();
 		// TODO Auto-generated method stub
 	}
 
