@@ -68,6 +68,7 @@ public class GamesUpdateController extends HttpServlet {
 		Game game = gameServ.get(Integer.parseInt(gameId));
 		System.out.println("updating " + game);
 		game.setPublisher(publisher);
+		System.out.println(Date.valueOf(release_date));
 		game.setReleaseDate(Date.valueOf(release_date));
 		game.setDescription(description);
 		game.setEsrb(esrb);

@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -96,11 +97,13 @@ public class Game {
 	
 	public void calculate() {
 		this.userCount = logs.size();
+		if (userCount > 0) {
 		this.averageRating = 0;
 		for (Log log : logs) {
 			this.averageRating += log.getRating();
 		}
 		this.averageRating = this.averageRating / userCount;
+		}
 	}
 
 	public Set<Platform> getPlatforms() {
@@ -141,6 +144,11 @@ public class Game {
 
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
+	}
+	
+	public String getReleaseDateString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(releaseDate);
 	}
 
 	public Date getReleaseDate() {
