@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,7 +35,7 @@ public class Game {
 	private String publisher;
 	
 	@Column(name=GameDBConstants.Games.RELEASE_DATE_COLUMN, unique=false, nullable=true)
-	private Date release_date;
+	private Date releaseDate;
 	
 	@Column(name=GameDBConstants.Games.DESCRIPTION_COLUMN, unique=false, nullable=true)
 	private String description;
@@ -51,6 +53,7 @@ public class Game {
 	private int userCount;
 
 	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="games_platforms", joinColumns= {@JoinColumn(name="game_id")}, inverseJoinColumns= {@JoinColumn(name="platform_id")})
 	private Set<Platform> platforms = new HashSet<Platform>();
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="game")
@@ -91,7 +94,14 @@ public class Game {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	public void calculate() {
+		this.userCount = logs.size();
+		this.averageRating = 0;
+		for (Log log : logs) {
+			this.averageRating += log.getRating();
+		}
+		this.averageRating = this.averageRating / userCount;
+	}
 
 	public Set<Platform> getPlatforms() {
 		return platforms;
@@ -133,12 +143,16 @@ public class Game {
 		this.publisher = publisher;
 	}
 
-	public Date getRelease_date() {
-		return release_date;
+	public Date getReleaseDate() {
+		return releaseDate;
 	}
 
-	public void setRelease_date(Date release_date) {
-		this.release_date = release_date;
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public void setAverageRating(double averageRating) {
+		this.averageRating = averageRating;
 	}
 
 	public String getDescription() {

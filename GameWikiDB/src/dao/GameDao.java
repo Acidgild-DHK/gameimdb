@@ -28,7 +28,7 @@ public class GameDao implements IDao<Game> {
 		// TODO Auto-generated method stub
 		Session session = factory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		Game game = (Game)session.get(Game.class, id);
+		Game game = (Game)session.get(Game.class, Integer.parseInt(id));
 		transaction.commit();
 		session.close();
 		return Optional.ofNullable(game);

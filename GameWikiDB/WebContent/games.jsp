@@ -26,7 +26,7 @@
 	 <display:table class="log" name="sessionScope.gameTable" pagesize="5" export="false" sort="list" decorator="model.GameWikiDecorator">
 		  <display:column property="gameName" title="Game Title" sortable="true" headerClass="sortable" />
 		  <display:column property="publisher" title="Publisher" sortable="true" headerClass="sortable" />
-		  <display:column property="release_date" title="Release Date" sortable="true" headerClass="sortable" />
+		  <display:column property="releaseDate" title="Release Date" sortable="true" headerClass="sortable" />
 		  <display:column property="description" title="Description"  sortable="true" headerClass="sortable" />
 		  <display:column property="esrb" title="ESRB Rating" sortable="true" headerClass="sortable" />
 		  <display:column property="averageRating" title="Average Rating" sortable="true" headerClass="sortable" />

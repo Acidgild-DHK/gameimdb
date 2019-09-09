@@ -60,7 +60,12 @@ public class UserLogsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		String username = session.getAttribute("username").toString();
+		Object userObj = session.getAttribute("username");
+		if (userObj == null) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("login.jsp");
+			dispatch.forward(request, response);
+		}
+		String username = userObj.toString();
 		
 		LogService logServ = new LogService(username);
 		

@@ -50,6 +50,7 @@ public class GameService {
 	}
 	
 	public void update(Game game) {
+		game.calculate();
 		gameDao.update(game);
 	}
 	
