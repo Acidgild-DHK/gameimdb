@@ -4,9 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-<%@include file="WEB-INF/Style.css"%>
-</style>
 <meta charset="ISO-8859-1">
 <title>User Profile</title>
 <% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
@@ -16,7 +13,7 @@
 	User user = (User) request.getAttribute("user");
 	
 	%>
-<div>
+
 	<table>
 		<tr>
 			<td>UserName</td>
@@ -44,6 +41,6 @@
 	</form>	
 	<form action="" method="get">
 		<input type="submit" value="Change Password">
-	</form></div>
+	</form>
 </body>
 </html>

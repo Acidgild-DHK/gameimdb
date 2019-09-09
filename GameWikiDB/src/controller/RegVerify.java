@@ -1,9 +1,13 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.Properties;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,33 +15,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import dao.DB;
-//import dao.DBExceptions;
-//import dao.GameDBUtility;
 import model.User;
 import service.UserService;
 
 /**
- * Servlet implementation class UserProfileUpdate
+ * Servlet implementation class RegVerify
  */
-@WebServlet("/user_update")
-public class UserProfileUpdateController extends HttpServlet {
+@WebServlet("/RegVerify")
+public class RegVerify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileUpdateController() {
+    public RegVerify() {
         super();
         // TODO Auto-generated constructor stub
     }
-//   	GameDBUtility gUtil;
+
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -59,25 +59,44 @@ public class UserProfileUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO database again
+		String username=request.getParameter("username").trim();
+		String sname=request.getParameter("name").trim();
+		String pass=request.getParameter("password").trim();
+		String realName=request.getParameter("flname").trim();
+		String age=request.getParameter("age").trim();
 		
-//		
-//		// TODO Auto-generated method stub
-		String gamerTag = request.getParameter("gamer_tag");
-		String email = request.getParameter("email");
-		String username = request.getSession().getAttribute("username").toString();
-		int age = Integer.parseInt(request.getParameter("age"));
-		String name = request.getParameter("name");
-
+		String question = "";
+		String answer = "";
+		
+		Properties prop=new Properties();
+		
 		UserService userServ = new UserService(username);
 		User user = userServ.getUser();
-		user.setAge(age);
-		user.setEmail(email);
-		user.setGamerTag(gamerTag);
-		user.setName(name);
-		
-		userServ.update();
-
-		request.getRequestDispatcher("/user_profile").forward(request, response);
+			
+		if (user != null) {
+			request.setAttribute("error", "already exists");
+			RequestDispatcher rd=request.getRequestDispatcher("register1.jsp");
+			rd.forward(request, response);
+		} else {
+			user = new User();
+			user.setUsername(username);
+			user.setAge(Integer.valueOf(age));
+			user.setName(realName);
+			user.setEmail("");
+			user.setPassword(pass);
+			user.setGamerTag(sname);
+			user.setQuestion(question);
+			user.setAnswer(answer);
+			
+			userServ.save(user);
+			request.getSession().setAttribute("username",user);
+			request.getSession().setAttribute("login", true);
+			response.setContentType("text/html");
+			RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
+			rd.include(request, response);
+		}
 	}
+
 
 }

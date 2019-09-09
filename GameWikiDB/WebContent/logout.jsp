@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<style type="text/css">
-<%@include file="WEB-INF/Style.css"%>
-</style>
 <%
 
 request.getSession().invalidate();

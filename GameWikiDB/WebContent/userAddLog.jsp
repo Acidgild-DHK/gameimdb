@@ -3,22 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-<%@include file="WEB-INF/Style.css"%>
-</style>
 <meta charset="ISO-8859-1">
 <title>User Log</title>
-<% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); 
-String err=(String)request.getAttribute("error");
-if(err!=null && !err.isEmpty()) {
-	out.println("<h1>"+ err+"</h1>");
-}
-%>
+<% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
 </head>
 <body>
-<div>
-	<form align="center" action="user_add_log" method="post">
-		<table align="center">
+	<form action="user_add_log" method="post">
+		<table style="width:50%">
 		<tr>
 			<td> Game Title</td>
 			<td>
@@ -69,6 +60,5 @@ if(err!=null && !err.isEmpty()) {
 		</table>
 		<input type="submit" value="add">
 	</form>
-	</div>
 </body>
 </html>

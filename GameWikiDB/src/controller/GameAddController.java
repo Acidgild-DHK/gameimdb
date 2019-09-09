@@ -1,9 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
+import java.sql.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,33 +10,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.*;
-import model.User;
-import service.UserService;
+import model.Game;
+import service.GameService;
 
 /**
- * Servlet implementation class UserProfile
+ * Servlet implementation class GameAddController
  */
-@WebServlet("/user_profile")
-public class UserProfileController extends HttpServlet {
+@WebServlet("/game_add")
+public class GameAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileController() {
+    public GameAddController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-//    GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
-		
 	}
 
 	/**
@@ -52,15 +46,8 @@ public class UserProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// TODO Auto-generated method stub
-		String username = request.getSession().getAttribute("username").toString();
-		UserService userServ = new UserService(username);
-		User user = userServ.getUser();
-		
-		request.setAttribute("user", user);
-		request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
-		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -68,8 +55,25 @@ public class UserProfileController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		GameService gameServ = new GameService();
+		String gameTitle = request.getParameter("game_title");
+		String publisher = request.getParameter("publisher");
+		String releaseDate = request.getParameter("release_date");
+		String description = request.getParameter("description");
+		String esrb = request.getParameter("esrb");
+		String genre = request.getParameter("genre");
+		
+		Game game = new Game();
+		game.setGameName(gameTitle);
+		game.setPublisher(publisher);
+		game.setReleaseDate(Date.valueOf(releaseDate));
+		game.setDescription(description);
+		game.setEsrb(esrb);
+		game.setGenre(genre);
+		
+		System.out.println(gameServ.save(game));
+		
+		response.sendRedirect("games");
 	}
 
 }
-

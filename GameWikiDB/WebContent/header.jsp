@@ -9,7 +9,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #38006b;
+  background-color: #333;
 }
 
 li {
@@ -26,13 +26,13 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #80A2E7;
+  background-color: #ffa500;
 }
 </style>
 <ul>
   <li><a class ="active" href="index.jsp">Home</a></li>
  <li> <a href="login.jsp">Login</a></li>
-  <li><a href="games.jsp">Games</a></li>
+  <li><a href="games">Games</a></li>
     <li><a href="register1.jsp">Register</a></li>
 </ul>
 

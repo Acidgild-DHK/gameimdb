@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<style type="text/css">
-<%@include file="WEB-INF/Style.css"%>
-</style>
-
 <%
 String st=(String)request.getSession().getAttribute("error");
 Boolean log=false;
@@ -45,9 +40,8 @@ if(st!=null ) {
 }
 
 %>
-<div>
-<form  action="LoginServ" method="post">
-<table class="log" style width:50%">
+<form action="LoginServ" method="post">
+<table style width:50%">
 <tr><td>Username</td>
 <td><input type="text" name="username"></td></tr>
 
@@ -57,7 +51,6 @@ if(st!=null ) {
 
 </table>
 <input type="submit" value="Login" />
-</form></div>
-
+</form>
 </body>
 </html>

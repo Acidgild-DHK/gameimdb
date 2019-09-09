@@ -4,21 +4,23 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet Filter implementation class AddLogFilter
+ * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/add_log")
-public class AddLogFilter implements Filter {
+@WebFilter("/LoginServ")
+public class LoginFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public AddLogFilter() {
+    public LoginFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -33,11 +35,28 @@ public class AddLogFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
-
+		// TODO Verify other fields besides password
+		String uname=request.getParameter("username");
+		String pass=request.getParameter("password");
+		if(uname.isEmpty()||pass.isEmpty()) {
+			request.setAttribute("error", "empty");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+		if(pass==null) {
+			chain.doFilter(request, response);
+		}
 		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		HttpServletResponse rs=(HttpServletResponse) response;
+		if(pass.length()>25) {
+			request.setAttribute("error", "Password too long");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+		else {
+			chain.doFilter(request, response);
+		}
+		
 	}
 
 	/**
