@@ -16,65 +16,59 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `game`
+-- Table structure for table `games`
 --
 
-DROP TABLE IF EXISTS `game`;
+DROP TABLE IF EXISTS `games`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `game` (
+CREATE TABLE `games` (
   `game_id` int(11) NOT NULL AUTO_INCREMENT,
-  `game_name` varchar(45) NOT NULL,
-  `publisher` varchar(45) DEFAULT NULL,
-  `release_date` date DEFAULT NULL,
-  `description` text,
-  `ESRB` varchar(45) DEFAULT NULL,
-  `average_rating` decimal(9,1) NOT NULL,
-  `genre` varchar(45) DEFAULT NULL,
+  `average_rating` double NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `ESRB` varchar(255) DEFAULT NULL,
+  `game_name` varchar(255) NOT NULL,
+  `genre` varchar(255) DEFAULT NULL,
+  `publisher` varchar(255) DEFAULT NULL,
+  `release_date` datetime DEFAULT NULL,
   `user_count` int(11) NOT NULL,
-  PRIMARY KEY (`game_id`),
-  UNIQUE KEY `game_id_UNIQUE` (`game_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`game_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `game`
+-- Dumping data for table `games`
 --
 
-LOCK TABLES `game` WRITE;
-/*!40000 ALTER TABLE `game` DISABLE KEYS */;
-INSERT INTO `game` VALUES (1,'Assassin\'s Creed 24','Ubisoft','2019-01-01','Best Game 2019','E',4.9,'Action',2),(2,'FauxGame','Madeup','2018-01-01','Imaginary-not a real game','M',2.0,'RPG',1);
-/*!40000 ALTER TABLE `game` ENABLE KEYS */;
+LOCK TABLES `games` WRITE;
+/*!40000 ALTER TABLE `games` DISABLE KEYS */;
+INSERT INTO `games` VALUES (1,3,'blah','M','Some game','FPS','Some publisher','2019-10-14 00:00:00',1),(2,1,NULL,NULL,'other game',NULL,NULL,NULL,1),(3,1,NULL,NULL,'Assassin\'s Creed Infinity',NULL,NULL,NULL,1),(4,0,'So not real that it seems real.','M','Not Real','RPG','Not Real Games','2019-10-12 00:00:00',0),(5,0,'Game sequel before the first game.','E','Some Game2','FPS','Games Games','2010-01-20 00:00:00',0),(6,1,'blah blah blah','E','blah','RPG','Not Real Games','2019-10-13 00:00:00',1);
+/*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `game_platform`
+-- Table structure for table `games_platforms`
 --
 
-DROP TABLE IF EXISTS `game_platform`;
+DROP TABLE IF EXISTS `games_platforms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `game_platform` (
-  `game_platform_id` varchar(45) NOT NULL,
+CREATE TABLE `games_platforms` (
   `game_id` int(11) NOT NULL,
   `platform_id` int(11) NOT NULL,
-  PRIMARY KEY (`game_platform_id`),
-  UNIQUE KEY `game_platform_id_UNIQUE` (`game_platform_id`),
-  KEY `game_id_ref_idx` (`game_id`),
-  KEY `platform_id_ref_idx` (`platform_id`),
-  CONSTRAINT `game_id_ref2` FOREIGN KEY (`game_id`) REFERENCES `game` (`game_id`),
-  CONSTRAINT `platform_id_ref` FOREIGN KEY (`platform_id`) REFERENCES `platforms` (`platform_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`game_id`,`platform_id`),
+  KEY `FK4x2bpl7ph6rumr0n25gjslps8` (`platform_id`) /*!80000 INVISIBLE */
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `game_platform`
+-- Dumping data for table `games_platforms`
 --
 
-LOCK TABLES `game_platform` WRITE;
-/*!40000 ALTER TABLE `game_platform` DISABLE KEYS */;
-INSERT INTO `game_platform` VALUES ('1:2',1,2);
-/*!40000 ALTER TABLE `game_platform` ENABLE KEYS */;
+LOCK TABLES `games_platforms` WRITE;
+/*!40000 ALTER TABLE `games_platforms` DISABLE KEYS */;
+INSERT INTO `games_platforms` VALUES (1,1),(2,2),(3,2),(6,1);
+/*!40000 ALTER TABLE `games_platforms` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -86,18 +80,18 @@ DROP TABLE IF EXISTS `logs`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `logs` (
   `log_id` varchar(45) NOT NULL,
-  `username` varchar(30) NOT NULL,
+  `username` varchar(45) NOT NULL,
   `game_id` int(11) NOT NULL,
-  `time_played` int(11) DEFAULT NULL,
-  `rating` decimal(9,1) NOT NULL,
+  `platform_id` int(11) NOT NULL,
+  `time_played` int(11) NOT NULL,
+  `rating` decimal(10,0) NOT NULL,
   `review_text` text,
-  `platform_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`log_id`),
-  UNIQUE KEY `log_id_UNIQUE` (`log_id`),
-  KEY `user_id_ref_idx` (`username`),
-  KEY `game_id_ref_idx` (`game_id`),
-  CONSTRAINT `game_id_ref` FOREIGN KEY (`game_id`) REFERENCES `game` (`game_id`),
-  CONSTRAINT `user_id_ref` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+  KEY `LOG_USERNAME_idx` (`username`),
+  KEY `FK_LOG_GAME_idx` (`game_id`),
+  KEY `FK_LOG_PLATFORM_idx` (`platform_id`),
+  CONSTRAINT `FK_LOG_PLATFORM` FOREIGN KEY (`platform_id`) REFERENCES `platforms` (`platform_id`),
+  CONSTRAINT `FK_LOG_USER` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -107,7 +101,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES ('dcolville:1','dcolville',1,54,4.3,'best game',1),('dcolville:2','dcolville',2,20,2.0,'alright',1),('kurwhibble:1','kurwhibble',1,53,5.4,'yeah',1);
+INSERT INTO `logs` VALUES ('kurwhibble:1','kurwhibble',1,1,24,3,'some game...'),('kurwhibble:2','kurwhibble',2,1,54,1,'Hello'),('kurwhibble:3','kurwhibble',3,1,153,1,'Best Game Ever'),('kurwhibble:6','kurwhibble',6,1,24,1,'blah blah');
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +117,8 @@ CREATE TABLE `platforms` (
   `platform_name` varchar(45) NOT NULL,
   PRIMARY KEY (`platform_id`),
   UNIQUE KEY `platform_id_UNIQUE` (`platform_id`),
-  UNIQUE KEY `name_UNIQUE` (`platform_name`)
+  UNIQUE KEY `name_UNIQUE` (`platform_name`),
+  UNIQUE KEY `UK_22h7knjjouhcr8xa2n3i60mhp` (`platform_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -145,16 +140,15 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `username` varchar(30) NOT NULL,
-  `password` varchar(25) NOT NULL,
-  `password2` varchar(25) DEFAULT NULL,
-  `password3` varchar(25) DEFAULT NULL,
-  `gamertag` varchar(30) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `question` varchar(45) DEFAULT NULL,
-  `answer` varchar(45) DEFAULT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varbinary(255) NOT NULL,
+  `question` varchar(45) NOT NULL,
+  `answer` varbinary(255) NOT NULL,
+  `email` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `gamertag` varchar(45) NOT NULL,
   `age` int(11) NOT NULL,
+  `my_key` varchar(45) NOT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -166,7 +160,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('dcolville','jjjj','uguiguk',NULL,'dc','dc@gmail.com','Who?','me','dan',23),('kar','1234',NULL,NULL,'kar',NULL,NULL,NULL,'hello',13),('kurwhibble','123','kjl',NULL,'it','kt@gmail.com','What?','huh','karissa',26);
+INSERT INTO `users` VALUES ('karissa',_binary '•w/\ÁÑg\∆\–Û*Û9Ñ“Æy','',_binary '\¬\ƒE\‚v\√W\’˙`ı¨Üı\ÿ','','kar','kar2',21,'SecretKey'),('karissa2',_binary '•w/\ÁÑg\∆\–Û*Û9Ñ“Æy','',_binary '\¬\ƒE\‚v\√W\’˙`ı¨Üı\ÿ','','sa','kar',12,'SecretKey'),('kurwhibble',_binary ';U\Îr,ç˘≥\›ˆ)','what',_binary ';U\Îr,ç˘≥\›ˆ)','someemail@email.com','kari','kurwhibble',26,'SecretKey');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -179,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-03 19:19:44
+-- Dump completed on 2019-09-09 15:55:33

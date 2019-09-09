@@ -13,20 +13,14 @@ import model.Game;
 import model.User;
 
 public class GameDao implements IDao<Game> {
-
-	private static SessionFactory factory;
 	
 	public GameDao() {
-		// 1. configuring hibernate
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
-
-        // 2. create sessionfactory
-        factory = configuration.buildSessionFactory();
+        
 	}
 	@Override
 	public Optional<Game> get(String id) {
 		// TODO Auto-generated method stub
-		Session session = factory.getCurrentSession();
+		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		Game game = (Game)session.get(Game.class, Integer.parseInt(id));
 		transaction.commit();
@@ -37,7 +31,7 @@ public class GameDao implements IDao<Game> {
 	@Override
 	public Collection<Game> getAll() {
 		// TODO Auto-generated method stub
-		Session session = factory.getCurrentSession();
+		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		ArrayList<Game> games = new ArrayList<Game>(session.createQuery("FROM " + Game.class.getName()).list());
 		transaction.commit();
@@ -48,7 +42,7 @@ public class GameDao implements IDao<Game> {
 	@Override
 	public String save(Game t) {
 		// TODO Auto-generated method stub
-		Session session = factory.getCurrentSession();
+		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		String id = session.save(t).toString();
 		transaction.commit();
@@ -59,7 +53,7 @@ public class GameDao implements IDao<Game> {
 	@Override
 	public void update(Game t) {
 		// TODO Auto-generated method stub
-		Session session = factory.getCurrentSession();
+		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(t);
 		transaction.commit();
@@ -69,7 +63,7 @@ public class GameDao implements IDao<Game> {
 	@Override
 	public void delete(Game t) {
 		// TODO Auto-generated method stub
-		Session session = factory.getCurrentSession();
+		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(t);
 		transaction.commit();
