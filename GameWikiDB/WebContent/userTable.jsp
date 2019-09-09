@@ -8,11 +8,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+<%@include file="WEB-INF/Style.css"%>
+</style>
 <meta charset="ISO-8859-1">
 <title>LogTable</title>
 <% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
 </head>
 <body>
+<div>
 	<form action="userAddLog.jsp" method="post">
 		<input type="submit" value="Add Log">
 	</form>
@@ -24,5 +28,6 @@
 		  <display:column property="platform" title="Platform" sortable="true" headerClass="sortable" />
 		  <display:column property="logID" title="Action" sortable="false" headerClass="sortable" />
 	 </display:table>
+	 </div>
 </body>
 </html>

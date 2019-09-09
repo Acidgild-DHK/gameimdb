@@ -3,24 +3,30 @@
 <head>
 <style>
 body {
-  background: #FFA500;
+  background: #67E483;
+  text-align:center;
 }
 
 
 div {
 	margin:auto;
-  
+  text-align:center;
+  display:table
+}
+form {
+	display:inline-block;
+
 }
 table.log {
 	border:1px solid #1C6EA4;
-	text-align:center
+	text-align:center;
 }
 table.log tbody td {
 	font-size:25px;
-	color:#FFA500;
+	color:#251533;
 }
 h1 {
-  color: orange;
+  color: #251533;
   text-align: center;
 }
 
@@ -33,7 +39,7 @@ p {
 <body>
 <style>
 body {
-  background:#0555FB; 
+  background:#67E483; 
 }
 </style>
 
