@@ -3,24 +3,30 @@
 <head>
 <style>
 body {
-  background: #FFA500;
+  background: #67E483;
+  text-align:center;
 }
 
 
 div {
 	margin:auto;
-  
+  text-align:center;
+  display:table
+}
+form {
+	display:inline-block;
+
 }
 table.log {
 	border:1px solid #1C6EA4;
-	text-align:center
+	text-align:center;
 }
 table.log tbody td {
 	font-size:25px;
-	color:#FFA500;
+	color:#251533;
 }
 h1 {
-  color: orange;
+  color: #251533;
   text-align: center;
 }
 
@@ -28,12 +34,64 @@ p {
   font-family: verdana;
   font-size: 20px;
 }
+
+table {
+	border: 1px solid #666;
+	width: 80%;
+	margin: 20px 0 20px 0 !important;
+}
+th,td {
+	padding: 2px 4px 2px 4px !important;
+	text-align: left;
+	vertical-align: top;
+}
+thead tr {
+	background-color: #999999;
+}
+th.sorted {
+	background-color: #CCCCCC;
+}
+th a,th a:visited {
+	color: black;
+}
+th a:hover {
+	text-decoration: underline;
+	color: black;
+}
+th.sorted a,th.sortable a {
+	background-position: right;
+	display: block;
+	width: 100%;
+}
+tr.odd {
+	background-color: #fff
+}
+
+tr.tableRowEven,tr.even {
+	background-color: #CCCCCC
+}
+.group-1 {
+    font-weight:bold;
+    padding-bottom:10px;
+    border-top:1px solid black;
+}
+.group-2 {
+    font-style:italic;
+    border-top: 1px solid black;
+
+}
+.grouped-table tr.even {
+    background-color: #fff;
+}
+.grouped-table tr.odd {
+    background-color: #fff;
+}
 </style>
 </head>
 <body>
 <style>
 body {
-  background:#0555FB; 
+  background:#67E483; 
 }
 </style>
 
