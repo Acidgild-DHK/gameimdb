@@ -1,4 +1,4 @@
-package games;
+package controller;
 
 
 import java.io.IOException;

@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,33 +10,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Log;
-import model.Platform;
-import service.LogService;
-import service.PlatformService;
+import model.Game;
+import service.GameService;
 
 /**
- * Servlet implementation class UserLogUpdateController
+ * Servlet implementation class GameAddController
  */
-@WebServlet("/user_log_update")
-public class UserLogUpdateController extends HttpServlet {
+@WebServlet("/game_add")
+public class GameAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLogUpdateController() {
+    public GameAddController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-//    GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -57,27 +55,25 @@ public class UserLogUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = request.getSession().getAttribute("username").toString();
-		String logID = request.getParameter("logID");
-		String timePlayed = request.getParameter("time");
-		String rating = request.getParameter("rating");
-		String review = request.getParameter("review");
-		String platformId = request.getParameter("platform");
+		GameService gameServ = new GameService();
+		String gameTitle = request.getParameter("game_title");
+		String publisher = request.getParameter("publisher");
+		String releaseDate = request.getParameter("release_date");
+		String description = request.getParameter("description");
+		String esrb = request.getParameter("esrb");
+		String genre = request.getParameter("genre");
 		
-		PlatformService platformServ = new PlatformService();
-		Platform platform = platformServ.getPlatform(Integer.parseInt(platformId));
-		LogService logServ = new LogService(username);
-		Log log = logServ.get(logID);
-		log.setTimePlayed(Integer.parseInt(timePlayed));
-		log.setRating(Double.parseDouble(rating));
-		log.setReviewText(review);
-		log.setPlatform(platform);
+		Game game = new Game();
+		game.setGameName(gameTitle);
+		game.setPublisher(publisher);
+		game.setReleaseDate(Date.valueOf(releaseDate));
+		game.setDescription(description);
+		game.setEsrb(esrb);
+		game.setGenre(genre);
 		
-		logServ.updateLog(log);
-//		Log log = new Log(logID, null, Integer.parseInt(timePlayed), Double.parseDouble(rating), review, platform, null);
-//		gUtil.updateLog(log);
+		System.out.println(gameServ.save(game));
 		
-		request.getRequestDispatcher("/user_logs").forward(request, response);
+		response.sendRedirect("games");
 	}
 
 }

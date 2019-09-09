@@ -20,7 +20,7 @@
 <!-- <li> <a href="GameTable.jsp">Table of Games</a></li> -->
 <!-- <li> <a href="GameUpdate.jsp">Add a Game</a></li> -->
 <!-- </ul> -->
-	<form action="gameAddLog.jsp" method="post">
+	<form action="gameAdd.jsp" method="post">
 		<input type="submit" value="Add Game">
 	</form>
 	 <display:table class="log" name="sessionScope.gameTable" pagesize="5" export="false" sort="list" decorator="model.GameWikiDecorator">

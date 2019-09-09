@@ -1,4 +1,4 @@
-package retrieval;
+package service;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Game;
-import service.GameService;
 
 /**
  * Servlet implementation class GameRetriever
  */
 @WebServlet("/game_retriever")
-public class GameRetriever extends HttpServlet {
+public class GameRetrieverService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GameRetriever() {
+    public GameRetrieverService() {
         super();
         // TODO Auto-generated constructor stub
     }

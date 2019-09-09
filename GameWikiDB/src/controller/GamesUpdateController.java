@@ -75,7 +75,7 @@ public class GamesUpdateController extends HttpServlet {
 		
 		gameServ.update(game);
 		
-		request.getRequestDispatcher("/games").forward(request, response);
+		response.sendRedirect("games");
 	}
 
 }

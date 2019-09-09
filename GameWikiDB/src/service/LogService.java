@@ -36,7 +36,8 @@ public class LogService {
 		userServ.update(user);
 	}
 	
-	public void updateLog() {
+	public void updateLog(Log log) {
+		log.getGame().calculate();
 		userServ.update();
 	}
 }
