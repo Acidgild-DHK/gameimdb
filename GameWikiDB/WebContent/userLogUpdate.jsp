@@ -16,6 +16,11 @@
 		request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response);
 		request.getRequestDispatcher("/log_retriever").include(request, response);
 		Log log = (Log) request.getAttribute("log");
+		String err=(String)request.getAttribute("error");
+		if(err!=null && !err.isEmpty()) {
+			out.println("<h1>"+ err+"</h1>");
+		}
+		
 	%>
 	<div>
 	<form action="user_log_update" method="post">
