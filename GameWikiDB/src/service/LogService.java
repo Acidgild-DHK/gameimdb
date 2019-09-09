@@ -31,11 +31,13 @@ public class LogService {
 		log.setUser(user);
 		log.initializeLogID();
 		log.getGame().getLogs().add(log);
+		log.getGame().calculate();
 		user.getLogs().add(log);
 		userServ.update(user);
 	}
 	
-	public void updateLog() {
+	public void updateLog(Log log) {
+		log.getGame().calculate();
 		userServ.update();
 	}
 }

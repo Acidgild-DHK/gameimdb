@@ -1,11 +1,14 @@
 package controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -15,36 +18,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
-import org.apache.commons.beanutils.RowSetDynaClass;
+import model.User;
+import service.UserService;
 
-import dao.*;
-import model.Log;
-import service.LogService;
 /**
- * Servlet implementation class UserLogs
+ * Servlet implementation class LoginServ
  */
-@WebServlet("/user_logs")
-public class UserLogsController extends HttpServlet {
+@WebServlet("/LoginServ")
+public class LoginServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLogsController() {
+    public LoginServ() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
-//    GameDBUtility gUtil;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -59,30 +56,37 @@ public class UserLogsController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		Object userObj = session.getAttribute("username");
-		if (userObj == null) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("login.jsp");
-			dispatch.forward(request, response);
-		}
-		String username = userObj.toString();
-		
-		LogService logServ = new LogService(username);
-		
-		ArrayList<Log> logs = logServ.getAll();
-
-		session.setAttribute("logTable", logs);
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("/userTable.jsp");
-		dispatch.forward(request, response);
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// TODO add database connectivity in if statement checking
+		String uname=request.getParameter("username");
+		String pass=request.getParameter("password");
+		Properties prop=new Properties();
+		
+		UserService userServ = new UserService(uname);
+		User user = userServ.getUser();
+		
+		if (user == null) {
+			request.setAttribute("error", "no user");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		} else if (pass.equals(user.getPassword())) {
+				System.out.println(uname+" "+true);
+				request.getSession().setAttribute("username",uname);
+				request.getSession().setAttribute("login", true);
+				RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
+				rd.forward(request,response);
+		}else {
+			request.setAttribute("error", "failed");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+		
 	}
 
 }

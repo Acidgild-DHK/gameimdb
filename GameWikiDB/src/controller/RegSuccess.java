@@ -1,7 +1,10 @@
-package retrieval;
+package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,32 +12,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Log;
-import service.LogService;
-
 /**
- * Servlet implementation class LogRetriever
+ * Servlet implementation class RegSuccess
  */
-@WebServlet("/log_retriever")
-public class LogRetriever extends HttpServlet {
+@WebServlet("/RegSuccess")
+public class RegSuccess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogRetriever() {
+    public RegSuccess() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
-//    GameDBUtility gUtil;
-    
-    /**
+
+	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -49,13 +46,15 @@ public class LogRetriever extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String logID = request.getParameter("logID");
-		String username = request.getSession().getAttribute("username").toString();
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		RequestDispatcher rd1=request.getRequestDispatcher("header.jsp");
+		rd1.include(request,response);
+		out.append("<h2 align=\"center\">Succesfully registered:Please login below</h2>");
 		
-		LogService logServ = new LogService(username);
-		Log log = logServ.get(logID);
-		
-		request.setAttribute("log", log);
+		//RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+		//rd.include(request, response);
 	}
 
 	/**

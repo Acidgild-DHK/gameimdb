@@ -11,7 +11,7 @@ public class GameWikiDecorator extends TableDecorator{
 	
 	public String getGameID() {
 		Game game = (Game)getCurrentRowObject();
-		String gameID = "<a href='gameUpdate.jsp?game=" + game.getGameID() + "'>Update</a>";
+		String gameID = "<a href='gameUpdate.jsp?gameId=" + game.getGameID() + "'>Update</a>";
 		return gameID;
 	}
 }

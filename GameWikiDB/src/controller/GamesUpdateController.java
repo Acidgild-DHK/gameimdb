@@ -1,8 +1,9 @@
-package games;
+package controller;
 
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Game;
+import service.GameService;
+
 //import dao.DB;
 //import dao.DBConnection;
 //import dao.DBExceptions;
@@ -25,14 +29,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GamesUpdate
  */
-@WebServlet("/gameUpdate")
-public class GamesUpdate extends HttpServlet {
+@WebServlet("/game_update")
+public class GamesUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GamesUpdate() {
+    public GamesUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -54,30 +58,24 @@ public class GamesUpdate extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		db = new DB("app.properties");
-//		Properties prop=new Properties();
-//		String name = request.getParameter("name");
-//		ArrayList<String> gameS= new ArrayList<String>();
-//
-//		String query = "INSERT INTO 'imdb_games'.'games' ('name') VALUES (?)";
-//		Connection con;
-//        Statement st=null;
-//		try {
-//			db.connect();
-//			db.switchDatabase("imdb_games");
-//			con = DBConnection.getDBInstance(prop);
-//			st = con.createStatement();
-//			ResultSet rs = st.executeQuery(query);
-//			gameS.add(name);
-//			request.setAttribute("gameS", gameS);
-//			RequestDispatcher results = request.getRequestDispatcher("/GameUpdate.jsp");
-//			results.forward(request, response);
-//		} catch (DBExceptions | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
+		String gameId = request.getParameter("gameId");
+		String publisher = request.getParameter("publisher");
+		String release_date = request.getParameter("release_date");
+		String description = request.getParameter("description");
+		String esrb = request.getParameter("esrb");
+		String genre = request.getParameter("genre");
+		GameService gameServ = new GameService();
+		Game game = gameServ.get(Integer.parseInt(gameId));
+		System.out.println("updating " + game);
+		game.setPublisher(publisher);
+		game.setReleaseDate(Date.valueOf(release_date));
+		game.setDescription(description);
+		game.setEsrb(esrb);
+		game.setGenre(genre);
+		
+		gameServ.update(game);
+		
+		response.sendRedirect("games");
 	}
 
 }
