@@ -24,7 +24,7 @@
 		<td><input type="text" name="game_title" 
 		<% 
 			if(game.getGameName() != null){
-				out.print("value='" + game.getGameName() + "'");
+				out.print("value=\"" + game.getGameName() + "\"");
 			} 
 		%> 
 		disabled = "true"></td>
@@ -34,7 +34,7 @@
 		<td><input type="text" name="publisher"
 		<% 
 			if(game.getPublisher() != null){
-				out.print("value='" + game.getPublisher() + "'");
+				out.print("value=\"" + game.getPublisher() + "\"");
 			} 
 		%> 
 		 ></td>
@@ -44,7 +44,7 @@
 		<td><input type="text" name="release_date" 
 			<% 
 			if(game.getReleaseDate() != null){
-				out.print("value='" + game.getReleaseDateString() + "'");
+				out.print("value=\"" + game.getReleaseDateString() + "\"");
 			} 
 		%>
 		></td>
@@ -54,7 +54,7 @@
 		<td><input type="text" name="description" 
 			<% 
 			if(game.getDescription() != null){
-				out.print("value='" + game.getDescription() + "'");
+				out.print("value=\"" + game.getDescription() + "\"");
 			} 
 		%>
 		></td>
@@ -64,7 +64,7 @@
 		<td><input type="text" name="esrb" 
 			<% 
 			if(game.getEsrb() != null){
-				out.print("value='" + game.getEsrb() + "'");
+				out.print("value=\"" + game.getEsrb() + "\"");
 			} 
 		%>
 		></td>
@@ -74,7 +74,7 @@
 		<td><input type="text" name="genre" 
 			<% 
 			if(game.getGenre() != null){
-				out.print("value='" + game.getGenre() + "'");
+				out.print("value=\"" + game.getGenre() + "\"");
 			} 
 		%>
 		></td>

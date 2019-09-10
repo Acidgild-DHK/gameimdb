@@ -1,25 +1,31 @@
-package service;
+package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Game;
+import model.Log;
+import service.LogService;
 
 /**
- * Servlet implementation class GameRetriever
+ * Servlet implementation class LogSearchController
  */
-@WebServlet("/game_retriever")
-public class GameRetrieverService extends HttpServlet {
+@WebServlet("/log_search")
+public class LogSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GameRetrieverService() {
+    public LogSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +35,7 @@ public class GameRetrieverService extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String gameId = request.getParameter("gameId");
-		Object userObj = request.getSession().getAttribute("username");
-		if (userObj == null) {
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
-		String username = userObj.toString();
-		
-		GameService gameServ = new GameService();
-		Game game = gameServ.get(Integer.parseInt(gameId));
-		System.out.println(game.getGameName());
-		request.setAttribute("game", game);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -47,7 +43,17 @@ public class GameRetrieverService extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		String username = session.getAttribute("username").toString();
+		LogService logServ = new LogService(username);
+		String search = request.getParameter("search_field");
+		
+		ArrayList<Log> logs = logServ.getAll(search);
+		
+		session.setAttribute("logTable", logs);
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("/userTable.jsp");
+		dispatch.forward(request, response);
 	}
 
 }

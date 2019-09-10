@@ -1,25 +1,39 @@
-package service;
+package controller;
+
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Game;
+import service.GameService;
+
+//import dao.DB;
+//import dao.DBConnection;
 
 /**
- * Servlet implementation class GameRetriever
+ * Servlet implementation class GamesSearch
  */
-@WebServlet("/game_retriever")
-public class GameRetrieverService extends HttpServlet {
+@WebServlet("/game_search")
+public class GamesSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GameRetrieverService() {
+    public GamesSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +43,8 @@ public class GameRetrieverService extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String gameId = request.getParameter("gameId");
-		Object userObj = request.getSession().getAttribute("username");
-		if (userObj == null) {
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
-		String username = userObj.toString();
-		
-		GameService gameServ = new GameService();
-		Game game = gameServ.get(Integer.parseInt(gameId));
-		System.out.println(game.getGameName());
-		request.setAttribute("game", game);
+	
+
 	}
 
 	/**
@@ -47,7 +52,14 @@ public class GameRetrieverService extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		GameService gameServ = new GameService();
+		String search = request.getParameter("search_field");
+		HttpSession session = request.getSession();
+		ArrayList<Game> games = gameServ.getAll(search);
+		
+		session.setAttribute("gameTable", games);
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("/games.jsp");
+		dispatch.forward(request, response);
 	}
-
 }

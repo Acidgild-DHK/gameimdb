@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.hibernate.Session;
@@ -57,6 +58,13 @@ public class PlatformDao implements IDao<Platform>{
 	public void delete(Platform t) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public Collection<Platform> getAll(HashMap<String, Object> hm, boolean and, int gtLikeLt) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
