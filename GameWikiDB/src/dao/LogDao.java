@@ -12,20 +12,14 @@ import model.Game;
 import model.Log;
 
 public class LogDao implements IDao<Log> {
-
-	private static SessionFactory factory;
 	
 	public LogDao() {
-		// 1. configuring hibernate
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
 
-        // 2. create sessionfactory
-        factory = configuration.buildSessionFactory();
 	}
 	@Override
 	public Optional<Log> get(String id) {
 		// TODO Auto-generated method stub
-		Session session = factory.getCurrentSession();
+		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		Log log = (Log)session.get(Log.class, id);
 		transaction.commit();

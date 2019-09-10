@@ -44,7 +44,7 @@
 		<td><input type="text" name="release_date" 
 			<% 
 			if(game.getReleaseDate() != null){
-				out.print("value='" + game.getReleaseDate() + "'");
+				out.print("value='" + game.getReleaseDateString() + "'");
 			} 
 		%>
 		></td>
