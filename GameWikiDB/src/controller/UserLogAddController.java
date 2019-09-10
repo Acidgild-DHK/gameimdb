@@ -8,8 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.GameDBUtility;
+import model.Game;
 import model.Log;
+import model.Platform;
+import model.User;
+import service.GameService;
+import service.LogService;
+import service.PlatformService;
+import service.UserService;
 
 /**
  * Servlet implementation class UserLogAddController
@@ -26,13 +32,13 @@ public class UserLogAddController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    GameDBUtility gUtil;
+//    GameDBUtility gUtil;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		gUtil = GameDBUtility.getInstance();
+//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -60,11 +66,31 @@ public class UserLogAddController extends HttpServlet {
 		String timePlayed = request.getParameter("time");
 		String rating = request.getParameter("rating");
 		String review = request.getParameter("review");
-		String platform = request.getParameter("platform");
+		String platformId = request.getParameter("platform");
 		
-		Log log = new Log(null, gameTitle, Integer.parseInt(timePlayed), Double.parseDouble(rating), review, platform, null);
+		LogService logServ = new LogService(username);
+		PlatformService platformServ = new PlatformService();
+		Platform platform = platformServ.getPlatform(Integer.parseInt(platformId));
+		GameService gameServ = new GameService(gameTitle);
+		Game game = gameServ.get();
+		if (game == null) {
+			game = new Game();
+			game.setGameName(gameTitle);
+			game.getPlatforms().add(platform);
+			game.setGameID(Integer.parseInt(gameServ.save(game)));
+		}
 		
-		gUtil.addLog(username, log);
+		System.out.println(game);
+		Log log = new Log();
+		log.setGame(game);
+		log.setPlatform(platform);
+		log.setRating(Double.parseDouble(rating));
+		log.setReviewText(review);
+		log.setTimePlayed(Integer.parseInt(timePlayed));
+		logServ.addLog(log);
+//		Log log = new Log(null, gameTitle, Integer.parseInt(timePlayed), Double.parseDouble(rating), review, platform, null);
+//		
+//		gUtil.addLog(username, log);
 		
 		request.getRequestDispatcher("/user_logs").forward(request, response);
 	}

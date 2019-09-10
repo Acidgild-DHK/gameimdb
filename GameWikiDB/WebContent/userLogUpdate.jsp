@@ -7,14 +7,22 @@
 <meta charset="ISO-8859-1">
 
 <title>Logs</title>
-
+<style type="text/css">
+<%@include file="WEB-INF/Style.css"%>
+</style>
 </head>
 <body>
 	<% 
 		request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response);
 		request.getRequestDispatcher("/log_retriever").include(request, response);
 		Log log = (Log) request.getAttribute("log");
+		String err=(String)request.getAttribute("error");
+		if(err!=null && !err.isEmpty()) {
+			out.println("<h1>"+ err+"</h1>");
+		}
+		
 	%>
+	<div>
 	<form action="user_log_update" method="post">
 		<input type="hidden" name="logID" value="<%=log.getLogID() %>">
 		<table style="width:50%">
@@ -22,7 +30,7 @@
 		<tr>
 			<td> Game Title</td>
 			<td>
-				<input type="text" name="game" value="<%=log.getGameTitle() %>" disabled >
+				<input type="text" name="game" value="<%=log.getGame().getGameName() %>" disabled >
 			</td> 
 		</tr>
 		
@@ -68,6 +76,6 @@
 		</tr>
 		</table>
 		<input type="submit" value="update">
-	</form>
+	</form></div>
 </body>
 </html>

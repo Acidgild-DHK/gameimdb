@@ -1,66 +1,50 @@
 package controller;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
 
-import javax.servlet.ServletConfig;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import dao.*;
-import model.User;
-import service.UserService;
+import model.Game;
+import service.GameService;
+
+//import dao.DB;
+//import dao.DBConnection;
 
 /**
- * Servlet implementation class UserProfile
+ * Servlet implementation class GamesSearch
  */
-@WebServlet("/user_profile")
-public class UserProfileController extends HttpServlet {
+@WebServlet("/game_search")
+public class GamesSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileController() {
+    public GamesSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-//    GameDBUtility gUtil;
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
-		
-	}
-
-	/**
-	 * @see Servlet#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// TODO Auto-generated method stub
-		String username = request.getSession().getAttribute("username").toString();
-		UserService userServ = new UserService(username);
-		User user = userServ.getUser();
-		
-		request.setAttribute("user", user);
-		request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
-		
+	
+
 	}
 
 	/**
@@ -68,8 +52,14 @@ public class UserProfileController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		GameService gameServ = new GameService();
+		String search = request.getParameter("search_field");
+		HttpSession session = request.getSession();
+		ArrayList<Game> games = gameServ.getAll(search);
+		
+		session.setAttribute("gameTable", games);
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("/games.jsp");
+		dispatch.forward(request, response);
 	}
-
 }
-
