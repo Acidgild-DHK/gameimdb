@@ -31,12 +31,9 @@ rd1.include(request, response);
 <form action="UserPasswordChange" method="post">
 <table style width:50%">
 
-<tr><td>Current Password</td>
-<td><input type="password" name="currpassword" ></td></tr>
-
 <tr><td>New Password</td>
 <td><input type="password" name="newpassword" ></td></tr>
-
+<input type="hidden" value="true" name="isforgot">
 </table>
 <input type="submit" value="Change password" />
 </form>
