@@ -59,5 +59,8 @@ else {
 	<form action="userPasswordUpdate.jsp" method="get">
 		<input type="submit" value="Change Password">
 	</form>
+	<form action="changeSecurityQuestion.jsp" method="get">
+		<input type="submit" value="Change Security Question">
+	</form>
 </body>
 </html>

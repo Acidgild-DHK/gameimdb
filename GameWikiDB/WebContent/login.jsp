@@ -5,16 +5,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<script>
-function validateForm() {
-  var x = document.forms["login"]["username"].value;
-  var y=document.forms["login"]["password"].value;
-  if (x == "" || y == "") {
-    alert("Name and password must be filled out");
-    return false;
-  }
-}
-</script>
 </head>
 <body>
 <style type="text/css">
@@ -53,9 +43,8 @@ if(st!=null ) {
 }
 
 %>
-
 <div>
-<form name="login"  method="post" onsubmit="return validateForm()">
+<form action="LoginServ" method="post">
 <table style width:50%">
 <tr><td>Username</td>
 <td><input type="text" name="username"></td></tr>
@@ -65,7 +54,19 @@ if(st!=null ) {
 
 
 </table>
-<input type="submit" value="Login" />
+<input type="submit" value="Login" /></form>
+
+
+<form action="forgotPasswordQ.jsp" method="post">
+<table style width:50%">
+<tr><td>Username</td>
+<td><input type="text" name="username"></td></tr>
+
+
+</table>
+<input type="submit" value="Recover Password" />
+
+
 </form>
 </div>
 </body>
