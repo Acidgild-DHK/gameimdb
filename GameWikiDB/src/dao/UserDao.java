@@ -72,4 +72,10 @@ public class UserDao implements IDao<User>{
 		session.close();
 	}
 
+	@Override
+	public Collection<User> getAll(HashMap<String, Object> hm, boolean and, int gtLikeLt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

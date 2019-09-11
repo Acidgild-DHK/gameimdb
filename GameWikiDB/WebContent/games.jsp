@@ -12,7 +12,22 @@
 <%@include file="WEB-INF/Style.css"%>
 </style>
 
-<% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
+<%
+	Boolean log = false;
+	if (request.getSession().getAttribute("login") != null) {
+		log = (Boolean) request.getSession().getAttribute("login");
+	}
+
+	RequestDispatcher rd1;
+
+	if (log) {
+		rd1 = request.getRequestDispatcher("headerLoggedIn.jsp");
+	} else {
+		rd1 = request.getRequestDispatcher("header.jsp");
+
+	}
+	rd1.include(request, response);
+%>
 </head>
 <body>
 
@@ -21,9 +36,22 @@
 <!-- <li> <a href="GameUpdate.jsp">Add a Game</a></li> -->
 <!-- </ul> -->
 <div>
-	<form action="gameAdd.jsp" method="post">
-		<input type="submit" value="Add Game">
-	</form>
+
+	<table>
+			<tr>
+				<td>
+					<form action="gameAdd.jsp" method="post">
+						<input type="submit" value="Add Game">
+					</form>
+				</td>
+				<td>
+					<form action="game_search" method="post">
+						<input type="text" name="search_field">
+						<input type="submit" value="Search">
+					</form>
+				</td>
+			</tr>
+		</table>
 	 <display:table name="sessionScope.gameTable" pagesize="5" export="false" sort="list" decorator="model.GameWikiDecorator">
 		  <display:column property="gameName" title="Game Title" sortable="true" headerClass="sortable" />
 		  <display:column property="publisher" title="Publisher" sortable="true" headerClass="sortable" />

@@ -1,8 +1,11 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import dao.GameDao;
 import dao.IDao;
@@ -47,6 +50,40 @@ public class GameService {
 	public ArrayList<Game> getAll() {
 		ArrayList<Game> games = new ArrayList<>(gameDao.getAll());
 		return games;
+	}
+	
+	public ArrayList<Game> getAll(String search){
+		Set<Game> games = null;
+		
+		if (search.endsWith("+")) {
+			//greater than search
+			try {
+				//see if its number before + otherwise just search as a word
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			Integer num = Integer.parseInt(search.replace("+", ""));
+			hm.put("averageRating", num);
+			hm.put("userCount", num);
+			games = new HashSet<Game>(gameDao.getAll(hm, false, 1));
+			} catch (NumberFormatException e) {
+				
+			}
+		}
+			//like
+			HashMap<String, Object> hm = new HashMap<String, Object>();
+			hm.put("gameName", "%" + search + "%");
+			hm.put("publisher", "%" + search + "%");
+			hm.put("description", "%" + search + "%");
+			if (games != null) {
+			games.addAll(gameDao.getAll(hm, false, 0));
+			} else {
+				games = new HashSet<Game>(gameDao.getAll(hm, false, 0));
+			}
+			if (games != null) {
+				ArrayList<Game> gameList = new ArrayList<Game>(games);
+				return gameList;
+			}
+			return null;
+			
 	}
 	
 	public void update(Game game) {
