@@ -22,6 +22,7 @@
 		Age: <input type="text" name="age"><br />
 		<input type = "submit" value ="update">
 	</form>
+	
 	</div>
 </body>
 </html>

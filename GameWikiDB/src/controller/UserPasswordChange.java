@@ -1,8 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,33 +10,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import dao.DB;
-//import dao.DBExceptions;
-//import dao.GameDBUtility;
 import model.User;
 import service.UserService;
 
 /**
- * Servlet implementation class UserProfileUpdate
+ * Servlet implementation class UserPasswordChange
  */
-@WebServlet("/user_update")
-public class UserProfileUpdateController extends HttpServlet {
+@WebServlet("/UserPasswordChange")
+public class UserPasswordChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileUpdateController() {
+    public UserPasswordChange() {
         super();
         // TODO Auto-generated constructor stub
     }
-//   	GameDBUtility gUtil;
+
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -52,33 +47,32 @@ public class UserProfileUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String uname=(String)request.getSession().getAttribute("username");
+		String pass=request.getParameter("currpassword");
+		String passN=request.getParameter("newpassword");
+		Properties prop=new Properties();
+		System.out.println(uname);
+		if(uname!=null) {
+			UserService userServ = new UserService(uname);
+			User user = userServ.getUser();
+			if (passN != null && !passN.isEmpty()) {
+				user.setPassword(passN);
+				userServ.update();
+			}
+
+			request.getRequestDispatcher("/user_profile").forward(request, response);
+		}
+		else {
+			request.getRequestDispatcher("userPasswordpdate.jsp").forward(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//		
-//		// TODO Auto-generated method stub
-		String gamerTag = request.getParameter("gamer_tag");
-		String email = request.getParameter("email");
-		String username = request.getSession().getAttribute("username").toString();
-		int age = Integer.parseInt(request.getParameter("age"));
-		String name = request.getParameter("name");
-
-		UserService userServ = new UserService(username);
-		User user = userServ.getUser();
-		user.setAge(age);
-		user.setEmail(email);
-		user.setGamerTag(gamerTag);
-		user.setName(name);
-		
-		userServ.update();
-		
-
-		request.getRequestDispatcher("/user_profile").forward(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
