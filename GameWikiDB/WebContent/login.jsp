@@ -36,16 +36,6 @@ function validateForm() {
 		}
 		rd1.include(request, response);
 		if (st != null) {
-
-<<<<<<< HEAD
-%>
-
-<div>
-<form name="login"  method="post" onsubmit="return validateForm()">
-<table style width:50%">
-<tr><td>Username</td>
-<td><input type="text" name="username"></td></tr>
-=======
 			out.println("<h2>" + st + "</h2>");
 		}
 	%>
@@ -56,7 +46,6 @@ function validateForm() {
 					<td>Username</td>
 					<td><input type="text" name="username"></td>
 				</tr>
->>>>>>> Karissa_branch
 
 				<tr>
 					<td>Password</td>
