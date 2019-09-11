@@ -57,11 +57,16 @@ public class GameService {
 		
 		if (search.endsWith("+")) {
 			//greater than search
+			try {
+				//see if its number before + otherwise just search as a word
 			HashMap<String, Object> hm = new HashMap<String, Object>();
 			Integer num = Integer.parseInt(search.replace("+", ""));
 			hm.put("averageRating", num);
 			hm.put("userCount", num);
 			games = new HashSet<Game>(gameDao.getAll(hm, false, 1));
+			} catch (NumberFormatException e) {
+				
+			}
 		}
 			//like
 			HashMap<String, Object> hm = new HashMap<String, Object>();

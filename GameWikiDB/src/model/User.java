@@ -30,7 +30,7 @@ public class User {
 	private String question;
 	
 	@Column(name=GameDBConstants.Users.ANSWER_COLUMN, unique=false, nullable=false)
-	@ColumnTransformer(read="aes_decrypt(password, 'SecretKey')", write="aes_encrypt(?, 'SecretKey')")
+	@ColumnTransformer(read="aes_decrypt(answer, 'SecretKey')", write="aes_encrypt(?, 'SecretKey')")
 	private String answer;
 	
 	@Column(name=GameDBConstants.Users.GAMER_TAG_COLUMN, unique=false, nullable=false)

@@ -36,10 +36,15 @@ public class LogService {
 		ArrayList<Log> logList = getAll();
 		for (Log log : logList) {
 			if (search.endsWith("+")) {
-				Integer num = Integer.parseInt(search.replace("+", ""));
-				if (log.getTimePlayed() >= num
-					|| log.getRating() >= num) {
-					logs.add(log);
+				try {
+					//see if before + is number otherwise search as a word
+					Integer num = Integer.parseInt(search.replace("+", ""));
+					if (log.getTimePlayed() >= num
+						|| log.getRating() >= num) {
+						logs.add(log);
+					}
+				} catch (NumberFormatException e) {
+					
 				}
 					
 			}

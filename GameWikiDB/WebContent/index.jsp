@@ -8,23 +8,11 @@
 </head>
 <body>
 	<%
-	
-		String st=(String)request.getSession().getAttribute("error");
-		Boolean log=false;
-		if(request.getSession().getAttribute("login")!=null) {
-			log=(Boolean)request.getSession().getAttribute("login");
-		}
-		
 		RequestDispatcher rd1;
 		
-		if(log) {
-			rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
-		}
-		else {
-			rd1=request.getRequestDispatcher("header.jsp");
-			
-		}
-		rd1.include(request, response);
+		rd1=request.getRequestDispatcher("/games");
+		
+		rd1.forward(request, response);
 	%>
 </body>
 </html>
