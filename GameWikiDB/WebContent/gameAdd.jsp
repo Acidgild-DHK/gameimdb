@@ -34,6 +34,14 @@
 				<td><input type="text" name="genre"></td>
 			</tr>
 			<tr>
+				<td>Platforms</td>
+				<td>
+					<input type="checkbox" name="platforms" value="mobile">Mobile<br/>
+					<input type="checkbox" name="platforms" value="pc">PC<br/>
+					<input type="checkbox" name="platforms" value="console">Console<br/>
+				</td>
+			</tr>
+			<tr>
 				<td></td>
 				<td><input type="submit" value="Add Game"></td>
 			</tr>

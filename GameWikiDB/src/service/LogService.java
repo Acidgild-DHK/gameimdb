@@ -1,9 +1,13 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import dao.IDao;
 import dao.LogDao;
+import model.Game;
 import model.Log;
 import model.User;
 
@@ -24,6 +28,35 @@ public class LogService {
 	
 	public ArrayList<Log> getAll(){
 		return userServ.getUserLogs();
+	}
+	
+	public ArrayList<Log> getAll(String search){
+		Set<Log> logs = new HashSet<Log>();
+		
+		ArrayList<Log> logList = getAll();
+		for (Log log : logList) {
+			if (search.endsWith("+")) {
+				try {
+					//see if before + is number otherwise search as a word
+					Integer num = Integer.parseInt(search.replace("+", ""));
+					if (log.getTimePlayed() >= num
+						|| log.getRating() >= num) {
+						logs.add(log);
+					}
+				} catch (NumberFormatException e) {
+					
+				}
+					
+			}
+			if (log.getGame().getGameName().toLowerCase().contains(search.toLowerCase())
+				|| log.getReviewText().toLowerCase().contains(search.toLowerCase())) {
+				logs.add(log);
+			}
+		}
+		
+		logList = new ArrayList<Log>(logs);
+		return logList;
+		
 	}
 	
 	public void addLog(Log log) {

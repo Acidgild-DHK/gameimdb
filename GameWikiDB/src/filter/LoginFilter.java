@@ -39,7 +39,7 @@ public class LoginFilter implements Filter {
 		String uname=request.getParameter("username");
 		String pass=request.getParameter("password");
 		if(uname.isEmpty()||pass.isEmpty()) {
-			request.setAttribute("error", "empty");
+			request.setAttribute("error", "All fields are required");
 			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
 		}
@@ -48,14 +48,8 @@ public class LoginFilter implements Filter {
 		}
 		// pass the request along the filter chain
 		HttpServletResponse rs=(HttpServletResponse) response;
-		if(pass.length()>25) {
-			request.setAttribute("error", "Password too long");
-			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
-			rd.forward(request, response);
-		}
-		else {
+		
 			chain.doFilter(request, response);
-		}
 		
 	}
 

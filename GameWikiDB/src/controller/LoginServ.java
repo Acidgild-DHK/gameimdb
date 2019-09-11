@@ -71,18 +71,14 @@ public class LoginServ extends HttpServlet {
 		UserService userServ = new UserService(uname);
 		User user = userServ.getUser();
 		
-		if (user == null) {
-			request.setAttribute("error", "no user");
-			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
-			rd.forward(request, response);
-		} else if (pass.equals(user.getPassword())) {
+		if (user != null && pass.equals(user.getPassword())) {
 				System.out.println(uname+" "+true);
 				request.getSession().setAttribute("username",uname);
 				request.getSession().setAttribute("login", true);
 				RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
 				rd.forward(request,response);
 		}else {
-			request.setAttribute("error", "failed");
+			request.getSession().setAttribute("error", "Username/Password combination doesn't match.");
 			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
 		}
