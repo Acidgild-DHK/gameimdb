@@ -40,6 +40,5 @@
 		  <display:column property="platform" title="Platform" sortable="true" headerClass="sortable" />
 		  <display:column property="logID" title="Action" sortable="false" headerClass="sortable" />
 	 </display:table>
-	 </div>
 </body>
 </html>

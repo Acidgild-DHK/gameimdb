@@ -4,9 +4,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
+<style>
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<%
+Boolean log=false;
+if(request.getSession().getAttribute("login")!=null) {
+	log=(Boolean)request.getSession().getAttribute("login");
+}
+
+RequestDispatcher rd1;
+if(log) {
+	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
+}
+else {
+	rd1=request.getRequestDispatcher("header.jsp");
+	
+}%>
 <meta charset="ISO-8859-1">
 <title>User Profile</title>
 <% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
@@ -16,7 +30,7 @@
 	User user = (User) request.getAttribute("user");
 	
 	%>
-<div>
+
 	<table>
 		<tr>
 			<td>UserName</td>
@@ -42,8 +56,8 @@
 	<form action="userProfileUpdate.jsp" method ="get">
 		<input type="submit" value="Update">
 	</form>	
-	<form action="" method="get">
+	<form action="userPasswordUpdate.jsp" method="get">
 		<input type="submit" value="Change Password">
-	</form></div>
+	</form>
 </body>
 </html>

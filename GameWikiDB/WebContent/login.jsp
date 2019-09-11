@@ -5,6 +5,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
+<script>
+function validateForm() {
+  var x = document.forms["login"]["username"].value;
+  var y=document.forms["login"]["password"].value;
+  if (x == "" || y == "") {
+    alert("Name and password must be filled out");
+    return false;
+  }
+}
+</script>
 </head>
 <body>
 <style type="text/css">
@@ -26,7 +36,6 @@
 		}
 		rd1.include(request, response);
 		if (st != null) {
-
 			out.println("<h2>" + st + "</h2>");
 		}
 	%>
