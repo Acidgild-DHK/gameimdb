@@ -15,13 +15,16 @@
 
 	<div>
 	<form align="center"action="user_update" method="post">
-	
-		Gamer Tag: <input type="text" name="gamer_tag"> <br />
-		Email: <input type="text" name="email"> <br />
-		Name: <input type="text" name="name"> <br />
-		Age: <input type="text" name="age"><br />
-		<input type = "submit" value ="update">
+	<table>
+	<tr>
+	<td>Gamer Tag:</td> <td><input type="text" name="gamer_tag"></td></tr> <br />
+	<td>Email: </td> <td><input type="text" name="email"></td></tr> <br />
+	<td>Name:</td> <td> <input type="text" name="name"></td></tr> <br />
+	<td>Age:</td> <td> <input type="text" name="age"></td></tr><br />
+	</table>
+	<input type = "submit" value ="update">
 	</form>
+	
 	</div>
 </body>
 </html>

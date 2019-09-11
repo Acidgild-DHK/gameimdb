@@ -1,8 +1,6 @@
-package controller;
+package retrieval;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.HashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,33 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import dao.DB;
-//import dao.DBExceptions;
-//import dao.GameDBUtility;
-import model.User;
-import service.UserService;
+import db.GameDBUtility;
+import model.Log;
 
 /**
- * Servlet implementation class UserProfileUpdate
+ * Servlet implementation class LogRetriever
  */
-@WebServlet("/user_update")
-public class UserProfileUpdateController extends HttpServlet {
+@WebServlet("/log_retriever")
+public class LogRetriever extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileUpdateController() {
+    public LogRetriever() {
         super();
         // TODO Auto-generated constructor stub
     }
-//   	GameDBUtility gUtil;
-	/**
+    
+    GameDBUtility gUtil;
+    
+    /**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-//		gUtil = GameDBUtility.getInstance();
+		gUtil = GameDBUtility.getInstance();
 	}
 
 	/**
@@ -52,33 +49,21 @@ public class UserProfileUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String logID = request.getParameter("logID");
+		Log log = null;
+		if (logID != null) {
+			//retrieve log
+			log = gUtil.getLog(logID);
+			request.setAttribute("log", log);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//		
-//		// TODO Auto-generated method stub
-		String gamerTag = request.getParameter("gamer_tag");
-		String email = request.getParameter("email");
-		String username = request.getSession().getAttribute("username").toString();
-		int age = Integer.parseInt(request.getParameter("age"));
-		String name = request.getParameter("name");
-
-		UserService userServ = new UserService(username);
-		User user = userServ.getUser();
-		user.setAge(age);
-		user.setEmail(email);
-		user.setGamerTag(gamerTag);
-		user.setName(name);
-		
-		userServ.update();
-		
-
-		request.getRequestDispatcher("/user_profile").forward(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
