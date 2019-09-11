@@ -5,16 +5,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<script>
-function validateForm() {
-  var x = document.forms["login"]["username"].value;
-  var y=document.forms["login"]["password"].value;
-  if (x == "" || y == "") {
-    alert("Name and password must be filled out");
-    return false;
-  }
-}
-</script>
 </head>
 <body>
 <style type="text/css">
@@ -26,18 +16,6 @@ function validateForm() {
 		if (request.getSession().getAttribute("login") != null) {
 			log = (Boolean) request.getSession().getAttribute("login");
 		}
-
-		RequestDispatcher rd1;
-		if (log) {
-			rd1 = request.getRequestDispatcher("headerLoggedIn.jsp");
-		} else {
-			rd1 = request.getRequestDispatcher("header.jsp");
-
-		}
-		rd1.include(request, response);
-		if (st != null) {
-			out.println("<h2>" + st + "</h2>");
-		}
 	%>
 	<div>
 		<form action="LoginServ" method="post">
@@ -46,15 +24,28 @@ function validateForm() {
 					<td>Username</td>
 					<td><input type="text" name="username"></td>
 				</tr>
-
 				<tr>
 					<td>Password</td>
 					<td><input type="password" name="password"></td>
 				</tr>
 
-
 			</table>
 			<input type="submit" value="Login" />
+		</form>
+
+
+		<form action="forgotPasswordQ.jsp" method="post">
+			<table stylewidth:50%">
+				<tr>
+					<td>Username</td>
+					<td><input type="text" name="username"></td>
+				</tr>
+
+
+			</table>
+			<input type="submit" value="Recover Password" />
+
+
 		</form>
 	</div>
 </body>
