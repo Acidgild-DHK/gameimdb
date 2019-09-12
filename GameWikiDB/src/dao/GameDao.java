@@ -3,9 +3,11 @@ package dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -29,7 +31,16 @@ public class GameDao implements IDao<Game> {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		Game game = (Game)session.get(Game.class, Integer.parseInt(id));
+//		Game game = (Game)session.get(Game.class, Integer.parseInt(id));
+		Query q = session.createQuery("SELECT DISTINCT g FROM Game g JOIN FETCH g.logs l JOIN FETCH g.platforms p "
+				+ "WHERE g.gameID = :id");
+		q.setParameter("id", Integer.parseInt(id));
+		Game game;
+		try {
+			game = (Game) q.getSingleResult();
+		} catch (Exception e) {
+			game = null;
+		}
 		transaction.commit();
 		session.close();
 		return Optional.ofNullable(game);
@@ -40,7 +51,8 @@ public class GameDao implements IDao<Game> {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		ArrayList<Game> games = new ArrayList<Game>(session.createQuery("FROM " + Game.class.getName()).list());
+		ArrayList<Game> games = new ArrayList<Game>(session.createQuery("FROM " + Game.class.getName()  + " g "
+				+ "JOIN FETCH g.logs l JOIN FETCH g.platforms p").list());
 		transaction.commit();
 		session.close();
 		return games;
@@ -77,7 +89,7 @@ public class GameDao implements IDao<Game> {
 		session.close();
 	}
 	@Override
-	public Collection<Game> getAll(HashMap<String, Object> hm, boolean and, int likeGtLt) {
+	public Collection<Game> getAll(List<DaoUtil.DaoMap> hm, boolean and, int likeGtLt) {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -85,17 +97,16 @@ public class GameDao implements IDao<Game> {
 		Root<Game> root = cr.from(Game.class);
 		
 		Predicate[] predicates = new Predicate[hm.size()];
-		Set<String> keys = hm.keySet();
 		int count = 0;
-		for (String string : keys) {
+		for (DaoUtil.DaoMap dm : hm) {
 			if (likeGtLt == 0) {
-				predicates[count] = cb.like(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.like(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 1) {
-				predicates[count] = cb.greaterThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.greaterThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 2) {
-				predicates[count] = cb.lessThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.lessThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else {
 				return null;

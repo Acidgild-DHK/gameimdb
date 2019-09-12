@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public class LogDao implements IDao<Log> {
 		
 	}
 	@Override
-	public Collection<Log> getAll(HashMap<String, Object> hm, boolean and, int likeGtLt) {
+	public Collection<Log> getAll(List<DaoUtil.DaoMap> hm, boolean and, int likeGtLt) {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -66,17 +67,16 @@ public class LogDao implements IDao<Log> {
 		Root<Log> root = cr.from(Log.class);
 		
 		Predicate[] predicates = new Predicate[hm.size()];
-		Set<String> keys = hm.keySet();
 		int count = 0;
-		for (String string : keys) {
+		for (DaoUtil.DaoMap dm : hm) {
 			if (likeGtLt == 0) {
-				predicates[count] = cb.like(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.like(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 1) {
-				predicates[count] = cb.greaterThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.greaterThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 2) {
-				predicates[count] = cb.lessThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.lessThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else {
 				return null;

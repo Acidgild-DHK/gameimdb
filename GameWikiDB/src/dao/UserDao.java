@@ -4,7 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -35,7 +38,7 @@ public class UserDao implements IDao<User>{
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		ArrayList<User> users = new ArrayList<User>(session.createQuery("FROM " + GameDBConstants.Users.TABLE_NAME).list());
+		ArrayList<User> users = new ArrayList<User>(session.createQuery("FROM " + GameDBConstants.Users.TABLE_NAME + " u JOIN FETCH u.logs l JOIN FETCH l.game g JOIN FETCH l.user lu JOIN FETCH l.platform p").list());
 		transaction.commit();
 		session.close();
 		return users;
@@ -73,7 +76,7 @@ public class UserDao implements IDao<User>{
 	}
 
 	@Override
-	public Collection<User> getAll(HashMap<String, Object> hm, boolean and, int gtLikeLt) {
+	public Collection<User> getAll(List<DaoUtil.DaoMap> hm, boolean and, int likeGtLt) {
 		// TODO Auto-generated method stub
 		return null;
 	}

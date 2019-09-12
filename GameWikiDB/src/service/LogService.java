@@ -3,8 +3,10 @@ package service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import dao.DaoUtil;
 import dao.IDao;
 import dao.LogDao;
 import model.Game;
@@ -27,7 +29,10 @@ public class LogService {
 	}
 	
 	public ArrayList<Log> getAll(){
-		return userServ.getUserLogs();
+		String username = userServ.getUser().getUsername();
+		List<DaoUtil.DaoMap> dm = new ArrayList<DaoUtil.DaoMap>();
+		dm.add(new DaoUtil.DaoMap("logID", username + "%"));
+		return new ArrayList<Log>(logDao.getAll(dm, true, 0));
 	}
 	
 	public ArrayList<Log> getAll(String search){

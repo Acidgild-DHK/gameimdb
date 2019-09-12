@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -69,7 +70,7 @@ public class PlatformDao implements IDao<Platform>{
 
 
 	@Override
-	public Collection<Platform> getAll(HashMap<String, Object> hm, boolean and, int likeGtLt) {
+	public Collection<Platform> getAll(List<DaoUtil.DaoMap> hm, boolean and, int likeGtLt) {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -77,17 +78,16 @@ public class PlatformDao implements IDao<Platform>{
 		Root<Platform> root = cr.from(Platform.class);
 		
 		Predicate[] predicates = new Predicate[hm.size()];
-		Set<String> keys = hm.keySet();
 		int count = 0;
-		for (String string : keys) {
+		for (DaoUtil.DaoMap dm : hm) {
 			if (likeGtLt == 0) {
-				predicates[count] = cb.like(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.like(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 1) {
-				predicates[count] = cb.greaterThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.greaterThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 2) {
-				predicates[count] = cb.lessThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.lessThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else {
 				return null;

@@ -62,7 +62,7 @@ public class GameAddController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		GameService gameServ = new GameService();
+		
 		PlatformService platServ = new PlatformService();
 		String gameTitle = request.getParameter("game_title");
 		String publisher = request.getParameter("publisher");
@@ -72,9 +72,13 @@ public class GameAddController extends HttpServlet {
 		String genre = request.getParameter("genre");
 		String[] platformString = request.getParameterValues("platforms");
 		ArrayList<Platform> platforms = platServ.getPlatforms(platformString);
-		
-		
-		Game game = new Game();
+		GameService gameServ = new GameService(gameTitle);
+		Game game = gameServ.get();
+		boolean update = true;
+		if (game == null) {
+			update = false;
+			game = new Game();
+		}
 		game.setGameName(gameTitle);
 		game.setPublisher(publisher);
 		game.setReleaseDate(Date.valueOf(releaseDate));
@@ -83,7 +87,11 @@ public class GameAddController extends HttpServlet {
 		game.setGenre(genre);
 		game.setPlatforms(new HashSet<Platform>(platforms));
 		
-		System.out.println(gameServ.save(game));
+		if (update) {
+			gameServ.update(game);
+		} else {
+			System.out.println(gameServ.save(game));
+		}
 		
 		response.sendRedirect("games");
 	}

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import dao.DaoUtil;
 import dao.GameDao;
 import dao.IDao;
 import model.Game;
@@ -22,7 +23,9 @@ public class GameService {
 	}
 
 	public GameService(String gameTitle) {
-		List<Game> list = getAll();
+		List<DaoUtil.DaoMap> dm = new ArrayList<DaoUtil.DaoMap>();
+		dm.add(new DaoUtil.DaoMap("gameName", gameTitle));
+		List<Game> list = new ArrayList<Game>(gameDao.getAll(dm, true, 0));
 		Game otherGame = new Game();
 		otherGame.setGameName(gameTitle);
 		if (list.contains(otherGame)) {
@@ -59,20 +62,20 @@ public class GameService {
 			//greater than search
 			try {
 				//see if its number before + otherwise just search as a word
-			HashMap<String, Object> hm = new HashMap<String, Object>();
+			List<DaoUtil.DaoMap> hm = new ArrayList<DaoUtil.DaoMap>();
 			Integer num = Integer.parseInt(search.replace("+", ""));
-			hm.put("averageRating", num);
-			hm.put("userCount", num);
+			hm.add(new DaoUtil.DaoMap("averageRating", num));
+			hm.add(new DaoUtil.DaoMap("userCount", num));
 			games = new HashSet<Game>(gameDao.getAll(hm, false, 1));
 			} catch (NumberFormatException e) {
 				
 			}
 		}
 			//like
-			HashMap<String, Object> hm = new HashMap<String, Object>();
-			hm.put("gameName", "%" + search + "%");
-			hm.put("publisher", "%" + search + "%");
-			hm.put("description", "%" + search + "%");
+		List<DaoUtil.DaoMap> hm = new ArrayList<DaoUtil.DaoMap>();
+			hm.add(new DaoUtil.DaoMap("gameName", "%" + search + "%"));
+			hm.add(new DaoUtil.DaoMap("publisher", "%" + search + "%"));
+			hm.add(new DaoUtil.DaoMap("description", "%" + search + "%"));
 			if (games != null) {
 			games.addAll(gameDao.getAll(hm, false, 0));
 			} else {

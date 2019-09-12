@@ -28,14 +28,6 @@ public class UserService {
 		}
 	}
 	
-	public ArrayList<Log> getUserLogs(){
-		if (user != null) {
-			ArrayList<Log> logs = new ArrayList<>(user.getLogs());
-			return logs;
-		}
-		return null;
-	}
-	
 	public User getUser() {
 		return this.user;
 	}

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -30,15 +31,15 @@ public class Log implements Serializable {
 	@Column(name=GameDBConstants.Logs.REVIEW_TEXT_COLUMN, unique=false, nullable = false)
 	String reviewText;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="game_id")
 	Game game;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="platform_id")
 	Platform platform;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="username")
 	User user;
 	

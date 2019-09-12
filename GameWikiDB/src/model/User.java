@@ -48,7 +48,7 @@ public class User {
 	@Column(name=GameDBConstants.Users.KEY_COLUMN, unique=false, nullable=false)
 	private String key;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="user")
 	Set<Log> logs;
 	
 	public User() {
