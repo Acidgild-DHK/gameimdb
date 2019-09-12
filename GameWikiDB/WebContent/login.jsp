@@ -59,17 +59,7 @@ title="Username must be at least 6 characters,starting with an alphabetic charac
 <input type="submit" value="Login" /></form>
 
 <br>
-<h2>Forgot password? Enter username below to recover </h2>
-<form action="forgotPasswordQ.jsp" method="post">
-<table style width:50%">
-<tr><td>Username</td>
-<td><input type="text" name="username" required pattern="[a-zA-Z]{1}[a-zA-Z0-9]{5,}" 
-title="Username must be at least 6 characters,starting with an alphabetic character" ></td></tr>
-
-
-</table>
-<input type="submit" value="Recover Password" />
-
+<h2><a href="forgotUserForm.jsp"> Forgot Password?</a></h2>
 
 </form>
 </div>

@@ -18,7 +18,7 @@
 	<table>
 	<tr>
 	<td>Gamer Tag:</td> <td><input default=type="text" name="gamer_tag" required pattern="[a-zA-Z]+[a-zA-Z0-9]+" title="Gamertag is only alphanumeric characters and must start with alphabetic character"></td></tr> <br />
-	<td>Email: </td> <td><input type="text" name="email" required pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+.[a-zA-Z]{3,}" title="Invalid email format"></td></tr> <br />
+	<td>Email: </td> <td><input type="text" name="email" required pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+.[a-zA-Z]{2,3}" title="Invalid email format"></td></tr> <br />
 	<td>Name:</td> <td> <input type="text" name="name" required pattern="[a-zA-Z0-9]+[ ][a-zA-Z0-9]+" title="must include first and last name with space"></td></tr> <br />
 	<td>Age:</td> <td> <input type="number" name="age" required min=0 max=120></td></tr><br />
 	</table>
