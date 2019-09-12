@@ -74,11 +74,15 @@ public class GameAddController extends HttpServlet {
 		ArrayList<Platform> platforms = platServ.getPlatforms(platformString);
 		GameService gameServ = new GameService(gameTitle);
 		Game game = gameServ.get();
-		boolean update = true;
-		if (game == null) {
-			update = false;
+		if (game != null) {
+			request.getSession().setAttribute("error", "Game already exists.");
+			response.sendRedirect("gameAdd.jsp");
+			return;
+		} else {
 			game = new Game();
 		}
+		
+		request.getSession().setAttribute("error", null);
 		game.setGameName(gameTitle);
 		game.setPublisher(publisher);
 		game.setReleaseDate(Date.valueOf(releaseDate));
@@ -87,11 +91,8 @@ public class GameAddController extends HttpServlet {
 		game.setGenre(genre);
 		game.setPlatforms(new HashSet<Platform>(platforms));
 		
-		if (update) {
-			gameServ.update(game);
-		} else {
-			System.out.println(gameServ.save(game));
-		}
+	
+		System.out.println(gameServ.save(game));
 		
 		response.sendRedirect("games");
 	}

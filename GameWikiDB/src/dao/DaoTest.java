@@ -15,7 +15,7 @@ public class DaoTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GameService gameServ = new GameService("Some game");
+		GameService gameServ = new GameService("Not Real");
 		System.out.println(gameServ.get());
 		ArrayList<Game> gl = gameServ.getAll();
 		for (Game game : gl) {

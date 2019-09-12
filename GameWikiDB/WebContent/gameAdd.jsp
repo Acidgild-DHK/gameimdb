@@ -7,6 +7,12 @@
 <title>Add Game</title>
 </head>
 <body>
+<%
+	String st = (String) request.getSession().getAttribute("error");
+	if (st != null){
+		out.println("<h3> "+ st  + "</h3>");
+	}
+%>
 	<form action="game_add" method="post">
 		<table style="width: 50%">
 			<tr>

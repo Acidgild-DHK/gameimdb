@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,8 +23,13 @@ import dao.GameDBConstants;
 
 @Entity
 @Table(name="games")
-public class Game {
+public class Game implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1391808792464096407L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name=GameDBConstants.Games.GAME_ID_COLUMN, unique=true, nullable=false)

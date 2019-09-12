@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +13,13 @@ import dao.GameDBConstants;
 
 @Entity
 @Table(name="platforms")
-public class Platform{
+public class Platform implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6659509490934270003L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name=GameDBConstants.Platforms.PLATFORM_ID_COLUMN, unique=true, nullable=false)

@@ -18,6 +18,11 @@ import dao.GameDBConstants;
 @Table(name="logs")
 public class Log implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1233829224556457271L;
+
 	@Id
 	@Column(name=GameDBConstants.Logs.LOG_ID_COLUMN, unique = true, nullable = false)
 	String logID;

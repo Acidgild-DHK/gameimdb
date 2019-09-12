@@ -31,19 +31,23 @@ public class GameDao implements IDao<Game> {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
+		try {
 //		Game game = (Game)session.get(Game.class, Integer.parseInt(id));
-		Query q = session.createQuery("SELECT DISTINCT g FROM Game g JOIN FETCH g.logs l JOIN FETCH g.platforms p "
+		Query q = session.createQuery("SELECT DISTINCT g FROM Game g LEFT JOIN FETCH g.logs l LEFT JOIN FETCH g.platforms p "
 				+ "WHERE g.gameID = :id");
 		q.setParameter("id", Integer.parseInt(id));
 		Game game;
-		try {
-			game = (Game) q.getSingleResult();
-		} catch (Exception e) {
-			game = null;
-		}
+		game = (Game) q.getSingleResult();
 		transaction.commit();
-		session.close();
 		return Optional.ofNullable(game);
+		} catch (Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			return Optional.ofNullable(null);
+		} finally {
+			session.close();
+		}
 	}
 
 	@Override
@@ -51,8 +55,8 @@ public class GameDao implements IDao<Game> {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		ArrayList<Game> games = new ArrayList<Game>(session.createQuery("FROM " + Game.class.getName()  + " g "
-				+ "JOIN FETCH g.logs l JOIN FETCH g.platforms p").list());
+		ArrayList<Game> games = new ArrayList<Game>(session.createQuery("SELECT DISTINCT g FROM " + Game.class.getName()  + " g "
+				+ "LEFT JOIN FETCH g.logs l LEFT JOIN FETCH g.platforms p").list());
 		transaction.commit();
 		session.close();
 		return games;
