@@ -30,7 +30,7 @@ public class GameService {
 		otherGame.setGameName(gameTitle);
 		if (list.contains(otherGame)) {
 			int i = list.indexOf(otherGame);
-			game = list.get(i);
+			game = get(list.get(i).getGameID());
 		} else {
 			game = null;
 		}

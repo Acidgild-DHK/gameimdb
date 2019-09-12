@@ -16,13 +16,13 @@ public class DaoTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stu
 		
-		UserService userServ = new UserService("karissa");
-		System.out.println(userServ.getUser().getUsername());
+		UserService userServ = new UserService("kurwhibble");
+		System.out.println(userServ.getUser());
 		
 		UserService userServ2 = new UserService("karissa");
-		System.out.println(userServ.getUser().getUsername());
-		UserService userServ3 = new UserService("karissa");
-		System.out.println(userServ.getUser().getUsername());
+		System.out.println(userServ2.getUser());
+		UserService userServ3 = new UserService("karissa2");
+		System.out.println(userServ3.getUser());
 	
 	}
 

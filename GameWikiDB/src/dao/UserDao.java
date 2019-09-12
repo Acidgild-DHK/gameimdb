@@ -15,6 +15,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import model.Game;
 import model.User;
 
 public class UserDao implements IDao<User>{
@@ -30,11 +31,23 @@ public class UserDao implements IDao<User>{
 		Session session = factory.openSession();
 		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
-		User user = (User)session.get(User.class, id);
-		transaction.commit();
-		session.close();
-		DaoUtil.session = null;
-		return Optional.ofNullable(user);
+		try {
+			Query q = session.createQuery("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.logs l LEFT JOIN FETCH l.game LEFT JOIN FETCH l.platform "
+					+ "WHERE u.username = :id ");
+			q.setParameter("id", id);
+			User user;
+			user = (User) q.getSingleResult();
+			transaction.commit();
+			return Optional.ofNullable(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+				if(transaction != null) {
+					transaction.rollback();
+				}
+				return Optional.ofNullable(null);
+			} finally {
+				session.close();
+			}
 	}
 
 	@Override

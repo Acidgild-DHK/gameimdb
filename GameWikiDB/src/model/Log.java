@@ -36,11 +36,11 @@ public class Log implements Serializable {
 	@Column(name=GameDBConstants.Logs.REVIEW_TEXT_COLUMN, unique=false, nullable = false)
 	String reviewText;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name="game_id")
 	Game game;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="platform_id")
 	Platform platform;
 	

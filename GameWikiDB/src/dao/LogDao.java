@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -32,10 +33,24 @@ public class LogDao implements IDao<Log> {
 		Session session = factory.openSession();
 		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
-		Log log = (Log)session.get(Log.class, id);
-		transaction.commit();
-		session.close();
-		return Optional.ofNullable(log);
+//		Log log = (Log)session.get(Log.class, id);
+		try {
+			Query q = session.createQuery("SELECT DISTINCT l FROM Log l LEFT JOIN FETCH l.game g LEFT JOIN FETCH g.logs gl LEFT JOIN FETCH l.platform "
+					+ "WHERE l.logID = :id");
+			q.setParameter("id", id);
+			Log log = (Log) q.getSingleResult();
+			transaction.commit();
+			session.close();
+			return Optional.ofNullable(log);
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			return Optional.ofNullable(null);
+		} finally {
+			session.close();
+		}
 	}
 
 	@Override

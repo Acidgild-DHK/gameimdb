@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import dao.DaoUtil;
@@ -22,17 +23,22 @@ public class LogService {
 	}
 	
 	public Log get(String id) {
-		ArrayList<Log> logs = getAll();
-		System.out.println(logs + " " + id);
-		Log log = logs.get(logs.indexOf(new Log(id)));
+		Log log;
+		Optional<Log> opt = logDao.get(id);
+		if (opt.isPresent()) {
+			log = opt.get();
+		} else {
+			log = null;
+		}
 		return log;
 	}
 	
 	public ArrayList<Log> getAll(){
-		String username = userServ.getUser().getUsername();
-		List<DaoUtil.DaoMap> dm = new ArrayList<DaoUtil.DaoMap>();
-		dm.add(new DaoUtil.DaoMap("logID", username + "%"));
-		return new ArrayList<Log>(logDao.getAll(dm, true, 0));
+//		String username = userServ.getUser().getUsername();
+//		List<DaoUtil.DaoMap> dm = new ArrayList<DaoUtil.DaoMap>();
+//		dm.add(new DaoUtil.DaoMap("logID", username + "%"));
+//		return new ArrayList<Log>(logDao.getAll(dm, true, 0));
+		return new ArrayList<Log>(userServ.getUser().getLogs());
 	}
 	
 	public ArrayList<Log> getAll(String search){
