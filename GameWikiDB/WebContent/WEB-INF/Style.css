@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
 body {
-  background: #67E483;
+  background:#C0C0C0; 
   text-align:center;
 }
 
 
 div {
-	margin:auto;
+  margin:auto;
   text-align:center;
-  display:table
+  display:table;
 }
 form {
 	display:inline-block;
@@ -25,7 +21,13 @@ table.log tbody td {
 	font-size:25px;
 	color:#251533;
 }
+
+
 h1 {
+  color: #251533;
+  text-align: center;
+}
+h3 {
   color: #251533;
   text-align: center;
 }
@@ -35,21 +37,19 @@ p {
   font-size: 20px;
 }
 
-.pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
 table {
 	border: 1px solid #666;
 	width: 80%;
 	margin: 20px 0 20px 0 !important;
+}
+td#question2 {
+	text-align: center;
+}
+td#question {
+	text-align:left;
+}
+td#q {
+	text-align:center;
 }
 th,td {
 	padding: 2px 4px 2px 4px !important;
@@ -97,15 +97,4 @@ tr.tableRowEven,tr.even {
 .grouped-table tr.odd {
     background-color: #fff;
 }
-</style>
-</head>
-<body>
-<style>
-body {
-  background:#67E483; 
-}
-</style>
 
-
-</body>
-</html>
