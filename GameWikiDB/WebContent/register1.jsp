@@ -5,6 +5,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Register</title>
+<style type="text/css">
+<%@include file="WEB-INF/Style.css"%>
+</style>
 </head>
 
 <body>
@@ -54,37 +57,39 @@ if(st!=null ) {
 Enter Information below to create an account
 
 </h1>
-<form action="RegVerify" method="post">
+<div>
+<form action="RegVerify" method="post" required>
 <table style="width:50%">
 <tr>
 <td>Username</td>
-<td><input type="text" name="username"></td>
+<td><input type="text" name="username" required></td>
 </tr>
 
 <tr>
 <td>Tag/Screen Name</td>
-<td><input type="text" name="name"></td>
+<td><input type="text" name="name" required></td>
 </tr>
 
 <tr>
 <td>Name(first and last)</td>
-<td><input type="text" name="flname"></td>
+<td><input type="text" name="flname" required></td>
 </tr>
 
 <tr>
 <td>Age in years</td>
-<td><input type="text" name="age"></td>
+<td><input type="text" name="age" required></td>
 </tr>
 
 
 
 <tr>
 <td>Password: Max 25 characters</td>
-<td><input type="password" name="password"></td>
+<td><input type="password" name="password" required></td>
 </tr>
 
 </table>
 <input type="submit" value="Submit">
 </form>
+</div>
 </body>
 </html>

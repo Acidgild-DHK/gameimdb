@@ -21,10 +21,10 @@ if(err!=null && !err.isEmpty()) {
 <form action="ChangeQuestions" method="post">
 <table style width:50%">
 <tr><td>New Question</td>
-<td><input type="text" name="question" maxlength="255" pattern="[.]{1,255}" title="Maximum length is 255"></td></tr>
+<td><input type="text" name="question" maxlength="255" pattern=".{1,255}" title="Maximum length is 255"></td></tr>
 
 <tr><td>New Answer</td>
-<td><input type="text" name="answer" maxlength="255" pattern="[.]{1,255}" title="Maximum length is 255"></td></tr>
+<td><input type="text" name="answer" maxlength="255" pattern=".{1,255}" title="Maximum length is 255"></td></tr>
 
 <tr><td>Password</td>
 <td><input type="password" name="password" ></td></tr>

@@ -31,14 +31,15 @@ li a:hover {
 </style>
 
 <ul>
-  <li><a class ="active" href="games">Home</a></li>
+  <li><a class ="active" href="index.jsp">Home</a></li>
   
  <li> <a href="logout.jsp">Logout</a></li>
+  <li><a href="games">Games</a></li>
     <li><a href="user_profile">Profile</a></li>
     <li><a href="user_logs">Logs</a></li>
 </ul>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+
 </head>
 <body>
 
