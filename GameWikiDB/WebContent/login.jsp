@@ -52,7 +52,7 @@ if(st!=null ) {
 title="Username must be at least 6 characters,starting with an alphabetic character"></td></tr>
 
 <tr><td>Password</td>
-<td><input type="password" name="password" required pattern="[\w]{8,25}" list="Password is between 8 and 25 characters"></td></tr>
+<td><input type="password" name="password" required pattern="[\w]{3,25}" list="Password is between 3 and 25 characters"></td></tr>
 
 
 </table>

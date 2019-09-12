@@ -22,19 +22,19 @@ if(err!=null && !err.isEmpty()) {
 		<tr>
 			<td> Game Title</td>
 			<td>
-				<input type="text" name="game" >
+				<input type="text" name="game" required>
 			</td> 
 		</tr>
 		
 		<tr>
 			<td>Time Played</td> 
-			<td><input type="text" name="time" > </td>
+			<td><input type="number" name="time" required min="0"> </td>
 		</tr>
 		
 		<tr>
 			<td> Rating </td>
 			<td> 
-				<select name="rating">
+				<select name="rating" required>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -52,14 +52,14 @@ if(err!=null && !err.isEmpty()) {
 		<tr>
 			<td>Review </td>
 			<td>
-				<textarea rows="5" col="200" name="review"></textarea>
+				<textarea rows="5" col="200" name="review" required></textarea>
 			</td>
 		 </tr>
 		 
 		<tr>
 			<td> Platform Played </td>
 			<td> 
-				<select name="platform">
+				<select name="platform" required>
 					<option value="1">mobile</option>
 					<option value="2">pc</option>
 					<option value="3">console</option>
