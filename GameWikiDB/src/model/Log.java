@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -17,6 +18,11 @@ import dao.GameDBConstants;
 @Table(name="logs")
 public class Log implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1233829224556457271L;
+
 	@Id
 	@Column(name=GameDBConstants.Logs.LOG_ID_COLUMN, unique = true, nullable = false)
 	String logID;
@@ -30,7 +36,7 @@ public class Log implements Serializable {
 	@Column(name=GameDBConstants.Logs.REVIEW_TEXT_COLUMN, unique=false, nullable = false)
 	String reviewText;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name="game_id")
 	Game game;
 	
@@ -38,7 +44,7 @@ public class Log implements Serializable {
 	@JoinColumn(name="platform_id")
 	Platform platform;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="username")
 	User user;
 	

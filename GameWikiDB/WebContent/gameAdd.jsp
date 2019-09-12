@@ -5,8 +5,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Add Game</title>
+<style type="text/css">
+<%@include file="WEB-INF/Style.css"%>
+</style>
 </head>
 <body>
+<%
+	String username = (String) request.getSession().getAttribute("username");
+	if (username == null){
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
+	request.getRequestDispatcher("headerLoggedIn.jsp").include(request, response);
+	String st = (String) request.getSession().getAttribute("error");
+	if (st != null){
+		out.println("<h3> "+ st  + "</h3>");
+	}
+%>
 	<form action="game_add" method="post">
 		<table style="width: 50%">
 			<tr>

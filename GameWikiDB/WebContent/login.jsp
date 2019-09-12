@@ -28,18 +28,7 @@ else {
 rd1.include(request,response);
 if(st!=null ) {
 
-	if(st.equals("empty")) {	
-		out.print("<h2>Error logging in</h2><br>");
-	}
-	else if(st.equals("failed")) {
-		out.print("<h2>That combination of username/password did not work</h2><br>");
-	}
-	else if(st.equals("Password too long")) {
-		out.print("<h2>Password longer than 25 characters</h2><br>");
-	}
-	else if(st.equals("no user")) {
-		out.print(" <h2>No user found by that username </h2><br>");
-	}
+	out.println("<h2>" + st + "</h2>");
 }
 
 %>

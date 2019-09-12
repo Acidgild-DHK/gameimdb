@@ -75,6 +75,7 @@ public class LoginServ extends HttpServlet {
 				System.out.println(uname+" "+true);
 				request.getSession().setAttribute("username",uname);
 				request.getSession().setAttribute("login", true);
+				request.getSession().setAttribute("error", null);
 				RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
 				rd.forward(request,response);
 		}else {

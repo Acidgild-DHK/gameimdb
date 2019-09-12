@@ -38,7 +38,6 @@ li a:hover {
     <li><a href="user_logs">Logs</a></li>
 </ul>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
 

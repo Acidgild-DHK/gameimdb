@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,8 +17,13 @@ import dao.GameDBConstants;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7504746982214978093L;
+
 	@Id
 	@Column(name=GameDBConstants.Users.USERNAME_COLUMN , unique=true, nullable=false)
 	private String username;
@@ -48,7 +54,7 @@ public class User {
 	@Column(name=GameDBConstants.Users.KEY_COLUMN, unique=false, nullable=false)
 	private String key;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="user")
 	Set<Log> logs;
 	
 	public User() {

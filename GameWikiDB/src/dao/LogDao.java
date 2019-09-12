@@ -2,9 +2,11 @@ package dao;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -26,12 +28,29 @@ public class LogDao implements IDao<Log> {
 	@Override
 	public Optional<Log> get(String id) {
 		// TODO Auto-generated method stub
-		Session session = DaoUtil.getSession();
+		SessionFactory factory = DaoUtil.getFactory();
+		
+		Session session = factory.openSession();
+		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
-		Log log = (Log)session.get(Log.class, id);
-		transaction.commit();
-		session.close();
-		return Optional.ofNullable(log);
+//		Log log = (Log)session.get(Log.class, id);
+		try {
+			Query q = session.createQuery("SELECT DISTINCT l FROM Log l LEFT JOIN FETCH l.game g LEFT JOIN FETCH g.logs gl LEFT JOIN FETCH l.platform "
+					+ "WHERE l.logID = :id");
+			q.setParameter("id", id);
+			Log log = (Log) q.getSingleResult();
+			transaction.commit();
+			session.close();
+			return Optional.ofNullable(log);
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			return Optional.ofNullable(null);
+		} finally {
+			session.close();
+		}
 	}
 
 	@Override
@@ -43,13 +62,28 @@ public class LogDao implements IDao<Log> {
 	@Override
 	public String save(Log t) {
 		// TODO Auto-generated method stub
-		return null;
+SessionFactory factory = DaoUtil.getFactory();
+		
+		Session session = factory.openSession();
+		System.out.println(session);
+		Transaction transaction = session.beginTransaction();
+		String id = session.save(t).toString();
+		transaction.commit();
+		session.close();
+		return id;
 	}
 
 	@Override
 	public void update(Log t) {
 		// TODO Auto-generated method stub
+SessionFactory factory = DaoUtil.getFactory();
 		
+		Session session = factory.openSession();
+		System.out.println(session);
+		Transaction transaction = session.beginTransaction();
+		session.update(t);
+		transaction.commit();
+		session.close();
 	}
 
 	@Override
@@ -58,25 +92,27 @@ public class LogDao implements IDao<Log> {
 		
 	}
 	@Override
-	public Collection<Log> getAll(HashMap<String, Object> hm, boolean and, int likeGtLt) {
+	public Collection<Log> getAll(List<DaoUtil.DaoMap> hm, boolean and, int likeGtLt) {
 		// TODO Auto-generated method stub
-		Session session = DaoUtil.getSession();
+		SessionFactory factory = DaoUtil.getFactory();
+		
+		Session session = factory.openSession();
+		System.out.println(session);
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<Log> cr = cb.createQuery(Log.class);
 		Root<Log> root = cr.from(Log.class);
 		
 		Predicate[] predicates = new Predicate[hm.size()];
-		Set<String> keys = hm.keySet();
 		int count = 0;
-		for (String string : keys) {
+		for (DaoUtil.DaoMap dm : hm) {
 			if (likeGtLt == 0) {
-				predicates[count] = cb.like(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.like(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 1) {
-				predicates[count] = cb.greaterThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.greaterThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else if (likeGtLt == 2) {
-				predicates[count] = cb.lessThanOrEqualTo(root.get(string), hm.get(string).toString());
+				predicates[count] = cb.lessThanOrEqualTo(root.get(dm.getKey()), dm.getValue().toString());
 				count++;
 			} else {
 				return null;

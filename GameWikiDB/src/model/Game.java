@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,8 +23,13 @@ import dao.GameDBConstants;
 
 @Entity
 @Table(name="games")
-public class Game {
+public class Game implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1391808792464096407L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name=GameDBConstants.Games.GAME_ID_COLUMN, unique=true, nullable=false)
@@ -53,11 +59,11 @@ public class Game {
 	@Column(name=GameDBConstants.Games.USER_COUNT_COLUMN, unique=false, nullable=false)
 	private int userCount;
 
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="games_platforms", joinColumns= {@JoinColumn(name="game_id")}, inverseJoinColumns= {@JoinColumn(name="platform_id")})
 	private Set<Platform> platforms = new HashSet<Platform>();
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="game")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="game")
 	private Set<Log> logs = new HashSet<Log>();
 
 	
@@ -85,9 +91,11 @@ public class Game {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return getGameName();
+	
+	public String toStringString() {
+		return "Game [gameID=" + gameID + ", gameName=" + gameName + ", publisher=" + publisher + ", releaseDate="
+				+ releaseDate + ", description=" + description + ", esrb=" + esrb + ", averageRating=" + averageRating
+				+ ", genre=" + genre + ", userCount=" + userCount + ", platforms=" + platforms + ", logs=" + logs + "]";
 	}
 
 	public Game() {
@@ -95,6 +103,13 @@ public class Game {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		return gameName;
+	}
+
 	public void calculate() {
 		this.userCount = logs.size();
 		if (userCount > 0) {
