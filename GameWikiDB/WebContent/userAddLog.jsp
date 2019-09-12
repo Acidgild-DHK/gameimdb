@@ -9,6 +9,19 @@
 <meta charset="ISO-8859-1">
 <title>User Log</title>
 <% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); 
+<% 
+
+request.getSession().setAttribute("valid","");
+request.getRequestDispatcher("validLogin.jsp").include(request,response);
+
+String val=(String)request.getSession().getAttribute("valid");
+if(val!=null && val.equals("false")) {
+	return;
+} 
+String err=(String)request.getAttribute("error");
+if(err!=null && !err.isEmpty()) {
+	out.println("<h1>"+ err+"</h1>");
+}
 %>
 </head>
 <body>
