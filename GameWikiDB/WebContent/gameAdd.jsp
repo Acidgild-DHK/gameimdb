@@ -3,6 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%
+request.getSession().setAttribute("valid","");
+	request.getRequestDispatcher("validLogin.jsp").include(request,response);
+
+	String val=(String)request.getSession().getAttribute("valid");
+	if(val!=null && val.equals("false")) {
+		return;
+	} %>
 <meta charset="ISO-8859-1">
 <title>Add Game</title>
 <style type="text/css">
@@ -46,14 +54,6 @@
 			<tr>
 				<td>Genre</td>
 				<td><input type="text" name="genre"></td>
-			</tr>
-			<tr>
-				<td>Platforms</td>
-				<td>
-					<input type="checkbox" name="platforms" value="mobile">Mobile<br/>
-					<input type="checkbox" name="platforms" value="pc">PC<br/>
-					<input type="checkbox" name="platforms" value="console">Console<br/>
-				</td>
 			</tr>
 			<tr>
 				<td></td>

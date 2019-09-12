@@ -30,7 +30,7 @@ li a:hover {
 }
 </style>
 <ul>
-  <li><a class ="active" href="games">Home</a></li>
+  <li><a class ="active" href="index.jsp">Home</a></li>
  <li> <a href="login.jsp">Login</a></li>
     <li><a href="register1.jsp">Register</a></li>
 </ul>

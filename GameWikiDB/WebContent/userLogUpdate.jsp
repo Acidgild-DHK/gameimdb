@@ -13,7 +13,14 @@
 </head>
 <body>
 	<% 
-		request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response);
+	 
+	request.getSession().setAttribute("valid","");
+	request.getRequestDispatcher("validLogin.jsp").include(request,response);
+
+	String val=(String)request.getSession().getAttribute("valid");
+	if(val!=null && val.equals("false")) {
+		return;
+	} 
 		request.getRequestDispatcher("/log_retriever").include(request, response);
 		Log log = (Log) request.getAttribute("log");
 		String err=(String)request.getAttribute("error");

@@ -31,9 +31,10 @@ li a:hover {
 </style>
 
 <ul>
-  <li><a class ="active" href="games">Home</a></li>
+  <li><a class ="active" href="index.jsp">Home</a></li>
   
  <li> <a href="logout.jsp">Logout</a></li>
+  <li><a href="games">Games</a></li>
     <li><a href="user_profile">Profile</a></li>
     <li><a href="user_logs">Logs</a></li>
 </ul>
