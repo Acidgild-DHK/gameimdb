@@ -1,7 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Properties;
+import java.util.Collections;
+import java.util.Random;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,16 +15,16 @@ import model.User;
 import service.UserService;
 
 /**
- * Servlet implementation class UserPasswordChange
+ * Servlet implementation class ForgetPasswordController
  */
-@WebServlet("/UserPasswordChange")
-public class UserPasswordChange extends HttpServlet {
+@WebServlet("/ForgotPassword")
+public class ForgetPasswordController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserPasswordChange() {
+    public ForgetPasswordController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,33 +48,7 @@ public class UserPasswordChange extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String uname=(String)request.getSession().getAttribute("username");
-		String pass=request.getParameter("currpassword");
-		String passN=request.getParameter("newpassword");
-		Properties prop=new Properties();
-		System.out.println(uname);
-		String forgot=(String)request.getParameter("isforgot");
-		
-		if(uname!=null) {
-			UserService userServ = new UserService(uname);
-			User user = userServ.getUser();
-			if(forgot!=null && forgot.equals("true")) {
-				if (passN != null && !passN.isEmpty()) {
-					user.setPassword(passN);
-					userServ.update();
-				}
-			}
-			else {
-				if (passN != null && !passN.isEmpty() && pass.equals(user.getPassword())) {
-					user.setPassword(passN);
-					userServ.update();
-				}
-			}
-			request.getRequestDispatcher("/user_profile").forward(request, response);
-		}
-		else {
-			request.getRequestDispatcher("userPasswordpdate.jsp").forward(request, response);
-		}
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -81,7 +56,19 @@ public class UserPasswordChange extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String answer=(String)request.getParameter("answer");
+		//response.getWriter().append((String)request.getSession().getAttribute("username"));
+		UserService userServ = new UserService((String)request.getSession().getAttribute("username"));
+		User user = userServ.getUser();
+		response.getWriter().append(user.getAnswer()+" "+answer);
+		if(user.getAnswer().equals(answer)) {
+			
+			request.getRequestDispatcher("forgotPasswordChange.jsp").forward(request, response);
+		}
+		else {
+			request.getSession().setAttribute("FailedSecurityQuestion", 1);
+		}
+		//doGet(request, response);
 	}
 
 }
