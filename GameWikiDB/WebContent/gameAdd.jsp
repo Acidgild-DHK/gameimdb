@@ -8,6 +8,11 @@
 </head>
 <body>
 <%
+	String username = (String) request.getSession().getAttribute("username");
+	if (username == null){
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
+	request.getRequestDispatcher("headerLoggedIn.jsp").include(request, response);
 	String st = (String) request.getSession().getAttribute("error");
 	if (st != null){
 		out.println("<h3> "+ st  + "</h3>");
