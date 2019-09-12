@@ -28,8 +28,8 @@
 			
 		}
 		rd1.include(request, response);
-		// RequestDispatcher rd2=request.getRequestDispatcher("games.jsp");
-		// rd2.include(request,response);
+		RequestDispatcher rd2=request.getRequestDispatcher("games");
+		rd2.include(request,response);
 	%>
 </body>
 </html>

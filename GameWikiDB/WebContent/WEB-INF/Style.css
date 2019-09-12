@@ -3,6 +3,9 @@ body {
   text-align:center;
 }
 
+html {
+	  background:#C0C0C0;
+}
 
 div {
   margin:auto;
@@ -56,11 +59,14 @@ th,td {
 	text-align: left;
 	vertical-align: top;
 }
+th{
+	color: black;
+}
 thead tr {
-	background-color: #999999;
+	background-color: #607D8B;
 }
 th.sorted {
-	background-color: #CCCCCC;
+	background-color: #90A4AE;
 }
 th a,th a:visited {
 	color: black;

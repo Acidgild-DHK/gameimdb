@@ -23,6 +23,7 @@ if(val!=null && val.equals("false")) {
 <title>LogTable</title>
 </head>
 <body>
+	<div>
 	<form action="userAddLog.jsp" method="post">
 		<input type="submit" value="Add Log">
 	</form>
