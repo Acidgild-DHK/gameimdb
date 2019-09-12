@@ -32,6 +32,7 @@ public class PlatformDao implements IDao<Platform>{
 		// TODO Auto-generated method stub
 		int idNum = Integer.parseInt(id);
 		Session session = DaoUtil.getSession();
+		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
 		Platform platform = (Platform)session.get(Platform.class, idNum);
 		transaction.commit();
@@ -43,6 +44,7 @@ public class PlatformDao implements IDao<Platform>{
 	public Collection<Platform> getAll() {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
+		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
 		ArrayList<Platform> platforms = new ArrayList<Platform>(session.createQuery("FROM " + Platform.class.getName()).list());
 		transaction.commit();
@@ -73,6 +75,7 @@ public class PlatformDao implements IDao<Platform>{
 	public Collection<Platform> getAll(List<DaoUtil.DaoMap> hm, boolean and, int likeGtLt) {
 		// TODO Auto-generated method stub
 		Session session = DaoUtil.getSession();
+		System.out.println(session);
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<Platform> cr = cb.createQuery(Platform.class);
 		Root<Platform> root = cr.from(Platform.class);

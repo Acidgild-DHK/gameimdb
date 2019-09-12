@@ -81,7 +81,15 @@ public class UserLogAddController extends HttpServlet {
 		}
 		
 		System.out.println(game);
-		Log log = new Log();
+		Log log = logServ.get(username + ":" + game.getGameID());
+		if (log == null) {
+			log = new Log();
+		} else {
+			request.getSession().setAttribute("error", "Log already exists.");
+			response.sendRedirect("userAddLog.jsp");
+			return;
+		}
+		request.getSession().setAttribute("error", null);
 		log.setGame(game);
 		log.setPlatform(platform);
 		log.setRating(Double.parseDouble(rating));

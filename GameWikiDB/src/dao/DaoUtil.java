@@ -3,12 +3,14 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.stat.Statistics;
 
 public class DaoUtil {
 	
 	public static class DaoMap{
 		private String key;
 		private Object value;
+		
 		
 		
 		@Override
@@ -65,18 +67,38 @@ public class DaoUtil {
 	
 	private static SessionFactory factory;
 	
+	public static Statistics stats;
+	
+	public static Session session;
+	
 	private DaoUtil() {
 		Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
 
         // 2. create sessionfactory
         factory = configuration.buildSessionFactory();
+        stats = factory.getStatistics();
+        stats.setStatisticsEnabled(true);
+	}
+	
+	public static SessionFactory getFactory() {
+		if (instance == null) {
+			instance = new DaoUtil();
+		}
+		System.out.println(stats.getSessionOpenCount());
+		System.out.println(stats.getSessionCloseCount());
+		return factory;
 	}
 	
 	public static Session getSession() {
 		if (instance == null) {
 			instance = new DaoUtil();
 		}
-		
-		return factory.openSession();
+		System.out.println(stats.getConnectCount());
+		session = factory.openSession();
+		return session;
+	}
+	
+	public static void closeSession() {
+		session.close();
 	}
 }

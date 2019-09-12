@@ -70,12 +70,11 @@ public class LogService {
 		log.initializeLogID();
 		log.getGame().getLogs().add(log);
 		log.getGame().calculate();
-		user.getLogs().add(log);
-		userServ.update(user);
+		logDao.save(log);
 	}
 	
 	public void updateLog(Log log) {
 		log.getGame().calculate();
-		userServ.update();
+		logDao.update(log);
 	}
 }

@@ -9,14 +9,16 @@
 <meta charset="ISO-8859-1">
 <title>User Log</title>
 <% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); 
-String err=(String)request.getAttribute("error");
-if(err!=null && !err.isEmpty()) {
-	out.println("<h1>"+ err+"</h1>");
-}
 %>
 </head>
 <body>
 <div>
+<%
+	String err=(String)request.getAttribute("error");
+	if(err!=null) {
+		out.println("<h2>"+ err+"</h2>");
+	}
+%>
 	<form align="center" action="user_add_log" method="post">
 		<table align="center">
 		<tr>

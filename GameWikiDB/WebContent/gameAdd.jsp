@@ -5,6 +5,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Add Game</title>
+<style type="text/css">
+<%@include file="WEB-INF/Style.css"%>
+</style>
 </head>
 <body>
 <%

@@ -27,7 +27,10 @@ public class LogDao implements IDao<Log> {
 	@Override
 	public Optional<Log> get(String id) {
 		// TODO Auto-generated method stub
-		Session session = DaoUtil.getSession();
+		SessionFactory factory = DaoUtil.getFactory();
+		
+		Session session = factory.openSession();
+		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
 		Log log = (Log)session.get(Log.class, id);
 		transaction.commit();
@@ -44,13 +47,28 @@ public class LogDao implements IDao<Log> {
 	@Override
 	public String save(Log t) {
 		// TODO Auto-generated method stub
-		return null;
+SessionFactory factory = DaoUtil.getFactory();
+		
+		Session session = factory.openSession();
+		System.out.println(session);
+		Transaction transaction = session.beginTransaction();
+		String id = session.save(t).toString();
+		transaction.commit();
+		session.close();
+		return id;
 	}
 
 	@Override
 	public void update(Log t) {
 		// TODO Auto-generated method stub
+SessionFactory factory = DaoUtil.getFactory();
 		
+		Session session = factory.openSession();
+		System.out.println(session);
+		Transaction transaction = session.beginTransaction();
+		session.update(t);
+		transaction.commit();
+		session.close();
 	}
 
 	@Override
@@ -61,7 +79,10 @@ public class LogDao implements IDao<Log> {
 	@Override
 	public Collection<Log> getAll(List<DaoUtil.DaoMap> hm, boolean and, int likeGtLt) {
 		// TODO Auto-generated method stub
-		Session session = DaoUtil.getSession();
+		SessionFactory factory = DaoUtil.getFactory();
+		
+		Session session = factory.openSession();
+		System.out.println(session);
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<Log> cr = cb.createQuery(Log.class);
 		Root<Log> root = cr.from(Log.class);
