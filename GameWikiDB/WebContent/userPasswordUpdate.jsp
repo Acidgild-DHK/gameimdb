@@ -17,15 +17,16 @@ if(request.getSession().getAttribute("login")!=null) {
 	log=(Boolean)request.getSession().getAttribute("login");
 }
 
-RequestDispatcher rd1;
-if(log) {
-	rd1=request.getRequestDispatcher("headerLoggedIn.jsp");
-}
-else {
-	rd1=request.getRequestDispatcher("header.jsp");
-	
-}
-rd1.include(request, response);
+
+request.getSession().setAttribute("valid","");
+	request.getRequestDispatcher("validLogin.jsp").include(request,response);
+
+	String val=(String)request.getSession().getAttribute("valid");
+	if(val!=null && val.equals("false")) {
+		return;
+	}
+%>
+
 %>
 <div>
 <form action="UserPasswordChange" method="post">

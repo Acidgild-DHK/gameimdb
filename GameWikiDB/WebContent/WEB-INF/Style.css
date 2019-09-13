@@ -3,11 +3,18 @@ body {
   text-align:center;
 }
 
+div#gt {
+	padding-left:350px;
+	padding-right:100px;
+	margin:auto;
+	text-align:justify;
+}
+
 
 div {
   margin:auto;
   text-align:center;
-  display:table;
+
 }
 form {
 	display:inline-block;
