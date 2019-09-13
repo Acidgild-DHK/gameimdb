@@ -61,7 +61,6 @@ public class GameDao implements IDao<Game> {
 SessionFactory factory = DaoUtil.getFactory();
 		
 		Session session = factory.openSession();
-		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
 		ArrayList<Game> games = null;
 		try {

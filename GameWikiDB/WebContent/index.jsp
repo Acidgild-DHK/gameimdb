@@ -7,7 +7,7 @@
 <%@include file="WEB-INF/Style.css"%>
 </style>
 <meta charset="ISO-8859-1">
-<title>Index</title>
+<title>Game Site</title>
 </head>
 <body>
 	<%

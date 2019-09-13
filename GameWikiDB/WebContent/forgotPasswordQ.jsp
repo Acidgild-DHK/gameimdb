@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/answer-validation.js">
 
+</script>
 </head>
 <body>
 
@@ -26,7 +28,7 @@ User user = userServ.getUser();
 String q=user.getQuestion();
 %>
 <div>
-<form action="ForgotPassword" method="post">
+<form name="answerForm" action="ForgotPassword" onSubmit="return formValidation()" method="post">
 <table border="1" style width:50%><tr><td id="q">
 <h2>Answer the below security question in order to reset your password</h2></td></tr>
 <tr><td id="question"><%=q %>

@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Update Password</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/forgot-validation.js">
 
+</script>
 </head>
 <body>
 <%
@@ -28,12 +30,12 @@ else {
 rd1.include(request, response);
 %>
 <div>
-<form action="UserPasswordChange" method="post">
+<form name="forgotForm" action="UserPasswordChange" onSubmit="return formValidation()" method="post">
 <table style width:50%">
 
 <tr><td>New Password</td>
 <td><input type="password" name="newpassword" ></td></tr>
-<input type="hidden" value="true" name="isforgot">
+<input type="hidden" value="true" name="isforgot" required>
 </table>
 <input type="submit" value="Change password" />
 </form>

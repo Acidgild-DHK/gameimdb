@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Update Password</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/password-validation.js">
 
+</script>
 </head>
 <body>
 <%
@@ -28,7 +30,7 @@ else {
 rd1.include(request, response);
 %>
 <div>
-<form action="UserPasswordChange" method="post">
+<form name="passUpdateForm" action="UserPasswordChange" onSubmit = "return formValidation()" method="post">
 <table style width:50%">
 
 <tr><td>Current Password</td>

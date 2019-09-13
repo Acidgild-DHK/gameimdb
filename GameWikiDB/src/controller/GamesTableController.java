@@ -65,7 +65,6 @@ public class GamesTableController extends HttpServlet {
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/games.jsp");
 		dispatch.forward(request, response);
-
 	}
 
 	/**

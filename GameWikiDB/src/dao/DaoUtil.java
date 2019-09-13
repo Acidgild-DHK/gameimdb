@@ -84,8 +84,6 @@ public class DaoUtil {
 		if (instance == null) {
 			instance = new DaoUtil();
 		}
-		System.out.println(stats.getSessionOpenCount());
-		System.out.println(stats.getSessionCloseCount());
 		return factory;
 	}
 	
@@ -93,7 +91,6 @@ public class DaoUtil {
 		if (instance == null) {
 			instance = new DaoUtil();
 		}
-		System.out.println(stats.getConnectCount());
 		session = factory.openSession();
 		return session;
 	}

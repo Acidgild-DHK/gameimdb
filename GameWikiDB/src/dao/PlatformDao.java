@@ -34,7 +34,6 @@ public class PlatformDao implements IDao<Platform>{
 		SessionFactory factory = DaoUtil.getFactory();
 		
 		Session session = factory.openSession();
-		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
 		try {
 			Platform platform = (Platform)session.get(Platform.class, idNum);

@@ -14,11 +14,11 @@
 	rd1.include(request,response);
 %>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Game Site</title>
 </head>
 <body>
 <h1>You must be logged in to access that page</h1>
 <h1>This page will redirect to login</h1>
-<meta http-equiv="Refresh" content="5;url=login.jsp">
+<meta http-equiv="Refresh" content="3;url=login.jsp">
 </body>
 </html>

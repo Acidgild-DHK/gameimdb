@@ -12,10 +12,13 @@ request.getSession().setAttribute("valid","");
 		return;
 	} %>
 <meta charset="ISO-8859-1">
-<title>Add Game</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/add-game-validation.js">
+
+</script>
 </head>
 <body>
 <%
@@ -23,13 +26,14 @@ request.getSession().setAttribute("valid","");
 	if (username == null){
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-	request.getRequestDispatcher("headerLoggedIn.jsp").include(request, response);
 	String st = (String) request.getSession().getAttribute("error");
 	if (st != null){
 		out.println("<h3> "+ st  + "</h3>");
 	}
 %>
-	<form action="game_add" method="post">
+<h2>Add Game</h2>
+<div>
+	<form name = addGameForm action="game_add" onSubmit="return formValidation()" method="post">
 		<table style="width: 50%">
 			<tr>
 				<td>Game Title</td>
@@ -56,10 +60,19 @@ request.getSession().setAttribute("valid","");
 				<td><input type="text" name="genre"></td>
 			</tr>
 			<tr>
+				<td>Platforms</td>
+				<td>
+					<input type="checkbox" name="platforms" value="mobile">Mobile<br/>
+					<input type="checkbox" name="platforms" value="pc">PC<br/>
+					<input type="checkbox" name="platforms" value="console">Console<br/>
+				</td>
+	</tr>
+			<tr>
 				<td></td>
 				<td><input type="submit" value="Add Game"></td>
 			</tr>
 		</table>
 	</form>
+</div>
 </body>
 </html>

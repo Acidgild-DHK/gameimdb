@@ -66,8 +66,8 @@ public class RegVerify extends HttpServlet {
 		String realName=request.getParameter("flname").trim();
 		String age=request.getParameter("age").trim();
 		
-		String question = "";
-		String answer = "";
+		String question = request.getParameter("question").trim();
+		String answer = request.getParameter("answer").trim();
 		
 		Properties prop=new Properties();
 		
@@ -90,11 +90,11 @@ public class RegVerify extends HttpServlet {
 			user.setAnswer(answer);
 			
 			userServ.save(user);
-			request.getSession().setAttribute("username",user);
+			request.getSession().setAttribute("username",username);
 			request.getSession().setAttribute("login", true);
 			response.setContentType("text/html");
 			RequestDispatcher rd=request.getRequestDispatcher("/user_logs");
-			rd.include(request, response);
+			rd.forward(request, response);
 		}
 	}
 

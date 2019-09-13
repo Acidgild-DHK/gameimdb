@@ -19,18 +19,19 @@ else {
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/username-validation.js">
 
+</script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Game Site</title>
 </head>
 <body>
 <div>
 <h2>Forgot password? Enter username below to recover </h2>
-<form action="forgotPasswordQ.jsp" method="post">
+<form name="usernameForm" action="forgotPasswordQ.jsp" onSubmit="return formValidation()" method="post">
 <table style width:50%">
 <tr><td>Username</td>
-<td><input type="text" name="username" required pattern="[a-zA-Z]{1}[a-zA-Z0-9]{5,}" 
-title="Username must be at least 6 characters,starting with an alphabetic character" ></td></tr>
+<td><input type="text" name="username" ></td></tr>
 
 
 </table>

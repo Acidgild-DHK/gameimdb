@@ -7,8 +7,11 @@
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/profile-validation.js">
+
+</script>
 <meta charset="ISO-8859-1">
-<title>Update Profile</title>
+<title>Game Site</title>
 <% 
 request.getSession().setAttribute("valid","");
 request.getRequestDispatcher("validLogin.jsp").include(request,response);
@@ -19,15 +22,15 @@ if(val!=null && val.equals("false")) {
 } %>
 </head>
 <body>
-
+<h2>Update Profile</h2>
 	<div>
-	<form align="center"action="user_update" method="post" onSubmit>
+	<form name = "profileForm" align="center" action="user_update" onSubmit = "return formValidation()" method="post">
 	<table>
 	<tr>
-	<td>Gamer Tag:</td> <td><input default=type="text" name="gamer_tag" required pattern="[a-zA-Z]+[a-zA-Z0-9]+" title="Gamertag is only alphanumeric characters and must start with alphabetic character"></td></tr> <br />
-	<td>Email: </td> <td><input type="text" name="email" required pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+.[a-zA-Z]{2,3}" title="Invalid email format"></td></tr> <br />
-	<td>Name:</td> <td> <input type="text" name="name" required pattern="[a-zA-Z0-9'_]+" title="must include first and last name with space"></td></tr> <br />
-	<td>Age:</td> <td> <input type="number" name="age" required min=0 max=120></td></tr><br />
+	<td>Gamer Tag:</td> <td><input default=type="text" name="gamer_tag" ></td></tr> <br />
+	<td>Email: </td> <td><input type="text" name="email" ></td></tr> <br />
+	<td>Name:</td> <td> <input type="text" name="name" ></td></tr> <br />
+	<td>Age:</td> <td> <input type="number" name="age" ></td></tr><br />
 	</table>
 	<input type = "submit" value ="update">
 	</form>

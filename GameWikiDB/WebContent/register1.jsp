@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Register</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/register-validation.js">
+
+</script>
 </head>
 
 <body>
@@ -33,24 +36,7 @@ rd1.include(request, response);
 
 System.out.println(st);
 if(st!=null ) {
-	if(st.equals("ageSt")) {
-		out.print("Age must be a number, not characters");
-	}
-	if(st.equals("empty")) {
-		out.print("Error registering: all fields must be filled<br>");
-	}
-	else if(st.equals("already exists")) {
-		out.print("Error registering: username already taken<br>");
-	}
-	else if (st.equals("Password too long")) {
-		out.print("Password cannot be longer than 25 characters<br>");
-	}
-	else if(st.equals("Invalid age")) {
-		out.print("Age is in invalid range");
-	}
-	else if (st.equals("Invalid name")) {
-		out.print("Name must be alphabetic characters only");
-	}
+	out.println(st);
 }
 
 %>
@@ -58,33 +44,46 @@ Enter Information below to create an account
 
 </h1>
 <div>
-<form action="RegVerify" method="post" required>
+<form name="registrationForm" action="RegVerify" onsubmit="return formValidation();" method="post" required>
 <table style="width:50%">
 <tr>
 <td>Username</td>
-<td><input type="text" name="username" required></td>
+<td><input type="text" name="username"></td>
 </tr>
 
 <tr>
 <td>Tag/Screen Name</td>
-<td><input type="text" name="name" required></td>
+<td><input type="text" name="name" ></td>
 </tr>
 
 <tr>
-<td>Name(first and last)</td>
-<td><input type="text" name="flname" required></td>
+<td>Name</td>
+<td><input type="text" name="flname"></td>
 </tr>
 
 <tr>
 <td>Age in years</td>
-<td><input type="text" name="age" required></td>
+<td><input type="text" name="age" ></td>
 </tr>
 
-
+<tr>
+<td>Email:</td>
+<td><input type="text" name="email"></td>
+</tr>
 
 <tr>
-<td>Password: Max 25 characters</td>
-<td><input type="password" name="password" required></td>
+<td>Password: 5-12 characters</td>
+<td><input type="password" name="password" ></td>
+</tr>
+
+<tr>
+<td>Security Question:</td>
+<td><input type="text" name="question" >?</td>
+</tr>
+
+<tr>
+<td>Answer:</td>
+<td><input type="text" name="answer"></td>
 </tr>
 
 </table>

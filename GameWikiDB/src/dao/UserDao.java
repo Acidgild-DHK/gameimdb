@@ -29,7 +29,6 @@ public class UserDao implements IDao<User>{
 		SessionFactory factory = DaoUtil.getFactory();
 		
 		Session session = factory.openSession();
-		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
 		try {
 			Query q = session.createQuery("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.logs l LEFT JOIN FETCH l.game LEFT JOIN FETCH l.platform "

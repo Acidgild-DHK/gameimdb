@@ -5,10 +5,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Game Update</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/add-game-validation.js">
+
+</script>
 </head>
 <body>
 <%
@@ -23,9 +26,9 @@ request.getRequestDispatcher("validLogin.jsp").include(request,response);
 	
 	%>
 <br/>
-<h2>Insert</h2>
+<h2>Update Game</h2>
 <div>
-<form action="game_update" method="post">
+<form name = addGameForm action="game_update" onSubmit="return formValidation()" method="post">
 <input type="hidden" name="gameId" value="<%=game.getGameID() %>">
 <table style="width:50%">
 	<tr>
@@ -33,17 +36,17 @@ request.getRequestDispatcher("validLogin.jsp").include(request,response);
 		<td><input type="text" name="game_title" 
 		<% 
 			if(game.getGameName() != null){
-				out.print("value='" + game.getGameName() + "'");
+				out.print("value=\"" + game.getGameName() + "\"");
 			} 
 		%> 
-		disabled = "true"></td>
+		readonly="readonly"></td>
 	</tr>
 	<tr>
 		<td>Publisher</td>
 		<td><input type="text" name="publisher"
 		<% 
 			if(game.getPublisher() != null){
-				out.print("value='" + game.getPublisher() + "'");
+				out.print("value=\"" + game.getPublisher() + "\"");
 			} 
 		%> 
 		 ></td>
@@ -53,7 +56,7 @@ request.getRequestDispatcher("validLogin.jsp").include(request,response);
 		<td><input type="text" name="release_date" 
 			<% 
 			if(game.getReleaseDate() != null){
-				out.print("value='" + game.getReleaseDateString() + "'");
+				out.print("value=\"" + game.getReleaseDateString() + "\"");
 			} 
 		%>
 		></td>
@@ -63,7 +66,7 @@ request.getRequestDispatcher("validLogin.jsp").include(request,response);
 		<td><input type="text" name="description" 
 			<% 
 			if(game.getDescription() != null){
-				out.print("value='" + game.getDescription() + "'");
+				out.print("value=\"" + game.getDescription() + "\"");
 			} 
 		%>
 		></td>
@@ -73,7 +76,7 @@ request.getRequestDispatcher("validLogin.jsp").include(request,response);
 		<td><input type="text" name="esrb" 
 			<% 
 			if(game.getEsrb() != null){
-				out.print("value='" + game.getEsrb() + "'");
+				out.print("value=\"" + game.getEsrb() + "\"");
 			} 
 		%>
 		></td>
@@ -83,7 +86,7 @@ request.getRequestDispatcher("validLogin.jsp").include(request,response);
 		<td><input type="text" name="genre" 
 			<% 
 			if(game.getGenre() != null){
-				out.print("value='" + game.getGenre() + "'");
+				out.print("value=\"" + game.getGenre() + "\"");
 			} 
 		%>
 		></td>

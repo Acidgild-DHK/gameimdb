@@ -22,7 +22,7 @@ else {
 	
 }%>
 <meta charset="ISO-8859-1">
-<title>User Profile</title>
+<title>Game Site</title>
 <% request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response); %>
 </head>
 <body>
@@ -30,7 +30,8 @@ else {
 	User user = (User) request.getAttribute("user");
 	
 	%>
-
+<h2>User Profile</h2>
+<div>
 	<table>
 		<tr>
 			<td>UserName</td>
@@ -53,6 +54,7 @@ else {
 			<td><%=user.getEmail() %></td>
 		</tr>
 	</table>
+	</div>
 	<form action="userProfileUpdate.jsp" method ="get">
 		<input type="submit" value="Update">
 	</form>	

@@ -31,7 +31,6 @@ public class LogDao implements IDao<Log> {
 		SessionFactory factory = DaoUtil.getFactory();
 		
 		Session session = factory.openSession();
-		System.out.println(session);
 		Transaction transaction = session.beginTransaction();
 //		Log log = (Log)session.get(Log.class, id);
 		try {

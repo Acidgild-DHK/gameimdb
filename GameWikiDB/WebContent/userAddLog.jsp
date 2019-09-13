@@ -6,10 +6,12 @@
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/add-log-validation.js">
+
+</script>
 <meta charset="ISO-8859-1">
-<title>User Log</title>
+<title>Game Site</title>
 <%
-	request.getRequestDispatcher("/headerLoggedIn.jsp").include(request, response);
 
 	request.getSession().setAttribute("valid", "");
 	request.getRequestDispatcher("validLogin.jsp").include(request, response);
@@ -21,6 +23,7 @@
 %>
 </head>
 <body>
+<h2>Add Log</h2>
 	<div>
 		<%
 			String err = (String) request.getAttribute("error");
@@ -28,16 +31,16 @@
 				out.println("<h2>" + err + "</h2>");
 			}
 		%>
-		<form align="center" action="user_add_log" method="post">
+		<form name= "logForm" align="center" action="user_add_log" onSubmit="return formValidation()" method="post">
 			<table align="center">
 				<tr>
 					<td>Game Title</td>
-					<td><input type="text" name="game" required></td>
+					<td><input type="text" name="game" ></td>
 				</tr>
 
 				<tr>
 					<td>Time Played</td>
-					<td><input type="number" name="time" required min="0">
+					<td><input type="number" name="time">
 					</td>
 				</tr>
 
@@ -59,7 +62,7 @@
 
 				<tr>
 					<td>Review</td>
-					<td><textarea rows="5" col="200" name="review" required></textarea>
+					<td><textarea rows="5" col="200" name="review"></textarea>
 					</td>
 				</tr>
 

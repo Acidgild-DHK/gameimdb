@@ -6,10 +6,13 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<title>Logs</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
+<script src="scripts/add-log-validation.js">
+
+</script>
 </head>
 <body>
 	<% 
@@ -29,15 +32,16 @@
 		}
 		
 	%>
+	<h2>Log Update</h2>
 	<div>
-	<form action="user_log_update" method="post">
+	<form name="logForm" action="user_log_update" onSubmit="return formValidation()" method="post">
 		<input type="hidden" name="logID" value="<%=log.getLogID() %>">
 		<table style="width:50%">
 		
 		<tr>
 			<td> Game Title</td>
 			<td>
-				<input type="text" name="game" value="<%=log.getGame().getGameName() %>" disabled >
+				<input type="text" name="game" value="<%=log.getGame().getGameName() %>" readonly="readonly" >
 			</td> 
 		</tr>
 		

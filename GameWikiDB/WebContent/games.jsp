@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Games</title>
+<title>Game Site</title>
 <style type="text/css">
 <%@include file="WEB-INF/Style.css"%>
 </style>
@@ -30,13 +30,10 @@
 %>
 </head>
 <body>
+<h2>Games</h2>
 
-<!-- 	<li> <a href="GameSearch.jsp">Search through Games by name</a></li> -->
-<!-- <li> <a href="GameTable.jsp">Table of Games</a></li> -->
-<!-- <li> <a href="GameUpdate.jsp">Add a Game</a></li> -->
-<!-- </ul> -->
 <div>
-
+	
 	<table>
 			<tr>
 				<td>

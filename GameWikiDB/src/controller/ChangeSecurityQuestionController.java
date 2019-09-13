@@ -14,7 +14,7 @@ import service.UserService;
 /**
  * Servlet implementation class ChangeSecurityQuestion
  */
-@WebServlet("/ChangeQuestions")
+@WebServlet("/changeQuestions")
 public class ChangeSecurityQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
